@@ -1,14 +1,24 @@
 import { Button, Stack } from '@mui/material'
 import FormWrapper from './FormWrapper'
 import ProductItem from './productsForm/ProductItem'
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
+import { addProduct } from '../redux/reducers/orderProductsReducer'
 
 const ProductsForm = () => {
+  const orderProductsState = useAppSelector(state => state.orderProducts)
+  const dispatch = useAppDispatch()
+
+  const productsList = orderProductsState.products.map((product, index) => (
+    <ProductItem key={index} product={product} />
+  ))
+
   return (
     <FormWrapper title="Товары">
       <Stack spacing={1}>
-        <ProductItem />
-        <ProductItem />
-        <Button>Добавить ещё один товар</Button>
+        {productsList}
+        <Button onClick={() => dispatch(addProduct())}>
+          Добавить ещё один товар
+        </Button>
       </Stack>
     </FormWrapper>
   )

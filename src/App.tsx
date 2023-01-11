@@ -8,8 +8,11 @@ import UserForm from './components/UserForm'
 import ProductsForm from './components/ProductsForm'
 import SubmitOrderForm from './components/SubmitOrderForm'
 import { desktopWidthSelector, theme } from './util/materialui'
+import { useAppSelector } from './hooks/redux'
 
 const App = () => {
+  console.log(useAppSelector(state => state))
+
   return (
     <ThemeProvider theme={theme}>
       <Container

@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material'
-import { COLORS, mobileToDesktopBreakpoint } from '../constants/materialui'
+import { COLORS, MOBILE_DESKTOP_BREAKPOINT } from '../constants/materialui'
 
 export const theme = createTheme({
   palette: { primary: { main: COLORS.BRAND_ORANGE } },
@@ -17,6 +17,6 @@ export const theme = createTheme({
 })
 
 export const mobileWidthSelector = () =>
-  theme.breakpoints.down(mobileToDesktopBreakpoint)
+  theme.breakpoints.down(MOBILE_DESKTOP_BREAKPOINT)
 export const desktopWidthSelector = () =>
-  theme.breakpoints.up(mobileToDesktopBreakpoint)
+  theme.breakpoints.up(MOBILE_DESKTOP_BREAKPOINT)

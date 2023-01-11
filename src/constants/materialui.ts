@@ -1,4 +1,4 @@
-export const mobileToDesktopBreakpoint = 'sm'
+export const MOBILE_DESKTOP_BREAKPOINT = 'sm'
 
 export const COLORS = {
   BACKGROUND_GRAY: 'whitesmoke',
