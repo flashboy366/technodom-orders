@@ -50,12 +50,12 @@ const ProductItem = ({ product }: ProductItemProps) => {
         padding: 2,
       }}
     >
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction="row" justifyContent="space-evenly" spacing={2}>
         <Stack
           spacing={2}
-          justifyContent="space-between"
           direction={isDesktopWidth ? 'row' : 'column'}
           marginBottom={2}
+          flex={1}
         >
           <ProductProperty
             title="Артикул"
@@ -80,7 +80,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </Stack>
         <ProductDeleteButton
           productID={product.id}
-          sx={{ alignSelf: isDesktopWidth ? 'flex-end' : 'flex-start' }}
+          sx={{ alignSelf: 'flex-start', justifySelf: 'center' }}
         />
       </Stack>
       <Typography>{product.productData.productTitle}</Typography>

@@ -11,8 +11,8 @@ const ProductDeleteButton = ({ productID, sx }: ProductDeleteButtonProps) => {
 
   return (
     <Button
-      size="small"
       sx={{ ...sx, height: 56 }}
+      size="small"
       onClick={() => dispatch(removeProduct({ productID: productID }))}
     >
       ╳
