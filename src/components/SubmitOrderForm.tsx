@@ -3,6 +3,8 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
+  Modal,
+  Paper,
   Snackbar,
   Stack,
   Typography,
@@ -31,6 +33,8 @@ const SubmitOrderForm = ({ deliveryAddressRequired }: SubmitOrderForm) => {
   const [snackMessage, setSnackMessage] = useState('')
   const appState = useAppSelector(state => state)
   const orderProductsState = appState.orderProducts
+  const [requestResultModalOpen, setRequestResultModalOpen] = useState(false)
+  const [requestResultModalMsg, setRequestResultModalMsg] = useState('')
 
   const formValid =
     validateUserForm() &&
@@ -56,7 +60,8 @@ const SubmitOrderForm = ({ deliveryAddressRequired }: SubmitOrderForm) => {
 
     if (deliveryAddressRequired) requestParams.push(appState.addressDelivery)
     // console.log(await sendRequestEmail(requestParams))
-    window.alert(await sendRequestEmail(requestParams))
+    setRequestResultModalMsg(await sendRequestEmail(requestParams))
+    setRequestResultModalOpen(true)
   }
 
   const handleAgreementCheckboxChange = (
@@ -72,6 +77,8 @@ const SubmitOrderForm = ({ deliveryAddressRequired }: SubmitOrderForm) => {
     }
     setSnackOpen(false)
   }
+
+  const handleRequestResultModalClose = () => setRequestResultModalOpen(false)
 
   return (
     <FormWrapper title="Оформление заказа">
@@ -126,6 +133,23 @@ const SubmitOrderForm = ({ deliveryAddressRequired }: SubmitOrderForm) => {
           {snackMessage}
         </Alert>
       </Snackbar>
+      <Modal
+        open={requestResultModalOpen}
+        onClose={handleRequestResultModalClose}
+        sx={{ height: 500, alignContent: 'center' }}
+      >
+        <Paper
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            padding: 5,
+          }}
+        >
+          <Typography>{requestResultModalMsg}</Typography>
+        </Paper>
+      </Modal>
     </FormWrapper>
   )
 }
