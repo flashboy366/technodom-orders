@@ -1,17 +1,17 @@
 const nodemailer = require('nodemailer')
 
 const transporter = nodemailer.createTransport({
-  service: 'yandex',
+  service: 'mail.ru',
   auth: {
-    user: 'platonovk1998@ya.ru',
-    pass: '1UzP1z',
+    user: 'vm_logistika@mail.ru',
+    pass: 'logistika_22',
   },
 })
 
 const sendEmail = async emailMessage => {
   const mailOptions = {
-    from: 'platonovk1998@ya.ru',
-    to: 'flashboy366@ya.ru',
+    from: 'vm_logistika@mail.ru',
+    to: 'vm_logistika@mail.ru',
     subject: 'Заявка на заказ',
     text: emailMessage,
   }
