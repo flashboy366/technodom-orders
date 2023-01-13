@@ -13,6 +13,8 @@ const fetchTengeToRubleRate = async (): Promise<number> => {
   let rate = 0
 
   for (let i = 0; i < ratesElements.length; i++) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     if (ratesElements[i].attributes['ID'].value === 'R01335') {
       const rateElement = ratesElements[i]
       nominal = parseInt(rateElement.childNodes[2].textContent ?? '0')
