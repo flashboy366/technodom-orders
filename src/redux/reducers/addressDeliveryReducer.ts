@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface AddressDeliveryState {
+export interface AddressDeliveryState {
   street: string
   house: string
   contacts: string

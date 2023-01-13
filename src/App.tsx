@@ -8,10 +8,10 @@ import UserForm from './components/UserForm'
 import ProductsForm from './components/ProductsForm'
 import SubmitOrderForm from './components/SubmitOrderForm'
 import { desktopWidthSelector, theme } from './util/materialui'
-import { useAppSelector } from './hooks/redux'
+import { useState } from 'react'
 
 const App = () => {
-  console.log(useAppSelector(state => state))
+  const [deliveryAddressRequired, setDeliveryAddressRequired] = useState(false)
 
   return (
     <ThemeProvider theme={theme}>
@@ -25,9 +25,9 @@ const App = () => {
         }}
       >
         <Stack spacing={2}>
-          <UserForm />
+          <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
           <ProductsForm />
-          <SubmitOrderForm />
+          <SubmitOrderForm deliveryAddressRequired={deliveryAddressRequired} />
         </Stack>
       </Container>
     </ThemeProvider>

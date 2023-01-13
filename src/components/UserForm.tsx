@@ -2,13 +2,20 @@ import FormWrapper from './FormWrapper'
 import UserInfo from './userForm/UserInfo'
 import AddressDelivery from './userForm/AddressDelivery'
 import { Divider } from '@mui/material'
+import { Dispatch, SetStateAction } from 'react'
 
-const UserForm = () => {
+interface UserFormProps {
+  setDeliveryAddressRequired: Dispatch<SetStateAction<boolean>>
+}
+
+const UserForm = ({ setDeliveryAddressRequired }: UserFormProps) => {
   return (
     <FormWrapper title="Ваши данные">
       <UserInfo />
       <Divider sx={{ margin: 2 }} />
-      <AddressDelivery />
+      <AddressDelivery
+        setDeliveryAddressRequired={setDeliveryAddressRequired}
+      />
     </FormWrapper>
   )
 }

@@ -4,10 +4,16 @@ import { PayloadAction } from '@reduxjs/toolkit'
 interface ProductPropertyProps {
   title: string
   value: string | number
-  onChange: (value: unknown) => PayloadAction<unknown, string>
+  onChange: (value: number) => PayloadAction<unknown, string>
+  type?: string
 }
 
-const ProductProperty = ({ title, value, onChange }: ProductPropertyProps) => {
+const ProductProperty = ({
+  title,
+  value,
+  onChange,
+  type,
+}: ProductPropertyProps) => {
   return (
     <Stack spacing={1}>
       <Typography>
@@ -19,8 +25,13 @@ const ProductProperty = ({ title, value, onChange }: ProductPropertyProps) => {
       </Typography>
       <TextField
         sx={{ width: '100%' }}
+        type={type}
         value={value}
-        onChange={event => onChange(event.target.value)}
+        onChange={event =>
+          onChange(
+            parseInt(event.target.value !== '' ? event.target.value : '0')
+          )
+        }
       />
     </Stack>
   )

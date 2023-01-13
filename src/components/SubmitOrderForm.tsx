@@ -1,28 +1,94 @@
 import {
+  Alert,
   Button,
   Checkbox,
   FormControlLabel,
+  Snackbar,
   Stack,
   Typography,
 } from '@mui/material'
 import FormWrapper from './FormWrapper'
+import useFormValidation from '../hooks/useFormValidation'
+import { ChangeEvent, SyntheticEvent, useState } from 'react'
+import { useAppSelector } from '../hooks/redux'
+import sendRequestEmail from '../api/sendRequestEmail'
+import { UserInfoState } from '../redux/reducers/userInfoReducer'
+import { OrderProductsState } from '../redux/reducers/orderProductsReducer'
+import { AddressDeliveryState } from '../redux/reducers/addressDeliveryReducer'
 
-const SubmitOrderForm = () => {
+interface SubmitOrderForm {
+  deliveryAddressRequired: boolean
+}
+
+const SubmitOrderForm = ({ deliveryAddressRequired }: SubmitOrderForm) => {
+  const {
+    validateUserForm,
+    validateAddressDeliveryForm,
+    validateOrderProducts,
+  } = useFormValidation()
+  const [agreementAccepted, setAgreementAccepted] = useState(false)
+  const [snackOpen, setSnackOpen] = useState(false)
+  const [snackMessage, setSnackMessage] = useState('')
+  const appState = useAppSelector(state => state)
+  const orderProductsState = appState.orderProducts
+
+  const formValid =
+    validateUserForm() &&
+    validateAddressDeliveryForm(deliveryAddressRequired) &&
+    validateOrderProducts()
+
+  const handleSubmitClick = async () => {
+    if (!formValid) {
+      setSnackMessage('Заполните все поля')
+      setSnackOpen(true)
+      return
+    }
+    if (!agreementAccepted) {
+      setSnackMessage('Примите условия договора')
+      setSnackOpen(true)
+      return
+    }
+    const requestParams: (
+      | UserInfoState
+      | OrderProductsState
+      | AddressDeliveryState
+    )[] = [appState.userInfo, orderProductsState]
+
+    if (deliveryAddressRequired) requestParams.push(appState.addressDelivery)
+    // console.log(await sendRequestEmail(requestParams))
+    window.alert(await sendRequestEmail(requestParams))
+  }
+
+  const handleAgreementCheckboxChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => setAgreementAccepted(event.target.checked)
+
+  const handleSnackClose = (
+    event?: SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setSnackOpen(false)
+  }
+
   return (
     <FormWrapper title="Оформление заказа">
       <Stack spacing={2}>
         <Stack>
           <Typography variant="body2" sx={{ textAlign: 'center' }}>
-            У вас 1 товара на сумму 19000 рублей
+            У вас {orderProductsState.products.length} товара на сумму{' '}
+            {orderProductsState.productsPricesSum} р.
           </Typography>
           <Typography variant="body2" sx={{ textAlign: 'center' }}>
-            Стоимость доставки: 500 рублей
+            Стоимость доставки: {orderProductsState.deliveryPrice} р.
           </Typography>
           <Typography
             variant="body1"
             sx={{ textAlign: 'center', fontWeight: '500' }}
           >
-            Итого: 19500 рублей
+            Итого: {orderProductsState.totalPrice} р.
           </Typography>
           <Typography variant="caption" sx={{ textAlign: 'center', margin: 1 }}>
             Стоимость товара указана с учетом доставки и выдачи товара на складе
@@ -33,7 +99,7 @@ const SubmitOrderForm = () => {
         <Stack spacing={2}>
           <FormControlLabel
             sx={{ alignSelf: 'center', width: '70%' }}
-            control={<Checkbox />}
+            control={<Checkbox onChange={handleAgreementCheckboxChange} />}
             label={
               <Typography variant="caption" fontWeight={300} textAlign="center">
                 Я ознакомился и принимаю условия договора оферты и соглашение на
@@ -41,12 +107,25 @@ const SubmitOrderForm = () => {
               </Typography>
             }
           />
-          <Button>Оформить заказ</Button>
+          <Button onClick={handleSubmitClick}>Оформить заказ</Button>
           <Typography variant="caption" sx={{ textAlign: 'center' }}>
             После оформления заказа с вами свяжется наш менеджер
           </Typography>
         </Stack>
       </Stack>
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackClose}
+      >
+        <Alert
+          onClose={handleSnackClose}
+          severity="error"
+          sx={{ width: '100%' }}
+        >
+          {snackMessage}
+        </Alert>
+      </Snackbar>
     </FormWrapper>
   )
 }

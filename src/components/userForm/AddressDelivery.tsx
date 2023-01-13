@@ -5,7 +5,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import InputGrid from '../InputGrid'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import {
@@ -16,13 +16,22 @@ import {
   setStreet,
 } from '../../redux/reducers/addressDeliveryReducer'
 
-const AddressDelivery = () => {
+interface AddressDeliveryProps {
+  setDeliveryAddressRequired: Dispatch<SetStateAction<boolean>>
+}
+
+const AddressDelivery = ({
+  setDeliveryAddressRequired,
+}: AddressDeliveryProps) => {
   const [formIsShown, setFormIsShown] = useState(false)
   const dispatch = useAppDispatch()
   const addressDeliveryState = useAppSelector(state => state.addressDelivery)
 
-  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setFormIsShown(event.target.checked)
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newCheckboxValue = event.target.checked
+    setFormIsShown(newCheckboxValue)
+    setDeliveryAddressRequired(newCheckboxValue)
+  }
 
   return (
     <Stack spacing={1}>
@@ -36,14 +45,14 @@ const AddressDelivery = () => {
             firstColumn={
               <>
                 <TextField
-                  placeholder="Улица"
+                  placeholder="Улица *"
                   onChange={event =>
                     dispatch(setStreet({ street: event.target.value }))
                   }
                   value={addressDeliveryState.street}
                 />
                 <TextField
-                  placeholder="Контакт на выгрузке"
+                  placeholder="Контакт на выгрузке *"
                   onChange={event =>
                     dispatch(setContacts({ contacts: event.target.value }))
                   }
@@ -54,14 +63,14 @@ const AddressDelivery = () => {
             secondColumn={
               <>
                 <TextField
-                  placeholder="Дом"
+                  placeholder="Дом *"
                   onChange={event =>
                     dispatch(setHouse({ house: event.target.value }))
                   }
                   value={addressDeliveryState.house}
                 />
                 <TextField
-                  placeholder="Номер телефона"
+                  placeholder="Номер телефона *"
                   onChange={event =>
                     dispatch(
                       setPhoneNumber({ phoneNumber: event.target.value })

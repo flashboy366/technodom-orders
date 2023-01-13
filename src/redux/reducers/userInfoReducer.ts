@@ -2,7 +2,7 @@ import Location from '../../interfaces/Location'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import LOCATIONS from '../../constants/locations'
 
-interface UserInfoState {
+export interface UserInfoState {
   name: string
   phoneNumber: string
   email: string

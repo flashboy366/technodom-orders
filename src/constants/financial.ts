@@ -1,0 +1,5 @@
+const FINANCIAL = {
+  EXTRA_CHARGE_COEFFICIENT: 1.15,
+}
+
+export default FINANCIAL

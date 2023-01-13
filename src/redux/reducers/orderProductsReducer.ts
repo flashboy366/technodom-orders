@@ -1,11 +1,20 @@
 import Product from '../../interfaces/Product'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import ProductData, { emptyProductData } from '../../interfaces/ProductData'
 
-interface OrderProductsState {
+export interface OrderProductsState {
   products: Product[]
+  productsPricesSum: number
+  deliveryPrice: number
+  totalPrice: number
 }
 
-const initialState: OrderProductsState = { products: [] }
+const initialState: OrderProductsState = {
+  products: [],
+  productsPricesSum: 0,
+  deliveryPrice: 500,
+  totalPrice: 0,
+}
 
 export const orderProductsSlice = createSlice({
   name: 'orderProducts',
@@ -21,14 +30,15 @@ export const orderProductsSlice = createSlice({
 
       const newProduct: Product = {
         id: newProductID,
-        article: '',
+        article: 0,
         quantity: 0,
+        productData: emptyProductData,
       }
       state.products.push(newProduct)
     },
     setArticle: (
       state,
-      action: PayloadAction<{ productID: number; article: string }>
+      action: PayloadAction<{ productID: number; article: number }>
     ) => {
       const targetProductIndex = getProductIndexByID(
         state,
@@ -46,6 +56,18 @@ export const orderProductsSlice = createSlice({
       )
       state.products[targetProductIndex].quantity = action.payload.quantity
     },
+    setProductData: (
+      state,
+      action: PayloadAction<{ productID: number; productData: ProductData }>
+    ) => {
+      const targetProductIndex = getProductIndexByID(
+        state,
+        action.payload.productID
+      )
+      state.products[targetProductIndex].productData =
+        action.payload.productData
+      calculateProductsPricesSum(state)
+    },
     removeProduct: (state, action: PayloadAction<{ productID: number }>) => {
       const targetProductIndex = getProductIndexByID(
         state,
@@ -56,7 +78,10 @@ export const orderProductsSlice = createSlice({
   },
 })
 
-const getProductIndexByID = (state: OrderProductsState, productID: number) => {
+export const getProductIndexByID = (
+  state: OrderProductsState,
+  productID: number
+) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const targetProduct = state.products.find(
     (product: Product) => product.id === productID
@@ -64,7 +89,22 @@ const getProductIndexByID = (state: OrderProductsState, productID: number) => {
   return state.products.indexOf(targetProduct)
 }
 
-export const { addProduct, removeProduct, setQuantity, setArticle } =
-  orderProductsSlice.actions
+const calculateProductsPricesSum = (state: OrderProductsState) => {
+  let newProductsPricesSum = 0
+  state.products.map(product => {
+    newProductsPricesSum +=
+      product.quantity * product.productData.productPriceInRubles
+  })
+  state.productsPricesSum = newProductsPricesSum
+  state.totalPrice = state.productsPricesSum + state.deliveryPrice
+}
+
+export const {
+  addProduct,
+  removeProduct,
+  setQuantity,
+  setArticle,
+  setProductData,
+} = orderProductsSlice.actions
 
 export default orderProductsSlice.reducer

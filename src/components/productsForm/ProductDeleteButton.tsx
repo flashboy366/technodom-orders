@@ -10,7 +10,11 @@ const ProductDeleteButton = ({ productID }: ProductDeleteButtonProps) => {
   const dispatch = useAppDispatch()
 
   return (
-    <Button onClick={() => dispatch(removeProduct({ productID: productID }))}>
+    <Button
+      size="small"
+      sx={{ height: 56, alignSelf: 'flex-end' }}
+      onClick={() => dispatch(removeProduct({ productID: productID }))}
+    >
       ╳
     </Button>
   )

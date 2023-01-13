@@ -46,12 +46,12 @@ const UserInfo = () => {
   const firstPropertiesColumn = (
     <>
       <TextField
-        placeholder="ФИО"
+        placeholder="ФИО *"
         value={userInfoState.name}
         onChange={event => dispatch(setName({ name: event.target.value }))}
       />
       <TextField
-        placeholder="Номер телефона"
+        placeholder="Номер телефона *"
         value={userInfoState.phoneNumber}
         onChange={event =>
           dispatch(setPhoneNumber({ phoneNumber: event.target.value }))
@@ -63,15 +63,15 @@ const UserInfo = () => {
   const secondPropertiesColumn = (
     <>
       <TextField
-        placeholder="Электронная почта"
+        placeholder="Электронная почта *"
         value={userInfoState.email}
         onChange={event => dispatch(setEmail({ email: event.target.value }))}
       />
       <FormControl>
-        <InputLabel>Населенный пункт</InputLabel>
+        <InputLabel>Населенный пункт *</InputLabel>
         <Select
           required
-          label="Населенный пункт"
+          label="Населенный пункт *"
           value={userInfoState.location?.id.toString() || ''}
           onChange={handleSelectChange}
         >
