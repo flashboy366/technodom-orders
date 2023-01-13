@@ -2,17 +2,12 @@ import { Stack, TextField, Typography } from '@mui/material'
 
 interface ProductPropertyProps {
   title: string
-  value: string | number
+  value: number
   type?: string
   onChange: (value: number) => void
 }
 
-const ProductProperty = ({
-  title,
-  value,
-  onChange,
-  type,
-}: ProductPropertyProps) => {
+const ProductProperty = ({ title, value, onChange }: ProductPropertyProps) => {
   return (
     <Stack spacing={1}>
       <Typography>
@@ -24,8 +19,7 @@ const ProductProperty = ({
       </Typography>
       <TextField
         sx={{ width: '100%' }}
-        type={type}
-        value={value}
+        value={value !== 0 ? value : ''}
         onChange={event =>
           onChange(
             parseInt(event.target.value !== '' ? event.target.value : '0')

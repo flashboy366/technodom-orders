@@ -50,32 +50,38 @@ const ProductItem = ({ product }: ProductItemProps) => {
         padding: 2,
       }}
     >
-      <Stack
-        spacing={2}
-        justifyContent="space-between"
-        direction={isDesktopWidth ? 'row' : 'column'}
-        marginBottom={2}
-      >
-        <ProductProperty
-          title="Артикул"
-          value={product.article}
-          onChange={(value: number) =>
-            validatePropertyChange(value, () =>
-              dispatch(setArticle({ productID: product.id, article: value }))
-            )
-          }
+      <Stack direction="row" justifyContent="space-between">
+        <Stack
+          spacing={2}
+          justifyContent="space-between"
+          direction={isDesktopWidth ? 'row' : 'column'}
+          marginBottom={2}
+        >
+          <ProductProperty
+            title="Артикул"
+            value={product.article}
+            onChange={(value: number) =>
+              validatePropertyChange(value, () =>
+                dispatch(setArticle({ productID: product.id, article: value }))
+              )
+            }
+          />
+          <ProductProperty
+            title="Количество"
+            value={product.quantity}
+            onChange={(value: number) =>
+              validatePropertyChange(value, () =>
+                dispatch(
+                  setQuantity({ productID: product.id, quantity: value })
+                )
+              )
+            }
+          />
+        </Stack>
+        <ProductDeleteButton
+          productID={product.id}
+          sx={{ alignSelf: isDesktopWidth ? 'flex-end' : 'flex-start' }}
         />
-        <ProductProperty
-          title="Количество"
-          value={product.quantity}
-          type="number"
-          onChange={(value: number) =>
-            validatePropertyChange(value, () =>
-              dispatch(setQuantity({ productID: product.id, quantity: value }))
-            )
-          }
-        />
-        <ProductDeleteButton productID={product.id} />
       </Stack>
       <Typography>{product.productData.productTitle}</Typography>
       {product.productData.productTitle !== '' ? (
