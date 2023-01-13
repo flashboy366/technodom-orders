@@ -5,14 +5,21 @@ const fetchTengeToRubleRate = async (): Promise<number> => {
   const data = await cbRatesResponse.json()
 
   const parser = new DOMParser()
-  const rates = parser.parseFromString(data, 'application/xml')
+  const ratesElements = parser
+    .parseFromString(data, 'text/xml')
+    .getElementsByTagName('Valute')
 
-  return parseInt(
-    parser
-      .parseFromString(rates.activeElement!.innerHTML, 'text/html')
-      .getElementById('R01335')
-      ?.getElementsByTagName('Value')[0].textContent ?? ''
-  )
+  let nominal = 0
+  let rate = 0
+
+  for (let i = 0; i < ratesElements.length; i++) {
+    if (ratesElements[i].attributes['ID'].value === 'R01335') {
+      const rateElement = ratesElements[i]
+      nominal = parseInt(rateElement.childNodes[2].textContent ?? '0')
+      rate = parseInt(rateElement.childNodes[4].textContent ?? '0')
+    }
+  }
+  return nominal / rate
 }
 
 export default fetchTengeToRubleRate
