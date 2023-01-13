@@ -6,7 +6,7 @@ const generateEmailMessage = ({
 ФИО: ${userInfo.name}
 Номер телефона: ${userInfo.phoneNumber}
 Электронная почта: ${userInfo.email}
-Населенный пункт: ${userInfo.location?.title}
+Населенный пункт: ${userInfo.location.title}
 
 Доставка до адреса: ${
   !addressDelivery
