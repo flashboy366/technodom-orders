@@ -1,11 +1,10 @@
 import { Stack, TextField, Typography } from '@mui/material'
-import { PayloadAction } from '@reduxjs/toolkit'
 
 interface ProductPropertyProps {
   title: string
   value: string | number
-  onChange: (value: number) => PayloadAction<unknown, string>
   type?: string
+  onChange: (value: number) => void
 }
 
 const ProductProperty = ({

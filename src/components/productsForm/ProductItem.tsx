@@ -36,6 +36,13 @@ const ProductItem = ({ product }: ProductItemProps) => {
     })
   }, [productState.article, productState.quantity])
 
+  const validatePropertyChange = (
+    value: number,
+    dispatchCallback: () => void
+  ) => {
+    if (value >= 0) dispatchCallback()
+  }
+
   return (
     <Paper
       variant="outlined"
@@ -53,7 +60,9 @@ const ProductItem = ({ product }: ProductItemProps) => {
           title="Артикул"
           value={product.article}
           onChange={(value: number) =>
-            dispatch(setArticle({ productID: product.id, article: value }))
+            validatePropertyChange(value, () =>
+              dispatch(setArticle({ productID: product.id, article: value }))
+            )
           }
         />
         <ProductProperty
@@ -61,7 +70,9 @@ const ProductItem = ({ product }: ProductItemProps) => {
           value={product.quantity}
           type="number"
           onChange={(value: number) =>
-            dispatch(setQuantity({ productID: product.id, quantity: value }))
+            validatePropertyChange(value, () =>
+              dispatch(setQuantity({ productID: product.id, quantity: value }))
+            )
           }
         />
         <ProductDeleteButton productID={product.id} />

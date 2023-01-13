@@ -35,6 +35,7 @@ export const orderProductsSlice = createSlice({
         productData: emptyProductData,
       }
       state.products.push(newProduct)
+      calculateProductsPricesSum(state)
     },
     setArticle: (
       state,
@@ -45,6 +46,7 @@ export const orderProductsSlice = createSlice({
         action.payload.productID
       )
       state.products[targetProductIndex].article = action.payload.article
+      calculateProductsPricesSum(state)
     },
     setQuantity: (
       state,
@@ -55,6 +57,7 @@ export const orderProductsSlice = createSlice({
         action.payload.productID
       )
       state.products[targetProductIndex].quantity = action.payload.quantity
+      calculateProductsPricesSum(state)
     },
     setProductData: (
       state,
@@ -74,6 +77,7 @@ export const orderProductsSlice = createSlice({
         action.payload.productID
       )
       state.products.splice(targetProductIndex, 1)
+      calculateProductsPricesSum(state)
     },
   },
 })
@@ -92,8 +96,9 @@ export const getProductIndexByID = (
 const calculateProductsPricesSum = (state: OrderProductsState) => {
   let newProductsPricesSum = 0
   state.products.map(product => {
-    newProductsPricesSum +=
-      product.quantity * product.productData.productPriceInRubles
+    if (product.productData.productPriceInRubles)
+      newProductsPricesSum +=
+        product.quantity * product.productData.productPriceInRubles
   })
   state.productsPricesSum = newProductsPricesSum
   state.totalPrice = state.productsPricesSum + state.deliveryPrice

@@ -44,10 +44,12 @@ export const fetchProductData = async (
       'product-actions__price product-prices'
     ) ?? ''
   const tengeToRubleRate = await fetchTengeToRubleRate()
-  productData.productPriceInRubles = Math.trunc(
-    (productData.productPrice / tengeToRubleRate) *
-      FINANCIAL.EXTRA_CHARGE_COEFFICIENT
-  )
+  if (productData.productPrice) {
+    productData.productPriceInRubles = Math.trunc(
+      (productData.productPrice / tengeToRubleRate) *
+        FINANCIAL.EXTRA_CHARGE_COEFFICIENT
+    )
+  } else productData.productPriceInRubles = 0
 
   return productData
 }
