@@ -1,13 +1,14 @@
 const express = require('express')
 const cors = require('cors')
-const constants = require('./constants.js')
-const generateEmailMessage = require('./util/generateEmailMessage.js')
-const sendEmail = require('./util/nodemailer')
+const constants = require('./constants.cjs')
+const generateEmailMessage = require('./util/generateEmailMessage.cjs')
+const sendEmail = require('./util/sendEmail.cjs')
+const path = require('path')
 
 const app = express()
 
-app.use(cors())
-app.use(express.json())
+app.use(cors()).use(express.json())
+.use(express.static(path.join(__dirname, '../server/build/')))
 
 app
   .get('/product_data', (req, res) => {
