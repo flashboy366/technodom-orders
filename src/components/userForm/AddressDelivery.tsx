@@ -45,6 +45,7 @@ const AddressDelivery = ({
             firstColumn={
               <>
                 <TextField
+                  variant="standard"
                   placeholder="Улица *"
                   onChange={event =>
                     dispatch(setStreet({ street: event.target.value }))
@@ -52,6 +53,7 @@ const AddressDelivery = ({
                   value={addressDeliveryState.street}
                 />
                 <TextField
+                  variant="standard"
                   placeholder="Контакт на выгрузке *"
                   onChange={event =>
                     dispatch(setContacts({ contacts: event.target.value }))
@@ -63,6 +65,7 @@ const AddressDelivery = ({
             secondColumn={
               <>
                 <TextField
+                  variant="standard"
                   placeholder="Дом *"
                   onChange={event =>
                     dispatch(setHouse({ house: event.target.value }))
@@ -70,18 +73,21 @@ const AddressDelivery = ({
                   value={addressDeliveryState.house}
                 />
                 <TextField
+                  variant="standard"
                   placeholder="Номер телефона *"
-                  onChange={event =>
+                  onChange={event => {
+                    if (event.target.value.length > 12) return
                     dispatch(
                       setPhoneNumber({ phoneNumber: event.target.value })
                     )
-                  }
+                  }}
                   value={addressDeliveryState.phoneNumber}
                 />
               </>
             }
           />
           <TextField
+            variant="standard"
             label="Комментарий"
             multiline
             onChange={event =>

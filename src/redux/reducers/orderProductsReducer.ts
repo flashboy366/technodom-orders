@@ -1,4 +1,4 @@
-import Product from '../../interfaces/Product'
+import Product, { emptyProduct } from '../../interfaces/Product'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import ProductData, { emptyProductData } from '../../interfaces/ProductData'
 
@@ -10,7 +10,7 @@ export interface OrderProductsState {
 }
 
 const initialState: OrderProductsState = {
-  products: [],
+  products: [emptyProduct],
   productsPricesSum: 0,
   deliveryPrice: 500,
   totalPrice: 0,
@@ -30,16 +30,17 @@ export const orderProductsSlice = createSlice({
 
       const newProduct: Product = {
         id: newProductID,
-        article: 0,
-        quantity: 0,
+        article: undefined,
+        quantity: 1,
         productData: emptyProductData,
       }
       state.products.push(newProduct)
       calculateProductsPricesSum(state)
     },
+
     setArticle: (
       state,
-      action: PayloadAction<{ productID: number; article: number }>
+      action: PayloadAction<{ productID: number; article: number | undefined }>
     ) => {
       const targetProductIndex = getProductIndexByID(
         state,
@@ -48,6 +49,7 @@ export const orderProductsSlice = createSlice({
       state.products[targetProductIndex].article = action.payload.article
       calculateProductsPricesSum(state)
     },
+
     setQuantity: (
       state,
       action: PayloadAction<{ productID: number; quantity: number }>
@@ -59,6 +61,7 @@ export const orderProductsSlice = createSlice({
       state.products[targetProductIndex].quantity = action.payload.quantity
       calculateProductsPricesSum(state)
     },
+
     setProductData: (
       state,
       action: PayloadAction<{ productID: number; productData: ProductData }>
@@ -71,6 +74,7 @@ export const orderProductsSlice = createSlice({
         action.payload.productData
       calculateProductsPricesSum(state)
     },
+
     removeProduct: (state, action: PayloadAction<{ productID: number }>) => {
       const targetProductIndex = getProductIndexByID(
         state,

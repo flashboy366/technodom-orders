@@ -1,22 +1,24 @@
-import { Button, ButtonBaseProps } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { useAppDispatch } from '../../hooks/redux'
 import { removeProduct } from '../../redux/reducers/orderProductsReducer'
 
-interface ProductDeleteButtonProps extends ButtonBaseProps {
+interface ProductDeleteButtonProps {
   productID: number
 }
 
-const ProductDeleteButton = ({ productID, sx }: ProductDeleteButtonProps) => {
+const ProductDeleteButton = ({ productID }: ProductDeleteButtonProps) => {
   const dispatch = useAppDispatch()
 
   return (
-    <Button
-      sx={{ ...sx, height: 56 }}
-      size="small"
-      onClick={() => dispatch(removeProduct({ productID: productID }))}
-    >
-      ╳
-    </Button>
+    <Box flex={1} textAlign="center">
+      <Button
+        size="small"
+        sx={{ height: 56 }}
+        onClick={() => dispatch(removeProduct({ productID: productID }))}
+      >
+        ╳
+      </Button>
+    </Box>
   )
 }
 

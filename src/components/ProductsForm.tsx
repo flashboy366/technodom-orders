@@ -14,7 +14,7 @@ const ProductsForm = () => {
 
   return (
     <FormWrapper title="Товары">
-      <Stack spacing={1}>
+      <Stack spacing={2}>
         {productsList}
         <Button onClick={() => dispatch(addProduct())}>
           Добавить ещё один товар

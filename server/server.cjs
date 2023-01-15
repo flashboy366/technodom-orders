@@ -1,28 +1,30 @@
 const express = require('express')
 const cors = require('cors')
-const constants = require('./constants.cjs')
+const URLS = require('./config/urls.cjs')
 const generateEmailMessage = require('./util/generateEmailMessage.cjs')
 const sendEmail = require('./util/sendEmail.cjs')
 const path = require('path')
 
 const app = express()
 
-app.use(cors()).use(express.json())
-.use(express.static(path.join(__dirname, '../server/build/')))
+app
+  .use(cors())
+  .use(express.json())
+  .use(express.static(path.join(__dirname, '../server/build/')))
 
 app
   .get('/product_data', (req, res) => {
-    fetch(constants.PRODUCT_URL + req.query.productArticle)
-      .then(function (response) {
+    fetch(URLS.PRODUCT_URL + req.query.productArticle)
+      .then(function(response) {
         return response.text()
       })
-      .then(function (string) {
+      .then(function(string) {
         res.json(string)
         res.end()
       })
   })
   .get('/cb_rates', (req, res) => {
-    fetch(constants.CB_RATES_URL)
+    fetch(URLS.CB_RATES_URL)
       .then(response => {
         return response.text()
       })
@@ -45,7 +47,7 @@ app
       const emailMessage = generateEmailMessage({
         userInfo,
         addressDelivery,
-        orderProducts,
+        orderProducts
       })
 
       sendEmail(emailMessage).then(result => {

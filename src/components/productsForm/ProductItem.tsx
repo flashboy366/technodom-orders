@@ -1,8 +1,5 @@
-import { Paper, Stack, Typography } from '@mui/material'
-import ProductProperty from './ProductProperty'
+import { Box, Paper, Stack, Typography } from '@mui/material'
 import ProductDeleteButton from './ProductDeleteButton'
-import { desktopWidthSelector } from '../../util/materialui'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import Product from '../../interfaces/Product'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import {
@@ -11,8 +8,10 @@ import {
   setProductData,
   setQuantity,
 } from '../../redux/reducers/orderProductsReducer'
-import { useEffect } from 'react'
 import { fetchProductData } from '../../api/fetchProductData'
+import ProductPropertyTitle from './ProductPropertyTitle'
+import ProductPropertyInput from './ProductPropertyInput'
+import { emptyProductData } from '../../interfaces/ProductData'
 
 interface ProductItemProps {
   product: Product
@@ -25,22 +24,30 @@ const ProductItem = ({ product }: ProductItemProps) => {
         getProductIndexByID(state.orderProducts, product.id)
       ]
   )
-  const [isDesktopWidth] = useIsMediaWidth(desktopWidthSelector())
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    fetchProductData(product.article).then(productData => {
-      dispatch(
-        setProductData({ productID: product.id, productData: productData })
-      )
-    })
-  }, [productState.article, productState.quantity])
+  const updateProductData = async () => {
+    let newProductData
+    if (product.article) {
+      newProductData = await fetchProductData(product.article)
+    } else newProductData = emptyProductData
+    dispatch(
+      setProductData({ productID: product.id, productData: newProductData })
+    )
+  }
 
-  const validatePropertyChange = (
-    value: number,
-    dispatchCallback: () => void
-  ) => {
-    if (value >= 0) dispatchCallback()
+  const updateProductState = ({
+    newArticle,
+    newQuantity,
+  }: {
+    newArticle?: number
+    newQuantity?: number
+  }) => {
+    if (newQuantity !== undefined)
+      dispatch(setQuantity({ productID: product.id, quantity: newQuantity }))
+    if (newArticle === undefined || newArticle === 0) {
+      dispatch(setArticle({ productID: product.id, article: undefined }))
+    } else dispatch(setArticle({ productID: product.id, article: newArticle }))
   }
 
   return (
@@ -50,38 +57,29 @@ const ProductItem = ({ product }: ProductItemProps) => {
         padding: 2,
       }}
     >
-      <Stack direction="row" justifyContent="space-evenly" spacing={2}>
-        <Stack
-          spacing={2}
-          direction={isDesktopWidth ? 'row' : 'column'}
-          marginBottom={2}
-          flex={1}
-        >
-          <ProductProperty
-            title="Артикул"
-            value={product.article}
-            onChange={(value: number) =>
-              validatePropertyChange(value, () =>
-                dispatch(setArticle({ productID: product.id, article: value }))
-              )
-            }
-          />
-          <ProductProperty
-            title="Количество"
-            value={product.quantity}
-            onChange={(value: number) =>
-              validatePropertyChange(value, () =>
-                dispatch(
-                  setQuantity({ productID: product.id, quantity: value })
-                )
-              )
-            }
-          />
+      <Stack spacing={2} marginBottom={1}>
+        <Stack direction="row" spacing={2}>
+          <ProductPropertyTitle title="Артикул" />
+          <ProductPropertyTitle title="Количество" />
+          <Box flex={1} />
         </Stack>
-        <ProductDeleteButton
-          productID={product.id}
-          sx={{ alignSelf: 'flex-start', justifySelf: 'center' }}
-        />
+        <Stack direction="row" spacing={2}>
+          <ProductPropertyInput
+            value={productState.article}
+            updateProductState={(newArticle: number | undefined) =>
+              updateProductState({ newArticle })
+            }
+            updateProductData={updateProductData}
+          />
+          <ProductPropertyInput
+            value={productState.quantity}
+            updateProductState={(newQuantity: number | undefined) =>
+              updateProductState({ newQuantity })
+            }
+            updateProductData={updateProductData}
+          />
+          <ProductDeleteButton productID={product.id} />
+        </Stack>
       </Stack>
       <Typography>{product.productData.productTitle}</Typography>
       {product.productData.productTitle !== '' ? (

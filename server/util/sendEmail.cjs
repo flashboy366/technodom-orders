@@ -1,17 +1,18 @@
 const nodemailer = require('nodemailer')
+const EMAIL = require('../config/email.cjs')
 
 const transporter = nodemailer.createTransport({
-  service: 'mail.ru',
+  service: EMAIL.SERVICE,
   auth: {
-    user: 'vm_logistika@mail.ru',
-    pass: 'logistika_22',
+    user: EMAIL.USER,
+    pass: EMAIL.PASS,
   },
 })
 
 const sendEmail = async emailMessage => {
   const mailOptions = {
-    from: 'vm_logistika@mail.ru',
-    to: 'vm_logistika@mail.ru',
+    from: EMAIL.USER,
+    to: EMAIL.TO,
     subject: 'Заявка на заказ',
     text: emailMessage,
   }
