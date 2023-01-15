@@ -16,7 +16,14 @@ const ProductsForm = () => {
     <FormWrapper title="Товары">
       <Stack spacing={2}>
         {productsList}
-        <Button onClick={() => dispatch(addProduct())}>
+        <Button
+          onClick={() => dispatch(addProduct())}
+          sx={{
+            backgroundColor: 'white',
+            width: 'fit-content',
+            alignSelf: 'center',
+          }}
+        >
           Добавить ещё один товар
         </Button>
       </Stack>

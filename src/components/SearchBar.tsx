@@ -34,6 +34,7 @@ const SearchBar = () => {
               </InputAdornment>
             ),
           }}
+          sx={{ top: 3, paddingX: 0.5 }}
         ></TextField>
         <Button
           variant="outlined"
