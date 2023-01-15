@@ -12,6 +12,7 @@ import { fetchProductData } from '../../api/fetchProductData'
 import ProductPropertyTitle from './ProductPropertyTitle'
 import ProductPropertyInput from './ProductPropertyInput'
 import { emptyProductData } from '../../interfaces/ProductData'
+import { useEffect } from 'react'
 
 interface ProductItemProps {
   product: Product
@@ -35,6 +36,10 @@ const ProductItem = ({ product }: ProductItemProps) => {
       setProductData({ productID: product.id, productData: newProductData })
     )
   }
+
+  useEffect(() => {
+    updateProductData()
+  }, [product.article])
 
   const updateProductState = ({
     newArticle,

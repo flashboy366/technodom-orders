@@ -9,7 +9,6 @@ interface ProductPropertyInputProps {
 const ProductPropertyInput = ({
   value,
   updateProductState,
-  updateProductData,
 }: ProductPropertyInputProps) => {
   const validatePropertyChange = (value: number) => {
     if (!value) return 0
@@ -19,6 +18,7 @@ const ProductPropertyInput = ({
   return (
     <Box flex={2}>
       <TextField
+        placeholder="Скопируйте артикул..."
         sx={{ width: '100%' }}
         value={value?.toString()}
         onChange={event =>
@@ -26,9 +26,6 @@ const ProductPropertyInput = ({
             validatePropertyChange(parseInt(event.target.value))
           )
         }
-        onBlur={() => {
-          updateProductData()
-        }}
       />
     </Box>
   )

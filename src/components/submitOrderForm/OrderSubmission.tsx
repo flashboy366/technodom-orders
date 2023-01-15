@@ -8,21 +8,53 @@ import {
 import { sendEmail } from '../../util/email'
 import { ChangeEvent, useState } from 'react'
 import { useAppSelector } from '../../hooks/redux'
+import useFormValidation from '../../hooks/useFormValidation'
+import ResultSnack from './ResultSnack'
+import ResultModal from './ResultModal'
 
 interface OrderSubmissionProps {
-  showResultSnack: (snackMessage: string) => void
-  showResultModal: (resultModalMsg: string) => void
   deliveryAddressRequired: boolean
 }
 
-const OrderSubmission = ({
-  showResultModal,
-  deliveryAddressRequired,
-}: OrderSubmissionProps) => {
+const OrderSubmission = ({ deliveryAddressRequired }: OrderSubmissionProps) => {
   const appState = useAppSelector(state => state)
   const [agreementAccepted, setAgreementAccepted] = useState(false)
 
+  const {
+    validateUserForm,
+    validateAddressDeliveryForm,
+    validateOrderProducts,
+  } = useFormValidation()
+  const formValid =
+    validateUserForm() &&
+    validateAddressDeliveryForm(deliveryAddressRequired) &&
+    validateOrderProducts()
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  let showResultSnack: (snackMessage: string) => void
+  const subscribeShowResultSnack = (
+    showResultSnackCallback: (snackMessage: string) => void
+  ) => {
+    showResultSnack = showResultSnackCallback
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  let showResultModal: (resultModalMsg: string) => void
+  const subscribeShowResultModal = (
+    showResultModalCallback: (resultModalMsg: string) => void
+  ) => {
+    showResultModal = showResultModalCallback
+  }
+
   const handleSubmitClick = async () => {
+    if (!formValid) {
+      showResultSnack('Заполните все поля')
+      return
+    }
+    if (!agreementAccepted) {
+      showResultSnack('Примите условия договора')
+      return
+    }
     const resultModalMsg = await sendEmail({
       appState,
       deliveryAddressRequired,
@@ -50,6 +82,8 @@ const OrderSubmission = ({
           </Typography>
         }
       />
+      <ResultSnack subscribeShowResultSnack={subscribeShowResultSnack} />
+      <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
     </Stack>
   )
 }

@@ -1,5 +1,5 @@
 import { SyntheticEvent, useState } from 'react'
-import { Alert, Snackbar } from '@mui/material'
+import { Alert, Box, Snackbar } from '@mui/material'
 
 interface ResultSnackProps {
   subscribeShowResultSnack: (
@@ -10,7 +10,6 @@ interface ResultSnackProps {
 const ResultSnack = ({ subscribeShowResultSnack }: ResultSnackProps) => {
   const [resultSnackOpen, setResultSnackOpen] = useState(false)
   const [resultSnackMessage, setResultSnackMessage] = useState('')
-
   const showResultSnack = (snackMessage: string) => {
     setResultSnackMessage(snackMessage)
     setResultSnackOpen(true)
@@ -28,19 +27,21 @@ const ResultSnack = ({ subscribeShowResultSnack }: ResultSnackProps) => {
   }
 
   return (
-    <Snackbar
-      open={resultSnackOpen}
-      autoHideDuration={6000}
-      onClose={handleResultSnackClose}
-    >
-      <Alert
+    <Box>
+      <Snackbar
+        open={resultSnackOpen}
+        autoHideDuration={6000}
         onClose={handleResultSnackClose}
-        severity="error"
-        sx={{ width: '100%' }}
       >
-        {resultSnackMessage}
-      </Alert>
-    </Snackbar>
+        <Alert
+          onClose={handleResultSnackClose}
+          severity="error"
+          sx={{ width: '100%' }}
+        >
+          {resultSnackMessage}
+        </Alert>
+      </Snackbar>
+    </Box>
   )
 }
 

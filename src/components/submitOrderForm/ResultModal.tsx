@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Modal, Paper, Typography } from '@mui/material'
+import { Box, Modal, Paper, Typography } from '@mui/material'
 
 interface ResultModalProps {
   subscribeShowResultModal: (
@@ -21,23 +21,25 @@ const ResultModal = ({ subscribeShowResultModal }: ResultModalProps) => {
   const handleResultModalClose = () => setResultModalOpen(false)
 
   return (
-    <Modal
-      open={resultModalOpen}
-      onClose={handleResultModalClose}
-      sx={{ height: 500, alignContent: 'center' }}
-    >
-      <Paper
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          padding: 5,
-        }}
+    <Box>
+      <Modal
+        open={resultModalOpen}
+        onClose={handleResultModalClose}
+        sx={{ height: 500, alignContent: 'center' }}
       >
-        <Typography>{resultModalMsg}</Typography>
-      </Paper>
-    </Modal>
+        <Paper
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            padding: 5,
+          }}
+        >
+          <Typography>{resultModalMsg}</Typography>
+        </Paper>
+      </Modal>
+    </Box>
   )
 }
 

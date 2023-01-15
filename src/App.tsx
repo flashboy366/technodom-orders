@@ -7,8 +7,9 @@ import { Container, Stack, ThemeProvider } from '@mui/material'
 import UserForm from './components/UserForm'
 import ProductsForm from './components/ProductsForm'
 import SubmitOrderForm from './components/SubmitOrderForm'
-import { desktopWidthSelector, theme } from './util/materialui'
+import { theme } from './util/materialui'
 import { useState } from 'react'
+import SearchBar from './components/SearchBar'
 
 const App = () => {
   const [deliveryAddressRequired, setDeliveryAddressRequired] = useState(false)
@@ -17,17 +18,25 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Container
         sx={{
-          marginY: 2,
-          [desktopWidthSelector()]: {
-            minWidth: '500px',
-            width: '40%',
-          },
+          paddingY: 3,
         }}
       >
-        <Stack spacing={2}>
-          <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
-          <ProductsForm />
-          <SubmitOrderForm deliveryAddressRequired={deliveryAddressRequired} />
+        <Stack direction="row" spacing={2} height="100%">
+          <Stack flex={2} spacing={2}>
+            <SearchBar />
+            <ProductsForm />
+          </Stack>
+          <Stack
+            spacing={2}
+            flex={1}
+            justifyContent="space-between"
+            height="94vh"
+          >
+            <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
+            <SubmitOrderForm
+              deliveryAddressRequired={deliveryAddressRequired}
+            />
+          </Stack>
         </Stack>
       </Container>
     </ThemeProvider>
