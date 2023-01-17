@@ -1,8 +1,9 @@
-const generateEmailMessage = ({
+const generateOperatorEmailMessage = ({
   userInfo,
   addressDelivery,
   orderProducts,
 }) => `      
+
 ФИО: ${userInfo.name}
 Номер телефона: ${userInfo.phoneNumber}
 Электронная почта: ${userInfo.email}
@@ -22,8 +23,11 @@ const generateEmailMessage = ({
   
 Товары: ${orderProducts.products.map(
   product => `
-      Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceLabel}`
+      Наименование: ${product.title}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInTenge} т. , ${product.productData.productPriceInRubles} р.`
 )}
+
+Итого: ${orderProducts.totalPriceInTenge} т. , ${orderProducts.totalPriceInRubles} р.
+
 `
 
-module.exports = generateEmailMessage
+module.exports = generateOperatorEmailMessage

@@ -3,7 +3,7 @@
 //   SERVICE: 'yandex',
 //   USER: 'platonovk1998@ya.ru',
 //   PASS: '1UzP1z',
-//   TO: 'flashboy366@ya.ru'
+//   OPERATOR_ADDRESS: 'flashboy366@ya.ru'
 // }
 
 // PROD

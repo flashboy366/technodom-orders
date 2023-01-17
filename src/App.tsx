@@ -3,19 +3,30 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
-import { Container, Stack, ThemeProvider } from '@mui/material'
+import {
+  Backdrop,
+  CircularProgress,
+  Container,
+  Stack,
+  ThemeProvider,
+} from '@mui/material'
 import UserForm from './components/UserForm'
 import ProductsForm from './components/ProductsForm'
 import SubmitOrderForm from './components/SubmitOrderForm'
-import { theme } from './util/materialui'
+import { desktopWidthSelector, theme } from './util/materialui'
 import { useEffect, useState } from 'react'
 import SearchBar from './components/SearchBar'
-import { useAppSelector } from './hooks/redux'
+import { useAppDispatch, useAppSelector } from './hooks/redux'
 import { any, array, literal, object, string, TypeOf } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { sendEmail } from './util/email'
+import { sendEmails } from './util/email'
 import ResultModal from './components/submitOrderForm/ResultModal'
+import ShopSelect from './components/ShopSelect'
+import MobileAppTip from './components/MobileAppTip'
+import useIsMediaWidth from './hooks/useIsMediaWidth'
+import { resetProductsState } from './redux/reducers/orderProductsReducer'
+import { COLORS } from './constants/materialui'
 
 const productSchema = object({
   article: any().refine(val => val !== '', { message: 'Обязательное поле' }),
@@ -41,8 +52,9 @@ const initialSubmitOrderSchema = object({
     .nonempty('Обязательноe поле')
     .refine(
       val => {
-        const phoneRegExp = new RegExp(/\+7\d{10}/)
-        return phoneRegExp.test(val)
+        const phoneRegExp1 = new RegExp(/\+7\d{10}/)
+        const phoneRegExp2 = new RegExp(/8\d{10}/)
+        return phoneRegExp1.test(val) || phoneRegExp2.test(val)
       },
       { message: 'Некорректный номер телефона' }
     ),
@@ -61,6 +73,9 @@ const App = () => {
     initialSubmitOrderSchema
   )
   const appState = useAppSelector(state => state)
+  const [loadingBackdropShown, setLoadingBackdropShown] = useState(false)
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (deliveryAddressRequired) {
@@ -69,7 +84,16 @@ const App = () => {
           addressStreet: string().nonempty('Обязательное поле'),
           addressContacts: string().nonempty('Обязательное поле'),
           addressHouse: string().nonempty('Обязательное поле'),
-          addressPhone: string().nonempty('Обязательное поле'),
+          addressPhone: string()
+            .nonempty('Обязательноe поле')
+            .refine(
+              val => {
+                const phoneRegExp1 = new RegExp(/\+7\d{10}/)
+                const phoneRegExp2 = new RegExp(/8\d{10}/)
+                return phoneRegExp1.test(val) || phoneRegExp2.test(val)
+              },
+              { message: 'Некорректный номер телефона' }
+            ),
         })
       )
     } else setSubmitOrderSchema(initialSubmitOrderSchema)
@@ -95,12 +119,16 @@ const App = () => {
     sendRequestEmail()
 
   const sendRequestEmail = async () => {
-    const resultModalMsg = await sendEmail({
+    setLoadingBackdropShown(true)
+    const responseCode = await sendEmails({
       appState,
       deliveryAddressRequired,
     })
-    console.log(appState, deliveryAddressRequired)
-    showResultModal(resultModalMsg)
+    setLoadingBackdropShown(false)
+    if (responseCode < 400) {
+      showResultModal('Заявка отправлена!')
+      dispatch(resetProductsState())
+    } else showResultModal(`Ошибка ${responseCode}`)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
@@ -110,6 +138,8 @@ const App = () => {
   ) => {
     showResultModal = showResultModalCallback
   }
+
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   return (
     <ThemeProvider theme={theme}>
@@ -123,14 +153,34 @@ const App = () => {
         onSubmit={handleSubmit(onSubmitHandler)}
       >
         <FormProvider {...methods}>
-          <Stack flex={2} spacing={2}>
+          <Stack flex={2} spacing={1}>
             <SearchBar />
+            {isDesktopMedia ? (
+              <Stack direction="row" justifyContent="space-between">
+                <ShopSelect />
+                <MobileAppTip />
+              </Stack>
+            ) : (
+              <>
+                <ShopSelect />
+                <MobileAppTip />
+              </>
+            )}
             <ProductsForm />
             <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
             <SubmitOrderForm />
           </Stack>
         </FormProvider>
         <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
+        <Backdrop
+          sx={{
+            color: COLORS.PRIMARY_WHITE,
+            zIndex: theme => theme.zIndex.drawer + 1,
+          }}
+          open={loadingBackdropShown}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </Container>
     </ThemeProvider>
   )

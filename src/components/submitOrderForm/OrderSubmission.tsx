@@ -4,6 +4,7 @@ import {
   FormControlLabel,
   FormGroup,
   FormHelperText,
+  Link,
   Stack,
   Typography,
 } from '@mui/material'
@@ -23,7 +24,7 @@ const OrderSubmission = () => {
   ).toString()
 
   return (
-    <Stack spacing={1} alignItems="center">
+    <Stack spacing={2} alignItems="center">
       <FormGroup sx={{ gap: 0 }}>
         <FormControlLabel
           control={<Checkbox required />}
@@ -32,13 +33,18 @@ const OrderSubmission = () => {
             <Typography
               color={errors['agreement'] ? 'error' : 'inherit'}
               variant="body2"
+              textAlign="center"
             >
-              Я ознакомился и принимаю условия договора оферты и соглашение на
-              обработку персональных данных
+              Я ознакомился и принимаю условия{' '}
+              <Link href="Оферта ТОО ВМ Логистика.docx">договора оферты</Link> и
+              соглашение на обработку персональных данных
             </Typography>
           }
         />
-        <FormHelperText error={!!errors['agreement']}>
+        <FormHelperText
+          sx={{ textAlign: 'center' }}
+          error={!!errors['agreement']}
+        >
           {agreementErrors}
         </FormHelperText>
       </FormGroup>
@@ -53,7 +59,7 @@ const OrderSubmission = () => {
             Оформить заказ
           </Typography>
         </Button>
-        <Typography variant="caption">
+        <Typography variant="caption" sx={{ textAlign: 'center' }}>
           После оформления заказа с вами свяжется наш менеджер
         </Typography>
       </Stack>

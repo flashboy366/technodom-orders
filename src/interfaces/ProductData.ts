@@ -1,13 +1,17 @@
 export default interface ProductData {
   productTitle: string
-  productPriceLabel: string
-  productPrice: number
+  productPriceInTengeLabel: string
+  productPriceInTenge: number
   productPriceInRubles: number
+  productImgUrl: string
+  productUrl: string
 }
 
 export const emptyProductData: ProductData = {
   productTitle: '',
-  productPriceLabel: '',
-  productPrice: 0,
+  productPriceInTengeLabel: '',
+  productPriceInTenge: 0,
   productPriceInRubles: 0,
+  productImgUrl: '',
+  productUrl: '',
 }

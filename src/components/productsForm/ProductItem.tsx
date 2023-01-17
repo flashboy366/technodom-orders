@@ -1,9 +1,11 @@
-import { Box, Paper, Stack, Tooltip, Typography } from '@mui/material'
+import { Box, Link, Paper, Stack, Tooltip, Typography } from '@mui/material'
 import ProductDeleteButton from './ProductDeleteButton'
 import Product from '../../interfaces/Product'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import {
+  decrementQuantity,
   getProductIndexByID,
+  incrementQuantity,
   setArticle,
   setProductData,
   setQuantity,
@@ -13,6 +15,11 @@ import ProductPropertyTitle from './ProductPropertyTitle'
 import { emptyProductData } from '../../interfaces/ProductData'
 import { useEffect } from 'react'
 import FormProductInput from '../react-hook-form/FormProductInput'
+import { COLORS } from '../../constants/materialui'
+import ProductQuantityButton from './ProductQuantityButtonProps'
+import Image from 'mui-image'
+import useIsMediaWidth from '../../hooks/useIsMediaWidth'
+import { desktopWidthSelector } from '../../util/materialui'
 
 interface ProductItemProps {
   product: Product
@@ -30,30 +37,54 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
 
   const updateProductData = async () => {
     let newProductData
-    if (product.article) {
-      newProductData = await fetchProductData(product.article)
-    } else newProductData = emptyProductData
-    dispatch(
-      setProductData({ productID: product.id, productData: newProductData })
-    )
+    if (product) {
+      if (product.article) {
+        newProductData = await fetchProductData(product.article)
+      } else newProductData = emptyProductData
+      dispatch(
+        setProductData({ productID: product.id, productData: newProductData })
+      )
+    }
   }
 
   useEffect(() => {
     updateProductData()
   }, [product.article])
 
-  const updateProductState = ({
-    newArticle,
-    newQuantity,
-  }: {
-    newArticle?: number
-    newQuantity?: number
-  }) => {
-    if (newQuantity !== undefined)
-      dispatch(setQuantity({ productID: product.id, quantity: newQuantity }))
-    if (newArticle !== undefined)
-      dispatch(setArticle({ productID: product.id, article: newArticle }))
+  const updateArticle = (newArticle: number | undefined) => {
+    dispatch(setArticle({ productID: product.id, article: newArticle }))
   }
+
+  const updateQuantity = (newQuantity: number) => {
+    dispatch(setQuantity({ productID: product.id, quantity: newQuantity }))
+  }
+
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+
+  const quantityInput = (
+    <Stack spacing={2} width={210}>
+      {/*Quantity input*/}
+      <ProductPropertyTitle title="Количество" />
+      <Stack direction="row" spacing={1}>
+        <FormProductInput
+          index={index}
+          name={`quantity`}
+          value={productState.quantity}
+          updateState={value => updateQuantity(value!)}
+        />
+        <ProductQuantityButton
+          onClick={() => dispatch(incrementQuantity({ productID: product.id }))}
+        >
+          +
+        </ProductQuantityButton>
+        <ProductQuantityButton
+          onClick={() => dispatch(decrementQuantity({ productID: product.id }))}
+        >
+          -
+        </ProductQuantityButton>
+      </Stack>
+    </Stack>
+  )
 
   return (
     <Paper
@@ -62,52 +93,86 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
         padding: 2,
       }}
     >
-      <Stack direction="row" justifyContent="space-between" width="100%">
-        <Stack width="60%">
-          <Stack direction="row" spacing={2} marginBottom={1}>
-            <ProductPropertyTitle title="Артикул" />
-            <ProductPropertyTitle title="Количество" />
-          </Stack>
-          <Stack direction="row" spacing={2}>
-            <Box flex={2}>
-              <Tooltip
-                title={
-                  'Артикул находится на странице товара, сразу под названием'
-                }
-                arrow
-                disableTouchListener
-              >
-                <FormProductInput
-                  index={index}
-                  name={`article`}
-                  placeholder="Скопируйте артикул"
-                  value={productState.article}
-                  updateState={value =>
-                    updateProductState({ newArticle: value })
+      <Stack
+        direction={isDesktopMedia ? 'row' : 'column'}
+        justifyContent="space-between"
+        spacing={isDesktopMedia ? 0 : 2}
+      >
+        {/*Leftside basic product input and info*/}
+        <Stack>
+          {/*Inputs*/}
+          <Stack
+            direction={isDesktopMedia ? 'row' : 'column'}
+            spacing={isDesktopMedia ? 2 : 0}
+            justifyContent="flex-start"
+          >
+            {/*Article*/}
+            <Stack spacing={2} width={200}>
+              <ProductPropertyTitle title="Артикул" />
+              {/*Article input*/}
+              <Box>
+                <Tooltip
+                  title={
+                    'Артикул находится на странице товара, сразу под названием'
                   }
-                />
-              </Tooltip>
-            </Box>
-            <Box flex={2}>
-              <FormProductInput
-                index={index}
-                name={`quantity`}
-                value={productState.quantity}
-                updateState={value =>
-                  updateProductState({ newQuantity: value })
-                }
-              />
-            </Box>
+                  arrow
+                  disableTouchListener
+                >
+                  <FormProductInput
+                    fullWidth
+                    index={index}
+                    name={`article`}
+                    placeholder="Скопируйте артикул"
+                    value={productState.article}
+                    updateState={value => updateArticle(value)}
+                  />
+                </Tooltip>
+              </Box>
+            </Stack>
+            {/*Quantity*/}
+            {quantityInput}
           </Stack>
-          <Typography>{product.productData.productTitle}</Typography>
-          {product.productData.productTitle !== '' ? (
-            <Typography color="blue" marginBottom={1}>
-              {product.productData.productPriceLabel}
-            </Typography>
-          ) : null}
+          {/*Product name and price*/}
+          <Stack width={isDesktopMedia ? 450 : '100%'}>
+            <Link href={product.productData.productUrl} variant="body1">
+              {product.productData.productTitle}
+            </Link>
+            {product.productData.productTitle !== '' ? (
+              <Typography
+                color={
+                  product.productData.productPriceInTengeLabel
+                    ? COLORS.ACCENT_BLUE
+                    : COLORS.ERROR_RED
+                }
+                marginBottom={1}
+              >
+                {product.productData.productPriceInTengeLabel
+                  ? product.productData.productPriceInTengeLabel
+                  : 'Нет в наличии'}
+              </Typography>
+            ) : null}
+          </Stack>
         </Stack>
-
-        <ProductDeleteButton index={index} productID={product.id} />
+        {/*Product image*/}
+        <Box
+          height={isDesktopMedia ? 270 : 200}
+          alignSelf={'center'}
+          width={'fit-content'}
+        >
+          <Image
+            width={isDesktopMedia ? 270 : 200}
+            src={
+              product.productData.productImgUrl
+                ? product.productData.productImgUrl
+                : 'empty_image.png'
+            }
+          />
+        </Box>
+        <ProductDeleteButton
+          textAlign="right"
+          index={index}
+          productID={product.id}
+        />
       </Stack>
     </Paper>
   )

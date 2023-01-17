@@ -3,7 +3,7 @@ import { UserInfoState } from '../redux/reducers/userInfoReducer'
 import { OrderProductsState } from '../redux/reducers/orderProductsReducer'
 import { AddressDeliveryState } from '../redux/reducers/addressDeliveryReducer'
 
-const sendRequestEmail = async ([
+export const sendRequestEmail = async ([
   userInfoState,
   orderProductsState,
   addressDeliveryState,
@@ -11,7 +11,7 @@ const sendRequestEmail = async ([
   | UserInfoState
   | OrderProductsState
   | AddressDeliveryState
-)[]): Promise<string> => {
+)[]): Promise<number> => {
   const response = await fetch(
     SERVER.URL +
       'mail_request?' +
@@ -22,9 +22,5 @@ const sendRequestEmail = async ([
       }),
     { method: 'POST' }
   )
-  if (response.status === 200) {
-    return 'Заявка успешно отправлена!'
-  } else return 'Ошибка'
+  return response.status
 }
-
-export default sendRequestEmail

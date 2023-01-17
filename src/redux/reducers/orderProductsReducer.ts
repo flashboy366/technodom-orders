@@ -4,16 +4,20 @@ import ProductData, { emptyProductData } from '../../interfaces/ProductData'
 
 export interface OrderProductsState {
   products: Product[]
-  productsPricesSum: number
+  productsPricesSumInRubles: number
+  productsPricesSumInTenge: number
   deliveryPrice: number
-  totalPrice: number
+  totalPriceInTenge: number
+  totalPriceInRubles: number
 }
 
 const initialState: OrderProductsState = {
   products: [emptyProduct],
-  productsPricesSum: 0,
+  productsPricesSumInRubles: 0,
+  productsPricesSumInTenge: 0,
   deliveryPrice: 500,
-  totalPrice: 0,
+  totalPriceInRubles: 0,
+  totalPriceInTenge: 0,
 }
 
 export const orderProductsSlice = createSlice({
@@ -63,6 +67,23 @@ export const orderProductsSlice = createSlice({
       calculateProductsPricesSum(state)
     },
 
+    incrementQuantity: (
+      state,
+      action: PayloadAction<{ productID: number }>
+    ) => {
+      state.products[action.payload.productID].quantity++
+      calculateProductsPricesSum(state)
+    },
+
+    decrementQuantity: (
+      state,
+      action: PayloadAction<{ productID: number }>
+    ) => {
+      if (state.products[action.payload.productID].quantity > 0)
+        state.products[action.payload.productID].quantity--
+      calculateProductsPricesSum(state)
+    },
+
     setProductData: (
       state,
       action: PayloadAction<{ productID: number; productData: ProductData }>
@@ -84,6 +105,8 @@ export const orderProductsSlice = createSlice({
       state.products.splice(targetProductIndex, 1)
       calculateProductsPricesSum(state)
     },
+
+    resetProductsState: () => initialState,
   },
 })
 
@@ -99,14 +122,23 @@ export const getProductIndexByID = (
 }
 
 const calculateProductsPricesSum = (state: OrderProductsState) => {
-  let newProductsPricesSum = 0
+  let newProductsPricesSumInRubles = 0
+  let newProductsPricesSumInTenge = 0
   state.products.map(product => {
-    if (product.productData.productPriceInRubles && product.quantity)
-      newProductsPricesSum +=
+    if (product.productData.productPriceInRubles && product.quantity) {
+      newProductsPricesSumInRubles +=
         product.quantity * product.productData.productPriceInRubles
+      newProductsPricesSumInTenge +=
+        product.quantity * product.productData.productPriceInTenge
+    }
   })
-  state.productsPricesSum = newProductsPricesSum
-  state.totalPrice = state.productsPricesSum + state.deliveryPrice
+
+  state.productsPricesSumInRubles = newProductsPricesSumInRubles
+  state.totalPriceInRubles =
+    state.productsPricesSumInRubles + state.deliveryPrice
+
+  state.productsPricesSumInTenge = newProductsPricesSumInTenge
+  state.totalPriceInTenge = state.productsPricesSumInTenge + state.deliveryPrice
 }
 
 export const {
@@ -115,6 +147,9 @@ export const {
   setQuantity,
   setArticle,
   setProductData,
+  incrementQuantity,
+  decrementQuantity,
+  resetProductsState,
 } = orderProductsSlice.actions
 
 export default orderProductsSlice.reducer

@@ -6,7 +6,7 @@ interface ProductPropertyTitleProps {
 
 const ProductPropertyTitle = ({ title }: ProductPropertyTitleProps) => {
   return (
-    <Typography flex={2}>
+    <Typography>
       {title}
       <Typography sx={{ display: 'inline', color: 'lightblue' }}> *</Typography>
     </Typography>

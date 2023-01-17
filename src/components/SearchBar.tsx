@@ -7,6 +7,10 @@ const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
   const openSearchLink = () => {
+    if (searchQuery === '') {
+      window.open(TECHNODOM.DOMAIN, '_blank')
+      return
+    }
     window.open(TECHNODOM.SEARCH_URL + searchQuery, '_blank')
   }
 

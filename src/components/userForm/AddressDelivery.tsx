@@ -16,6 +16,8 @@ import {
   setStreet,
 } from '../../redux/reducers/addressDeliveryReducer'
 import FormInput from '../react-hook-form/FormInput'
+import useIsMediaWidth from '../../hooks/useIsMediaWidth'
+import { desktopWidthSelector } from '../../util/materialui'
 
 interface AddressDeliveryProps {
   setDeliveryAddressRequired: Dispatch<SetStateAction<boolean>>
@@ -33,6 +35,8 @@ const AddressDelivery = ({
     setFormIsShown(newCheckboxValue)
     setDeliveryAddressRequired(newCheckboxValue)
   }
+
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   return (
     <Stack spacing={1}>
@@ -100,7 +104,7 @@ const AddressDelivery = ({
             }
             value={addressDeliveryState.comment}
           />
-          <Typography variant="caption" width="70%">
+          <Typography variant="caption" width={isDesktopMedia ? '70%' : '100%'}>
             Уважаемые клиенты, доставка груза осуществляется компанией-партнером
             только до адреса! Услуги по осмотру, разгрузке, подъёму товара и
             подключению не оказываются!

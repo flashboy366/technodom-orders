@@ -1,9 +1,9 @@
-import { Box, Button } from '@mui/material'
+import { Box, BoxProps, Button } from '@mui/material'
 import { useAppDispatch } from '../../hooks/redux'
 import { removeProduct } from '../../redux/reducers/orderProductsReducer'
 import { useFieldArrayFormContext } from '../react-hook-form/FieldArrayFormProvider'
 
-interface ProductDeleteButtonProps {
+interface ProductDeleteButtonProps extends BoxProps {
   index: number
   productID: number
 }
@@ -11,6 +11,7 @@ interface ProductDeleteButtonProps {
 const ProductDeleteButton = ({
   index,
   productID,
+  ...otherProps
 }: ProductDeleteButtonProps) => {
   const dispatch = useAppDispatch()
 
@@ -22,7 +23,7 @@ const ProductDeleteButton = ({
   }
 
   return (
-    <Box flex={1} textAlign="right">
+    <Box {...otherProps}>
       <Button size="small" sx={{ height: 56 }} onClick={handleDeletePress}>
         ╳
       </Button>

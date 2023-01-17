@@ -1,9 +1,11 @@
 const express = require('express')
 const cors = require('cors')
 const URLS = require('./config/urls.cjs')
-const generateEmailMessage = require('./util/generateEmailMessage.cjs')
+const generateOperatorEmailMessage = require('./util/generateOperatorEmailMessage.cjs')
 const sendEmail = require('./util/sendEmail.cjs')
 const path = require('path')
+const generateUserEmailMessage = require('./util/generateUserEmailMessage.cjs')
+const EMAIL = require('./config/email.cjs')
 
 const app = express()
 
@@ -43,14 +45,31 @@ app
         ? (addressDelivery = JSON.parse(emailMessageJSON.addressDelivery))
         : (addressDelivery = false)
       const orderProducts = JSON.parse(emailMessageJSON.orderProducts)
-
-      const emailMessage = generateEmailMessage({
+      const operatorEmailMessage = generateOperatorEmailMessage({
+        userInfo,
+        addressDelivery,
+        orderProducts
+      })
+      const userEmailMessage = generateUserEmailMessage({
         userInfo,
         addressDelivery,
         orderProducts
       })
 
-      sendEmail(emailMessage).then(result => {
+      sendEmail({
+          message: userEmailMessage,
+          subject: 'Подтверждение заказа',
+          recipient: userInfo.email
+        }).then(result => {
+        if (result) {
+          res.statusCode = 200
+        } else res.statusCode = 500
+      })
+      sendEmail({
+        message: operatorEmailMessage,
+        subject: 'Заявка на заказ',
+        recipient: EMAIL.OPERATOR_ADDRESS
+      }).then(result => {
         if (result) {
           res.statusCode = 200
         } else res.statusCode = 500
@@ -61,6 +80,7 @@ app
     }
     res.end()
   })
+
 
 app.listen(8000, () => {
   console.log(`Server is running on port 8000.`)

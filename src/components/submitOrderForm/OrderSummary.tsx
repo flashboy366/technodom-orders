@@ -1,8 +1,12 @@
 import { Stack, Typography } from '@mui/material'
 import { useAppSelector } from '../../hooks/redux'
+import useIsMediaWidth from '../../hooks/useIsMediaWidth'
+import { desktopWidthSelector } from '../../util/materialui'
 
 const OrderSummary = () => {
   const orderProductsState = useAppSelector(state => state.orderProducts)
+
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   return (
     <Stack spacing={2}>
@@ -13,7 +17,7 @@ const OrderSummary = () => {
       >
         <Typography variant="body2">
           У вас {orderProductsState.products.length} товар(ов) на сумму{' '}
-          {orderProductsState.productsPricesSum} р.
+          {orderProductsState.productsPricesSumInRubles} р.
         </Typography>
         <Typography
           variant="h6"
@@ -22,8 +26,8 @@ const OrderSummary = () => {
           }}
         >
           Итого:{' '}
-          {orderProductsState.productsPricesSum !== 0
-            ? orderProductsState.totalPrice
+          {orderProductsState.totalPriceInRubles !== 0
+            ? orderProductsState.totalPriceInRubles
             : 0}{' '}
           р.
         </Typography>
@@ -31,7 +35,11 @@ const OrderSummary = () => {
       <Typography
         variant="caption"
         fontWeight={300}
-        sx={{ width: '60%', margin: 1, alignSelf: 'center' }}
+        sx={{
+          width: isDesktopMedia ? '60%' : '100%',
+          margin: 1,
+          alignSelf: 'center',
+        }}
         textAlign="center"
       >
         Стоимость товара указана с учетом доставки и выдачи товара на складе в

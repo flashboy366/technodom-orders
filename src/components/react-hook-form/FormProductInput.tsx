@@ -46,7 +46,6 @@ const FormProductInput: FC<FormInputProps> = ({
           {...otherProps}
           {...field}
           error={!!errorMsg}
-          sx={{ width: '100%' }}
           required
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
@@ -55,7 +54,6 @@ const FormProductInput: FC<FormInputProps> = ({
           {...control.register(productInputName, {
             onChange: event => {
               const value = event.target.value.replace(/\D+/, '')
-              console.log(name, value)
               updateState(value)
             },
           })}

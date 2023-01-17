@@ -1,17 +1,13 @@
 import SERVER from '../constants/server'
-import ProductData from '../interfaces/ProductData'
+import ProductData, { emptyProductData } from '../interfaces/ProductData'
 import fetchTengeToRubleRate from './fetchTengeToRubleRate'
 import FINANCIAL from '../constants/financial'
+import TECHNODOM from '../constants/technodom'
 
 export const fetchProductData = async (
   productArticle: number
 ): Promise<ProductData> => {
-  const productData: ProductData = {
-    productTitle: '',
-    productPriceLabel: '',
-    productPrice: 0,
-    productPriceInRubles: 0,
-  }
+  const productData: ProductData = { ...emptyProductData }
   if (productArticle === 0) {
     return productData
   }
@@ -25,10 +21,12 @@ export const fetchProductData = async (
   const parser = new DOMParser()
   const productPageDocument = parser.parseFromString(data, 'text/html')
 
+  productData.productUrl = SERVER.PRODUCT_URL + productArticle.toString()
+
   productData.productTitle =
     getFirstElementTextWithClass(productPageDocument, 'product-info__header') ??
     ''
-  productData.productPrice = parseInt(
+  productData.productPriceInTenge = parseInt(
     (
       getFirstElementTextWithClass(
         productPageDocument,
@@ -38,18 +36,32 @@ export const fetchProductData = async (
       .split(/\s/)
       .join('')
   )
-  productData.productPriceLabel =
+  productData.productPriceInTengeLabel =
     getFirstElementTextWithClass(
       productPageDocument,
       'product-actions__price product-prices'
     ) ?? ''
   const tengeToRubleRate = await fetchTengeToRubleRate()
-  if (productData.productPrice) {
+  if (productData.productPriceInTenge) {
     productData.productPriceInRubles = Math.trunc(
-      (productData.productPrice / tengeToRubleRate) *
+      (productData.productPriceInTenge / tengeToRubleRate) *
         FINANCIAL.EXTRA_CHARGE_COEFFICIENT
     )
   } else productData.productPriceInRubles = 0
+
+  try {
+    const rawProductImgSrc =
+      productPageDocument
+        .getElementsByClassName('slide selected')[0]
+        .getElementsByTagName('img')[0].src ?? ''
+    const rawProductImgUrl = new URL(rawProductImgSrc)
+    let productImgUrl = rawProductImgSrc.replace(rawProductImgUrl.host, '')
+    productImgUrl = productImgUrl.replace(rawProductImgUrl.protocol, '')
+    productImgUrl = productImgUrl.replace('//', '')
+    productData.productImgUrl = TECHNODOM.DOMAIN + productImgUrl
+  } catch (err) {
+    console.log(err)
+  }
 
   return productData
 }
