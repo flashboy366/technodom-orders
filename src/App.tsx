@@ -123,25 +123,11 @@ const App = () => {
         onSubmit={handleSubmit(onSubmitHandler)}
       >
         <FormProvider {...methods}>
-          <Stack direction="row" spacing={2} height="100%">
-            <Stack flex={2} spacing={2}>
-              <SearchBar />
-              <ProductsForm />
-            </Stack>
-            <Stack
-              spacing={2}
-              flex={1}
-              justifyContent="space-between"
-              height="94vh"
-            >
-              <UserForm
-                setDeliveryAddressRequired={setDeliveryAddressRequired}
-                // userInfoValidation={userInfoValidation}
-              />
-              <SubmitOrderForm
-                deliveryAddressRequired={deliveryAddressRequired}
-              />
-            </Stack>
+          <Stack flex={2} spacing={2}>
+            <SearchBar />
+            <ProductsForm />
+            <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
+            <SubmitOrderForm />
           </Stack>
         </FormProvider>
         <ResultModal subscribeShowResultModal={subscribeShowResultModal} />

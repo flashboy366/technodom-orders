@@ -22,7 +22,7 @@ const ProductDeleteButton = ({
   }
 
   return (
-    <Box flex={1} textAlign="center">
+    <Box flex={1} textAlign="right">
       <Button size="small" sx={{ height: 56 }} onClick={handleDeletePress}>
         ╳
       </Button>

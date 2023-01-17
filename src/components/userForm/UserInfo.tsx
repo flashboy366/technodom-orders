@@ -77,10 +77,8 @@ const UserInfo = () => {
         onChange={event => dispatch(setEmail({ email: event.target.value }))}
         name="email"
       />
-      <FormControl>
-        <InputLabel sx={{ left: '-14px', top: '3px' }}>
-          Населенный пункт *
-        </InputLabel>
+      <FormControl sx={{ top: -9 }}>
+        <InputLabel>Населенный пункт *</InputLabel>
         <FormSelect
           helperText="help"
           name="location"

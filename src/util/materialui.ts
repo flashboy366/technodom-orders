@@ -9,7 +9,7 @@ export const theme = createTheme({
         sx: {
           color: COLORS.PRIMARY_WHITE,
           bgcolor: COLORS.BRAND_ORANGE,
-          ':hover': { bgcolor: COLORS.DEEP_ORANGE },
+          ':hover': { bgcolor: COLORS.SECONDARY_ORANGE },
         },
       },
     },

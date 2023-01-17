@@ -51,7 +51,6 @@ const ProductsForm = () => {
           sx={{
             backgroundColor: 'white',
             width: 'fit-content',
-            alignSelf: 'center',
           }}
         >
           Добавить ещё один товар

@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from '@mui/material'
+import { Box, Paper, Stack, Tooltip, Typography } from '@mui/material'
 import ProductDeleteButton from './ProductDeleteButton'
 import Product from '../../interfaces/Product'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
@@ -62,39 +62,53 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
         padding: 2,
       }}
     >
-      <Stack spacing={2} marginBottom={1}>
-        <Stack direction="row" spacing={2}>
-          <ProductPropertyTitle title="Артикул" />
-          <ProductPropertyTitle title="Количество" />
-          <Box flex={1} />
+      <Stack direction="row" justifyContent="space-between" width="100%">
+        <Stack spacing={2} marginBottom={1} width="60%">
+          <Stack direction="row" spacing={2}>
+            <ProductPropertyTitle title="Артикул" />
+            <ProductPropertyTitle title="Количество" />
+            <Box flex={1} />
+          </Stack>
+          <Stack direction="row" spacing={2}>
+            <Box flex={2}>
+              <Tooltip
+                title={
+                  'Артикул находится на странице товара, сразу под названием'
+                }
+                arrow
+                disableTouchListener
+              >
+                <FormProductInput
+                  index={index}
+                  name={`article`}
+                  placeholder="Скопируйте артикул"
+                  value={productState.article}
+                  updateState={value =>
+                    updateProductState({ newArticle: value })
+                  }
+                />
+              </Tooltip>
+            </Box>
+            <Box flex={2}>
+              <FormProductInput
+                index={index}
+                name={`quantity`}
+                value={productState.quantity}
+                updateState={value =>
+                  updateProductState({ newQuantity: value })
+                }
+              />
+            </Box>
+          </Stack>
         </Stack>
-        <Stack direction="row" spacing={2}>
-          <Box flex={2}>
-            <FormProductInput
-              index={index}
-              name={`article`}
-              placeholder="Скопируйте артикул..."
-              value={productState.article}
-              updateState={value => updateProductState({ newArticle: value })}
-            />
-          </Box>
-          <Box flex={2}>
-            <FormProductInput
-              index={index}
-              name={`quantity`}
-              value={productState.quantity}
-              updateState={value => updateProductState({ newQuantity: value })}
-            />
-          </Box>
-          <ProductDeleteButton index={index} productID={product.id} />
-        </Stack>
+        <Typography>{product.productData.productTitle}</Typography>
+        {product.productData.productTitle !== '' ? (
+          <Typography color="blue">
+            {product.productData.productPriceLabel}
+          </Typography>
+        ) : null}
+        <ProductDeleteButton index={index} productID={product.id} />
       </Stack>
-      <Typography>{product.productData.productTitle}</Typography>
-      {product.productData.productTitle !== '' ? (
-        <Typography color="blue">
-          {product.productData.productPriceLabel}
-        </Typography>
-      ) : null}
     </Paper>
   )
 }
