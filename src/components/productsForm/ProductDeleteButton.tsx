@@ -4,18 +4,21 @@ import { removeProduct } from '../../redux/reducers/orderProductsReducer'
 import { useFieldArrayFormContext } from '../react-hook-form/FieldArrayFormProvider'
 
 interface ProductDeleteButtonProps {
-  key: number
+  index: number
   productID: number
 }
 
-const ProductDeleteButton = ({ key, productID }: ProductDeleteButtonProps) => {
+const ProductDeleteButton = ({
+  index,
+  productID,
+}: ProductDeleteButtonProps) => {
   const dispatch = useAppDispatch()
 
   const { remove } = useFieldArrayFormContext()
 
   const handleDeletePress = () => {
     dispatch(removeProduct({ productID: productID }))
-    remove(key)
+    remove(index)
   }
 
   return (

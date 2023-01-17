@@ -7,32 +7,26 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { useAppSelector } from '../../hooks/redux'
 import { useFormContext } from 'react-hook-form'
 
-interface OrderSubmissionProps {
-  deliveryAddressRequired: boolean
-}
-
 const OrderSubmission = () => {
-  const appState = useAppSelector(state => state)
-
   const {
     control,
     formState: { errors },
   } = useFormContext()
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const agreementErrors = (
+    errors['agreement'] ? errors['agreement'].message : ''
+  ).toString()
 
   return (
     <Stack spacing={1}>
       <Typography variant="body2" sx={{ textAlign: 'center' }}>
         После оформления заказа с вами свяжется наш менеджер
       </Typography>
-      <Button
-        // onClick={handleSubmitClick}
-        type="submit"
-      >
-        Оформить заказ
-      </Button>
+      <Button type="submit">Оформить заказ</Button>
       <FormGroup>
         <FormControlLabel
           control={<Checkbox required />}
@@ -45,10 +39,9 @@ const OrderSubmission = () => {
           }
         />
         <FormHelperText error={!!errors['agreement']}>
-          {errors['agreement'] ? errors['agreement'].message : ''}
+          {agreementErrors}
         </FormHelperText>
       </FormGroup>
-      {/*<ResultSnack subscribeShowResultSnack={subscribeShowResultSnack} />*/}
     </Stack>
   )
 }

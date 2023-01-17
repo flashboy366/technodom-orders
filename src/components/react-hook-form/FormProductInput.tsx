@@ -22,11 +22,19 @@ const FormProductInput: FC<FormInputProps> = ({
 
   const productInputName = `products[${index}][${name}]`
   let errorMsg: string | undefined
-  if (errors.products)
-    if (errors.products[index])
+  if (errors.products) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (errors.products[index]) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       if (errors.products[index][name]) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         errorMsg = errors.products[index][name]['message']
       }
+    }
+  }
 
   return (
     <Controller

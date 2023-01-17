@@ -15,8 +15,8 @@ import { useEffect } from 'react'
 import FormProductInput from '../react-hook-form/FormProductInput'
 
 interface ProductItemProps {
-  index: number
   product: Product
+  index: number
 }
 
 const ProductItem = ({ index, product }: ProductItemProps) => {
@@ -86,7 +86,7 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
               updateState={value => updateProductState({ newQuantity: value })}
             />
           </Box>
-          <ProductDeleteButton key={index} productID={product.id} />
+          <ProductDeleteButton index={index} productID={product.id} />
         </Stack>
       </Stack>
       <Typography>{product.productData.productTitle}</Typography>

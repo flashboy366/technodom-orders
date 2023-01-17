@@ -17,14 +17,18 @@ const ProductsForm = () => {
     name: 'products',
   })
 
-  const handleAddProduct = () => {
-    dispatch(addProduct())
-    fieldArrayMethods.append(emptyProduct)
+  const addNewProductToValidationSchema = () => {
+    const newProduct = { ...emptyProduct }
+    const lastProductIndex = orderProductsState.products.length - 1
+    const lastProduct = orderProductsState.products[lastProductIndex]
+    newProduct.id = lastProduct ? lastProduct.id + 1 : 0
+    fieldArrayMethods.append(newProduct)
   }
 
-  // const productsList = orderProductsState.products.map((product, index) => (
-  //   <ProductItem key={index} index={index} product={product} />
-  // ))
+  const handleAddProduct = () => {
+    addNewProductToValidationSchema()
+    dispatch(addProduct())
+  }
 
   const productsList = fieldArrayMethods.fields.map((value, index) => (
     <ProductItem
