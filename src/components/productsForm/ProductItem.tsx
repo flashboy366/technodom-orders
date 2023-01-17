@@ -63,11 +63,10 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
       }}
     >
       <Stack direction="row" justifyContent="space-between" width="100%">
-        <Stack spacing={2} marginBottom={1} width="60%">
-          <Stack direction="row" spacing={2}>
+        <Stack width="60%">
+          <Stack direction="row" spacing={2} marginBottom={1}>
             <ProductPropertyTitle title="Артикул" />
             <ProductPropertyTitle title="Количество" />
-            <Box flex={1} />
           </Stack>
           <Stack direction="row" spacing={2}>
             <Box flex={2}>
@@ -100,13 +99,14 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
               />
             </Box>
           </Stack>
+          <Typography>{product.productData.productTitle}</Typography>
+          {product.productData.productTitle !== '' ? (
+            <Typography color="blue" marginBottom={1}>
+              {product.productData.productPriceLabel}
+            </Typography>
+          ) : null}
         </Stack>
-        <Typography>{product.productData.productTitle}</Typography>
-        {product.productData.productTitle !== '' ? (
-          <Typography color="blue">
-            {product.productData.productPriceLabel}
-          </Typography>
-        ) : null}
+
         <ProductDeleteButton index={index} productID={product.id} />
       </Stack>
     </Paper>
