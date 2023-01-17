@@ -58,6 +58,7 @@ export const orderProductsSlice = createSlice({
         state,
         action.payload.productID
       )
+      console.log(typeof action.payload.quantity)
       state.products[targetProductIndex].quantity = action.payload.quantity
       calculateProductsPricesSum(state)
     },

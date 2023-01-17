@@ -15,6 +15,7 @@ import {
   setPhoneNumber,
   setStreet,
 } from '../../redux/reducers/addressDeliveryReducer'
+import FormInput from '../react-hook-form/FormInput'
 
 interface AddressDeliveryProps {
   setDeliveryAddressRequired: Dispatch<SetStateAction<boolean>>
@@ -44,7 +45,8 @@ const AddressDelivery = ({
           <InputGrid
             firstColumn={
               <>
-                <TextField
+                <FormInput
+                  name="addressStreet"
                   variant="standard"
                   placeholder="Улица *"
                   onChange={event =>
@@ -52,7 +54,8 @@ const AddressDelivery = ({
                   }
                   value={addressDeliveryState.street}
                 />
-                <TextField
+                <FormInput
+                  name="addressContacts"
                   variant="standard"
                   placeholder="Контакт на выгрузке *"
                   onChange={event =>
@@ -64,7 +67,8 @@ const AddressDelivery = ({
             }
             secondColumn={
               <>
-                <TextField
+                <FormInput
+                  name="addressHouse"
                   variant="standard"
                   placeholder="Дом *"
                   onChange={event =>
@@ -72,7 +76,8 @@ const AddressDelivery = ({
                   }
                   value={addressDeliveryState.house}
                 />
-                <TextField
+                <FormInput
+                  name="addressPhone"
                   variant="standard"
                   placeholder="Номер телефона *"
                   onChange={event => {

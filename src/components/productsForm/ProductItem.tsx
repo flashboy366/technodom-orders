@@ -10,15 +10,16 @@ import {
 } from '../../redux/reducers/orderProductsReducer'
 import { fetchProductData } from '../../api/fetchProductData'
 import ProductPropertyTitle from './ProductPropertyTitle'
-import ProductPropertyInput from './ProductPropertyInput'
 import { emptyProductData } from '../../interfaces/ProductData'
 import { useEffect } from 'react'
+import FormProductInput from '../react-hook-form/FormProductInput'
 
 interface ProductItemProps {
+  index: number
   product: Product
 }
 
-const ProductItem = ({ product }: ProductItemProps) => {
+const ProductItem = ({ index, product }: ProductItemProps) => {
   const productState = useAppSelector(
     state =>
       state.orderProducts.products[
@@ -50,9 +51,8 @@ const ProductItem = ({ product }: ProductItemProps) => {
   }) => {
     if (newQuantity !== undefined)
       dispatch(setQuantity({ productID: product.id, quantity: newQuantity }))
-    if (newArticle === undefined || newArticle === 0) {
-      dispatch(setArticle({ productID: product.id, article: undefined }))
-    } else dispatch(setArticle({ productID: product.id, article: newArticle }))
+    if (newArticle !== undefined)
+      dispatch(setArticle({ productID: product.id, article: newArticle }))
   }
 
   return (
@@ -69,21 +69,24 @@ const ProductItem = ({ product }: ProductItemProps) => {
           <Box flex={1} />
         </Stack>
         <Stack direction="row" spacing={2}>
-          <ProductPropertyInput
-            value={productState.article}
-            updateProductState={(newArticle: number | undefined) =>
-              updateProductState({ newArticle })
-            }
-            updateProductData={updateProductData}
-          />
-          <ProductPropertyInput
-            value={productState.quantity}
-            updateProductState={(newQuantity: number | undefined) =>
-              updateProductState({ newQuantity })
-            }
-            updateProductData={updateProductData}
-          />
-          <ProductDeleteButton productID={product.id} />
+          <Box flex={2}>
+            <FormProductInput
+              index={index}
+              name={`article`}
+              placeholder="Скопируйте артикул..."
+              value={productState.article}
+              updateState={value => updateProductState({ newArticle: value })}
+            />
+          </Box>
+          <Box flex={2}>
+            <FormProductInput
+              index={index}
+              name={`quantity`}
+              value={productState.quantity}
+              updateState={value => updateProductState({ newQuantity: value })}
+            />
+          </Box>
+          <ProductDeleteButton key={index} productID={product.id} />
         </Stack>
       </Stack>
       <Typography>{product.productData.productTitle}</Typography>

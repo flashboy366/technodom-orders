@@ -7,7 +7,9 @@ interface UserFormProps {
   setDeliveryAddressRequired: Dispatch<SetStateAction<boolean>>
 }
 
-const UserForm = ({ setDeliveryAddressRequired }: UserFormProps) => {
+const UserForm = ({
+  setDeliveryAddressRequired /*, userInfoValidation*/,
+}: UserFormProps) => {
   return (
     <FormWrapper title="Ваши данные">
       <UserInfo />

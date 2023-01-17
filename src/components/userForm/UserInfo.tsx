@@ -2,10 +2,8 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Select,
   SelectChangeEvent,
   Stack,
-  TextField,
 } from '@mui/material'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { mobileWidthSelector } from '../../util/materialui'
@@ -18,6 +16,8 @@ import {
   setName,
   setPhoneNumber,
 } from '../../redux/reducers/userInfoReducer'
+import FormInput from '../react-hook-form/FormInput'
+import FormSelect from '../react-hook-form/FormSelect'
 
 const UserInfo = () => {
   const locationsList: {
@@ -38,7 +38,6 @@ const UserInfo = () => {
       {item.title}
     </MenuItem>
   ))
-
   const [isMobileWidth] = useIsMediaWidth(mobileWidthSelector())
   const dispatch = useAppDispatch()
   const userInfoState = useAppSelector(state => state.userInfo)
@@ -49,16 +48,18 @@ const UserInfo = () => {
 
   const firstPropertiesColumn = (
     <>
-      <TextField
+      <FormInput
         variant="standard"
         placeholder="ФИО *"
         value={userInfoState.name}
         onChange={event => dispatch(setName({ name: event.target.value }))}
+        name="name"
       />
-      <TextField
+      <FormInput
         variant="standard"
         placeholder="Номер телефона *"
         value={userInfoState.phoneNumber}
+        name="phone"
         onChange={event => {
           if (event.target.value.length > 12) return
           dispatch(setPhoneNumber({ phoneNumber: event.target.value }))
@@ -69,25 +70,30 @@ const UserInfo = () => {
 
   const secondPropertiesColumn = (
     <>
-      <TextField
+      <FormInput
         variant="standard"
         placeholder="Электронная почта *"
         value={userInfoState.email}
         onChange={event => dispatch(setEmail({ email: event.target.value }))}
+        name="email"
       />
       <FormControl>
         <InputLabel sx={{ left: '-14px', top: '3px' }}>
           Населенный пункт *
         </InputLabel>
-        <Select
-          required
-          variant="standard"
+        <FormSelect
+          helperText="help"
+          name="location"
+          variant="outlined"
           label="Населенный пункт *"
+          placeholder="Населенный пункт *"
           value={userInfoState.location?.id.toString() || ''}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           onChange={handleSelectChange}
         >
           {selectItemsList}
-        </Select>
+        </FormSelect>
       </FormControl>
     </>
   )
