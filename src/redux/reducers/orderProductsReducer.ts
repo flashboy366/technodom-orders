@@ -101,7 +101,7 @@ export const getProductIndexByID = (
 const calculateProductsPricesSum = (state: OrderProductsState) => {
   let newProductsPricesSum = 0
   state.products.map(product => {
-    if (product.productData.productPriceInRubles)
+    if (product.productData.productPriceInRubles && product.quantity)
       newProductsPricesSum +=
         product.quantity * product.productData.productPriceInRubles
   })
