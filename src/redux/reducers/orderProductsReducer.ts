@@ -1,23 +1,24 @@
 import Product, { emptyProduct } from '../../interfaces/Product'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import ProductData, { emptyProductData } from '../../interfaces/ProductData'
+import FINANCIAL from '../../constants/financial'
 
 export interface OrderProductsState {
   products: Product[]
   productsPricesSumInRubles: number
   productsPricesSumInTenge: number
-  deliveryPrice: number
   totalPriceInTenge: number
   totalPriceInRubles: number
+  serviceFeeInRubles: number
 }
 
 const initialState: OrderProductsState = {
   products: [emptyProduct],
   productsPricesSumInRubles: 0,
   productsPricesSumInTenge: 0,
-  deliveryPrice: 500,
   totalPriceInRubles: 0,
   totalPriceInTenge: 0,
+  serviceFeeInRubles: 0,
 }
 
 export const orderProductsSlice = createSlice({
@@ -79,7 +80,7 @@ export const orderProductsSlice = createSlice({
       state,
       action: PayloadAction<{ productID: number }>
     ) => {
-      if (state.products[action.payload.productID].quantity > 0)
+      if (state.products[action.payload.productID].quantity > 1)
         state.products[action.payload.productID].quantity--
       calculateProductsPricesSum(state)
     },
@@ -134,11 +135,16 @@ const calculateProductsPricesSum = (state: OrderProductsState) => {
   })
 
   state.productsPricesSumInRubles = newProductsPricesSumInRubles
-  state.totalPriceInRubles =
-    state.productsPricesSumInRubles + state.deliveryPrice
+  state.totalPriceInRubles = Math.trunc(
+    state.productsPricesSumInRubles * FINANCIAL.EXTRA_CHARGE_COEFFICIENT
+  )
+  state.serviceFeeInRubles =
+    state.totalPriceInRubles - state.productsPricesSumInRubles
 
   state.productsPricesSumInTenge = newProductsPricesSumInTenge
-  state.totalPriceInTenge = state.productsPricesSumInTenge + state.deliveryPrice
+  state.totalPriceInTenge = Math.trunc(
+    state.productsPricesSumInTenge * FINANCIAL.EXTRA_CHARGE_COEFFICIENT
+  )
 }
 
 export const {

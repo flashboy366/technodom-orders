@@ -1,4 +1,4 @@
-import { Box, Link, Paper, Stack, Tooltip, Typography } from '@mui/material'
+import { Box, Link, Paper, Stack, Typography } from '@mui/material'
 import ProductDeleteButton from './ProductDeleteButton'
 import Product from '../../interfaces/Product'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
@@ -61,31 +61,6 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
 
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
-  const quantityInput = (
-    <Stack spacing={2} width={210}>
-      {/*Quantity input*/}
-      <ProductPropertyTitle title="Количество" />
-      <Stack direction="row" spacing={1}>
-        <FormProductInput
-          index={index}
-          name={`quantity`}
-          value={productState.quantity}
-          updateState={value => updateQuantity(value!)}
-        />
-        <ProductQuantityButton
-          onClick={() => dispatch(incrementQuantity({ productID: product.id }))}
-        >
-          +
-        </ProductQuantityButton>
-        <ProductQuantityButton
-          onClick={() => dispatch(decrementQuantity({ productID: product.id }))}
-        >
-          -
-        </ProductQuantityButton>
-      </Stack>
-    </Stack>
-  )
-
   return (
     <Paper
       variant="outlined"
@@ -111,26 +86,43 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
               <ProductPropertyTitle title="Артикул" />
               {/*Article input*/}
               <Box>
-                <Tooltip
-                  title={
-                    'Артикул находится на странице товара, сразу под названием'
-                  }
-                  arrow
-                  disableTouchListener
-                >
-                  <FormProductInput
-                    fullWidth
-                    index={index}
-                    name={`article`}
-                    placeholder="Скопируйте артикул"
-                    value={productState.article}
-                    updateState={value => updateArticle(value)}
-                  />
-                </Tooltip>
+                <FormProductInput
+                  fullWidth
+                  index={index}
+                  name={`article`}
+                  placeholder="Скопируйте артикул"
+                  value={productState.article}
+                  updateState={value => updateArticle(value)}
+                />
               </Box>
             </Stack>
             {/*Quantity*/}
-            {quantityInput}
+            <Stack spacing={2} width={210}>
+              {/*Quantity input*/}
+              <ProductPropertyTitle title="Количество" />
+              <Stack direction="row" spacing={1}>
+                <ProductQuantityButton
+                  onClick={() =>
+                    dispatch(decrementQuantity({ productID: product.id }))
+                  }
+                >
+                  -
+                </ProductQuantityButton>
+                <FormProductInput
+                  index={index}
+                  name={`quantity`}
+                  value={productState.quantity}
+                  updateState={value => updateQuantity(value!)}
+                />
+                <ProductQuantityButton
+                  onClick={() =>
+                    dispatch(incrementQuantity({ productID: product.id }))
+                  }
+                >
+                  +
+                </ProductQuantityButton>
+              </Stack>
+            </Stack>
           </Stack>
           {/*Product name and price*/}
           <Stack width={isDesktopMedia ? 450 : '100%'}>
@@ -147,7 +139,7 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
                 marginBottom={1}
               >
                 {product.productData.productPriceInTengeLabel
-                  ? product.productData.productPriceInTengeLabel
+                  ? `${product.productData.productPriceInRubles} р.`
                   : 'Нет в наличии'}
               </Typography>
             ) : null}

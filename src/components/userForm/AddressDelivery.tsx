@@ -38,6 +38,49 @@ const AddressDelivery = ({
 
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
+  const firstColumn = (
+    <>
+      <FormInput
+        name="addressStreet"
+        variant="standard"
+        placeholder="Улица *"
+        onChange={event => dispatch(setStreet({ street: event.target.value }))}
+        value={addressDeliveryState.street}
+      />
+      <FormInput
+        name="addressContacts"
+        variant="standard"
+        placeholder="Контакт на выгрузке *"
+        onChange={event =>
+          dispatch(setContacts({ contacts: event.target.value }))
+        }
+        value={addressDeliveryState.contacts}
+      />
+    </>
+  )
+
+  const secondColumn = (
+    <>
+      <FormInput
+        name="addressHouse"
+        variant="standard"
+        placeholder="Дом *"
+        onChange={event => dispatch(setHouse({ house: event.target.value }))}
+        value={addressDeliveryState.house}
+      />
+      <FormInput
+        name="addressPhone"
+        variant="standard"
+        placeholder="Номер телефона *"
+        onChange={event => {
+          if (event.target.value.length > 12) return
+          dispatch(setPhoneNumber({ phoneNumber: event.target.value }))
+        }}
+        value={addressDeliveryState.phoneNumber}
+      />
+    </>
+  )
+
   return (
     <Stack spacing={1}>
       <FormControlLabel
@@ -46,55 +89,15 @@ const AddressDelivery = ({
       />
       {formIsShown ? (
         <>
-          <InputGrid
-            firstColumn={
-              <>
-                <FormInput
-                  name="addressStreet"
-                  variant="standard"
-                  placeholder="Улица *"
-                  onChange={event =>
-                    dispatch(setStreet({ street: event.target.value }))
-                  }
-                  value={addressDeliveryState.street}
-                />
-                <FormInput
-                  name="addressContacts"
-                  variant="standard"
-                  placeholder="Контакт на выгрузке *"
-                  onChange={event =>
-                    dispatch(setContacts({ contacts: event.target.value }))
-                  }
-                  value={addressDeliveryState.contacts}
-                />
-              </>
-            }
-            secondColumn={
-              <>
-                <FormInput
-                  name="addressHouse"
-                  variant="standard"
-                  placeholder="Дом *"
-                  onChange={event =>
-                    dispatch(setHouse({ house: event.target.value }))
-                  }
-                  value={addressDeliveryState.house}
-                />
-                <FormInput
-                  name="addressPhone"
-                  variant="standard"
-                  placeholder="Номер телефона *"
-                  onChange={event => {
-                    if (event.target.value.length > 12) return
-                    dispatch(
-                      setPhoneNumber({ phoneNumber: event.target.value })
-                    )
-                  }}
-                  value={addressDeliveryState.phoneNumber}
-                />
-              </>
-            }
-          />
+          {isDesktopMedia ? (
+            <InputGrid firstColumn={firstColumn} secondColumn={secondColumn} />
+          ) : (
+            <>
+              {' '}
+              {firstColumn} {secondColumn}{' '}
+            </>
+          )}
+
           <TextField
             variant="standard"
             label="Комментарий"

@@ -14,10 +14,12 @@ const MobileAppTip = () => {
       sx={{
         padding: 1,
         width: isDesktopMedia ? 'fit-content' : '100%',
+        height: isDesktopMedia ? 'fit-content' : 'initial',
         boxSizing: 'border-box',
+        alignSelf: 'center',
       }}
     >
-      <Stack direction="row">
+      <Stack direction="row" alignItems="center">
         <Typography variant="body2">
           С мобильным приложением Technodom.KZ заказывать удобнее!
         </Typography>

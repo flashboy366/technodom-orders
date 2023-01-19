@@ -7,6 +7,7 @@ import {
   Backdrop,
   CircularProgress,
   Container,
+  Snackbar,
   Stack,
   ThemeProvider,
 } from '@mui/material'
@@ -15,18 +16,23 @@ import ProductsForm from './components/ProductsForm'
 import SubmitOrderForm from './components/SubmitOrderForm'
 import { desktopWidthSelector, theme } from './util/materialui'
 import { useEffect, useState } from 'react'
-import SearchBar from './components/SearchBar'
 import { useAppDispatch, useAppSelector } from './hooks/redux'
-import { any, array, literal, object, string, TypeOf } from 'zod'
+import { any, array, literal, number, object, string, TypeOf } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { sendEmails } from './util/email'
 import ResultModal from './components/submitOrderForm/ResultModal'
-import ShopSelect from './components/ShopSelect'
 import MobileAppTip from './components/MobileAppTip'
 import useIsMediaWidth from './hooks/useIsMediaWidth'
 import { resetProductsState } from './redux/reducers/orderProductsReducer'
 import { COLORS } from './constants/materialui'
+import TitleHeader from './components/title/TitleHeader'
+import HowToButton from './components/HowToButton'
+import TechnodomLink from './components/TechnodomLink'
+import TitleDescription from './components/title/TitleDescription'
+import TitleAdvantages from './components/title/TitleAdvantages'
+import FooterContacts from './components/footer/FooterContacts'
+import FooterTip from './components/footer/FooterTip'
 
 const productSchema = object({
   article: any().refine(val => val !== '', { message: 'Обязательное поле' }),
@@ -34,6 +40,7 @@ const productSchema = object({
     .refine(val => val !== '', {
       message: 'Обязательное поле',
     })
+    .refine(val => parseInt(val) > 0, { message: 'Некорректное количество' })
     .refine(
       val => {
         const quantityRegExp = new RegExp(/^0+\d*/)
@@ -59,12 +66,11 @@ const initialSubmitOrderSchema = object({
       { message: 'Некорректный номер телефона' }
     ),
   location: string().nonempty('Обязательноe поле'),
-
   products: array(productSchema),
-
   agreement: literal(true, {
     errorMap: () => ({ message: 'Примите условия соглашения' }),
   }),
+  orderPrice: number().refine(val => val > 5000),
 })
 
 const App = () => {
@@ -74,6 +80,7 @@ const App = () => {
   )
   const appState = useAppSelector(state => state)
   const [loadingBackdropShown, setLoadingBackdropShown] = useState(false)
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
 
   const dispatch = useAppDispatch()
 
@@ -141,28 +148,52 @@ const App = () => {
 
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
+  useEffect(() => {
+    methods.register('orderPrice')
+  }, [])
+  useEffect(() => {
+    methods.setValue('orderPrice', appState.orderProducts.totalPriceInRubles)
+  }, [appState.orderProducts.totalPriceInRubles])
+
   return (
     <ThemeProvider theme={theme}>
       <Container
         sx={{
-          paddingY: 3,
+          paddingBottom: 3,
         }}
         component="form"
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(onSubmitHandler)}
       >
+        <Stack
+          direction={isDesktopMedia ? 'row' : 'column'}
+          justifyContent="space-between"
+          alignItems="center"
+          marginTop={1}
+        >
+          <Stack>
+            <TitleHeader />
+            <TitleDescription />
+          </Stack>
+          <TitleAdvantages />
+        </Stack>
         <FormProvider {...methods}>
           <Stack flex={2} spacing={1}>
-            <SearchBar />
             {isDesktopMedia ? (
-              <Stack direction="row" justifyContent="space-between">
-                <ShopSelect />
+              <Stack direction="row" justifyContent="space-between" spacing={1}>
+                <Stack direction="row" spacing={1} marginBottom={1}>
+                  <HowToButton />
+                  <TechnodomLink />
+                </Stack>
                 <MobileAppTip />
               </Stack>
             ) : (
               <>
-                <ShopSelect />
+                <Stack direction="row" justifyContent="space-between">
+                  <HowToButton />
+                  <TechnodomLink />
+                </Stack>
                 <MobileAppTip />
               </>
             )}
@@ -171,6 +202,8 @@ const App = () => {
             <SubmitOrderForm />
           </Stack>
         </FormProvider>
+        <FooterContacts />
+        <FooterTip />
         <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
         <Backdrop
           sx={{
@@ -181,6 +214,12 @@ const App = () => {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={() => setSnackbarOpen(false)}
+          message="Сумма заказа меньше 5000!"
+        />
       </Container>
     </ThemeProvider>
   )

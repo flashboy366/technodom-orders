@@ -8,8 +8,8 @@
 
 // PROD
 module.exports = {
-  SERVICE: 'yandex',
-  USER: 'platonovk1998@ya.ru',
-  PASS: '1UzP1z',
-  TO: 'vm_logistika@mail.ru'
+  SERVICE: 'Mail.ru',
+  USER: 'dostavim.kz@mail.ru',
+  PASS: 'Dostavim52144',
+  OPERATOR_ADDRESS: 'dostavim.kz@mail.ru'
 }

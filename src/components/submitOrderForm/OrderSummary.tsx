@@ -2,11 +2,17 @@ import { Stack, Typography } from '@mui/material'
 import { useAppSelector } from '../../hooks/redux'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
+import { useFormContext } from 'react-hook-form'
+import { COLORS } from '../../constants/materialui'
 
 const OrderSummary = () => {
   const orderProductsState = useAppSelector(state => state.orderProducts)
 
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+
+  const {
+    formState: { errors },
+  } = useFormContext()
 
   return (
     <Stack spacing={2}>
@@ -19,6 +25,9 @@ const OrderSummary = () => {
           У вас {orderProductsState.products.length} товар(ов) на сумму{' '}
           {orderProductsState.productsPricesSumInRubles} р.
         </Typography>
+        <Typography>
+          Сервисный сбор: {orderProductsState.serviceFeeInRubles} р.
+        </Typography>
         <Typography
           variant="h6"
           sx={{
@@ -26,10 +35,18 @@ const OrderSummary = () => {
           }}
         >
           Итого:{' '}
-          {orderProductsState.totalPriceInRubles !== 0
-            ? orderProductsState.totalPriceInRubles
-            : 0}{' '}
+          <Typography display="inline">
+            {orderProductsState.productsPricesSumInRubles !== 0
+              ? orderProductsState.totalPriceInRubles.toString()
+              : Number(0).toString()}{' '}
+          </Typography>
           р.
+        </Typography>
+        <Typography
+          variant="caption"
+          color={errors['orderPrice'] ? COLORS.ERROR_RED : 'initial'}
+        >
+          Мин. стоимость заказа : 5000 р.
         </Typography>
       </Stack>
       <Typography
