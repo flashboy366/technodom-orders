@@ -12,11 +12,7 @@ const HowToButton = () => {
 
   return (
     <>
-      <Button
-        variant="text"
-        sx={{ width: 'fit-content', padding: 0 }}
-        onClick={() => setModalopen(true)}
-      >
+      <Button variant="contained" onClick={() => setModalopen(true)}>
         Как оформить заказ?
       </Button>
       <Modal open={modalOpen} onClose={() => setModalopen(false)}>
