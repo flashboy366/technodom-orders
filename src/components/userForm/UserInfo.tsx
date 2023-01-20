@@ -32,22 +32,22 @@ const UserInfo = () => {
     dispatch(setLocation({ locationID: newLocationID }))
   }
 
-  const handleBlur = (event: FocusEvent) => {
-    const parser = new DOMParser()
-    const inputDoc = parser.parseFromString(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      event.currentTarget?.innerHTML ?? '',
-      'text/html'
-    )
-    const inputEl = inputDoc.getElementById('combo-box-demo')
-    const foundLocationID = LOCATIONS.find(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      location => location.label === inputEl.value
-    )?.id
-    if (foundLocationID) dispatch(setLocation({ locationID: foundLocationID }))
-  }
+  // const handleBlur = (event: FocusEvent) => {
+  //   const parser = new DOMParser()
+  //   const inputDoc = parser.parseFromString(
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-ignore
+  //     event.currentTarget?.innerHTML ?? '',
+  //     'text/html'
+  //   )
+  //   const inputEl = inputDoc.getElementById('combo-box-demo')
+  //   const foundLocationID = LOCATIONS.find(
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-ignore
+  //     location => location.label === inputEl.value
+  //   )?.id
+  //   if (foundLocationID) dispatch(setLocation({ locationID: foundLocationID }))
+  // }
 
   const firstPropertiesColumn = (
     <>
@@ -103,7 +103,7 @@ const UserInfo = () => {
           onChange={handleSelectChange}
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          onBlur={handleBlur}
+          // onBlur={handleBlur}
           renderInput={params => (
             <TextField
               {...params}
