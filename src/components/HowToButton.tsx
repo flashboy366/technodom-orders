@@ -1,7 +1,7 @@
 import { Box, Button, Modal, Paper, Stack, Typography } from '@mui/material'
 import { useState } from 'react'
 import Image from 'mui-image'
-import TechnodomLink from './TechnodomLink'
+import TechnodomLink from './brandLinks/TechnodomLink'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../util/materialui'
 
@@ -14,12 +14,12 @@ const HowToButton = () => {
     <>
       <Button
         variant="text"
-        sx={{ height: 'fit-content', alignSelf: 'center' }}
+        sx={{ width: 'fit-content', padding: 0 }}
         onClick={() => setModalopen(true)}
       >
         Как оформить заказ?
       </Button>
-      <Modal open={modalOpen} onClose={() => setModalopen(false)} sx={{}}>
+      <Modal open={modalOpen} onClose={() => setModalopen(false)}>
         <Box>
           <Paper
             sx={{

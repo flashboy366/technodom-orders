@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="168.825mm" height="98.8905mm" version="1.1"
+     style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+     viewBox="0 0 10698.41 6266.66"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil2 {fill:#AD070C}
+    .fil3 {fill:#E83219}
+    .fil0 {fill:#EDB009}
+    .fil1 {fill:#FFFEF5;fill-rule:nonzero}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <rect x="107.3" y="123.4" width="10478.43" height="6052.06"/>
+   </clipPath>
+   <clipPath id="id1">
+    <rect width="10698.41" height="6266.66"/>
+   </clipPath>
+   <clipPath id="id2">
+    <rect x="1180.36" y="1368.15" width="3428.43" height="3648.4"/>
+   </clipPath>
+   <clipPath id="id3">
+    <rect x="6100.34" y="1335.96" width="3063.59" height="3669.87"/>
+   </clipPath>
+   <clipPath id="id4">
+    <rect x="1631.05" y="3482.08" width="2398.29" height="2596.81"/>
+   </clipPath>
+   <clipPath id="id5">
+    <rect x="4469.3" y="193.15" width="2398.28" height="2591.44"/>
+   </clipPath>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g style="clip-path:url(#id0)">
+   <image x="107.3" y="123.4" width="10478.43" height="6052.06" xlink:href="лого_луч_svg_2_Images\лого_луч_svg_2_ImgID1.png"/>
+  </g>
+  <g style="clip-path:url(#id1)">
+   <image x="-0" y="0" width="10698.41" height="6266.66" xlink:href="лого_луч_svg_2_Images\лого_луч_svg_2_ImgID2.png"/>
+  </g>
+  <polygon class="fil0" points="9122.95,6248.64 8947.97,5992.38 9794.29,4541.87 10398.24,168.89 10695.28,1.44 10056.88,4630.08 "/>
+  <polygon class="fil0" points="301.11,6087.42 713.08,3084.2 2401.67,236.29 2130.26,14.27 468.31,2885.21 3.9,6263.46 "/>
+  <g style="clip-path:url(#id2)">
+   <image x="1180.36" y="1368.15" width="3428.43" height="3648.4" xlink:href="лого_луч_svg_2_Images\лого_луч_svg_2_ImgID3.png"/>
+  </g>
+  <g style="clip-path:url(#id3)">
+   <image x="6100.34" y="1335.96" width="3063.59" height="3669.87" xlink:href="лого_луч_svg_2_Images\лого_луч_svg_2_ImgID4.png"/>
+  </g>
+  <polygon class="fil1" points="4873.87,1344.46 3918.72,1345.88 4781.44,3823.3 4074.27,5009.38 5073,5007.89 7240.91,1340.91 6211.13,1342.45 5373.85,2790.28 "/>
+  <g style="clip-path:url(#id4)">
+   <image x="1631.05" y="3482.08" width="2398.29" height="2596.81" xlink:href="лого_луч_svg_2_Images\лого_луч_svg_2_ImgID5.png"/>
+  </g>
+  <polygon class="fil2" points="1631.79,6073.8 2882.98,5176.45 3122.11,3484.45 "/>
+  <polygon class="fil3" points="4029.21,6071.09 3122.11,3484.45 2882.98,5176.45 "/>
+  <g style="clip-path:url(#id5)">
+   <image x="4469.3" y="193.15" width="2398.28" height="2591.44" xlink:href="лого_луч_svg_2_Images\лого_луч_svg_2_ImgID6.png"/>
+  </g>
+  <polygon class="fil2" points="6866.74,193.77 5615.55,1091.13 5376.41,2783.12 "/>
+  <polygon class="fil3" points="4469.33,196.49 5376.41,2783.12 5615.55,1091.13 "/>
+ </g>
+</svg>

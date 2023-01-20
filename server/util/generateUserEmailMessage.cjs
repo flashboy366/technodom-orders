@@ -4,10 +4,12 @@ const generateUserEmailMessage = ({
   orderProducts,
 }) => `      
 
+Ваш заказ подтвержден!
+
 ФИО: ${userInfo.name}
 Номер телефона: ${userInfo.phoneNumber}
 Электронная почта: ${userInfo.email}
-Населенный пункт: ${userInfo.location.title}
+Населенный пункт: ${userInfo.location.label}
 
 Доставка до адреса: ${
   !addressDelivery
@@ -23,7 +25,7 @@ const generateUserEmailMessage = ({
   
 Товары: ${orderProducts.products.map(
   product => `
-      Наименование: ${product.title}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInRubles} р.`
+      Наименование: ${product.productData.productTitle}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInRubles} р.`
   
 )}
 

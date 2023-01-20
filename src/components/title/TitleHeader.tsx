@@ -8,14 +8,14 @@ const TitleHeader = () => {
 
   return (
     <Typography
-      fontFamily="serif"
-      variant="h2"
-      color={COLORS.SECONDARY_ORANGE}
-      fontStyle="italic"
-      fontWeight="600"
+      fontFamily="merriweather"
+      variant={isDesktopMedia ? 'h2' : 'h3'}
+      color={COLORS.BRAND_ORANGE}
+      fontStyle="bold"
+      fontWeight="700"
       textAlign={isDesktopMedia ? 'initial' : 'center'}
     >
-      DostavimKZ
+      DostavimKZ.ru
     </Typography>
   )
 }

@@ -10,6 +10,7 @@ import {
   Snackbar,
   Stack,
   ThemeProvider,
+  Typography,
 } from '@mui/material'
 import UserForm from './components/UserForm'
 import ProductsForm from './components/ProductsForm'
@@ -28,11 +29,13 @@ import { resetProductsState } from './redux/reducers/orderProductsReducer'
 import { COLORS } from './constants/materialui'
 import TitleHeader from './components/title/TitleHeader'
 import HowToButton from './components/HowToButton'
-import TechnodomLink from './components/TechnodomLink'
+import TechnodomLink from './components/brandLinks/TechnodomLink'
 import TitleDescription from './components/title/TitleDescription'
 import TitleAdvantages from './components/title/TitleAdvantages'
 import FooterContacts from './components/footer/FooterContacts'
 import FooterTip from './components/footer/FooterTip'
+import MieleLink from './components/brandLinks/MieleLink'
+import FooterPartners from './components/footer/FooterPartners'
 
 const productSchema = object({
   article: any().refine(val => val !== '', { message: 'Обязательное поле' }),
@@ -65,7 +68,9 @@ const initialSubmitOrderSchema = object({
       },
       { message: 'Некорректный номер телефона' }
     ),
-  location: string().nonempty('Обязательноe поле'),
+  location: any().refine(val => val !== undefined, {
+    message: 'Обязательное поле',
+  }),
   products: array(productSchema),
   agreement: literal(true, {
     errorMap: () => ({ message: 'Примите условия соглашения' }),
@@ -155,11 +160,14 @@ const App = () => {
     methods.setValue('orderPrice', appState.orderProducts.totalPriceInRubles)
   }, [appState.orderProducts.totalPriceInRubles])
 
+  const shopSelectText = <Typography>Выберите поставщика: </Typography>
+
   return (
     <ThemeProvider theme={theme}>
       <Container
         sx={{
           paddingBottom: 3,
+          overflowX: 'hidden',
         }}
         component="form"
         noValidate
@@ -169,41 +177,45 @@ const App = () => {
         <Stack
           direction={isDesktopMedia ? 'row' : 'column'}
           justifyContent="space-between"
-          alignItems="center"
+          alignItems="flex-start"
           marginTop={1}
+          marginBottom={2}
         >
-          <Stack>
+          <Stack justifyItems="space-between" spacing={2}>
             <TitleHeader />
             <TitleDescription />
+            <HowToButton />
+            <Stack
+              direction={isDesktopMedia ? 'row' : 'column'}
+              spacing={isDesktopMedia ? 1 : 0}
+              marginBottom={1}
+              alignItems="center"
+            >
+              {shopSelectText}
+              <TechnodomLink />
+              <MieleLink />
+            </Stack>
+            <MobileAppTip />
           </Stack>
           <TitleAdvantages />
         </Stack>
         <FormProvider {...methods}>
           <Stack flex={2} spacing={1}>
-            {isDesktopMedia ? (
-              <Stack direction="row" justifyContent="space-between" spacing={1}>
-                <Stack direction="row" spacing={1} marginBottom={1}>
-                  <HowToButton />
-                  <TechnodomLink />
-                </Stack>
-                <MobileAppTip />
-              </Stack>
-            ) : (
-              <>
-                <Stack direction="row" justifyContent="space-between">
-                  <HowToButton />
-                  <TechnodomLink />
-                </Stack>
-                <MobileAppTip />
-              </>
-            )}
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              spacing={1}
+            ></Stack>
             <ProductsForm />
             <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
             <SubmitOrderForm />
           </Stack>
         </FormProvider>
-        <FooterContacts />
-        <FooterTip />
+        <Stack spacing={2}>
+          <FooterContacts />
+          <FooterPartners />
+          <FooterTip />
+        </Stack>
         <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
         <Backdrop
           sx={{

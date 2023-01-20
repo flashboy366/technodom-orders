@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  SelectChangeEvent,
-  Stack,
-} from '@mui/material'
+import { Autocomplete, Box, Stack, TextField } from '@mui/material'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { mobileWidthSelector } from '../../util/materialui'
 import InputGrid from '../InputGrid'
@@ -17,33 +11,42 @@ import {
   setPhoneNumber,
 } from '../../redux/reducers/userInfoReducer'
 import FormInput from '../react-hook-form/FormInput'
-import FormSelect from '../react-hook-form/FormSelect'
+import { useFormContext } from 'react-hook-form'
+import { SyntheticEvent, useEffect } from 'react'
 
 const UserInfo = () => {
-  const locationsList: {
-    title: string
-    value: string
-  }[] = LOCATIONS.map(location => {
-    const selectItem: {
-      title: string
-      value: string
-    } = {
-      title: location.title,
-      value: location.id.toString(),
-    }
-    return selectItem
-  })
-  const selectItemsList = locationsList.map((item, index) => (
-    <MenuItem key={index} value={item.value}>
-      {item.title}
-    </MenuItem>
-  ))
   const [isMobileWidth] = useIsMediaWidth(mobileWidthSelector())
   const dispatch = useAppDispatch()
   const userInfoState = useAppSelector(state => state.userInfo)
 
-  const handleSelectChange = (event: SelectChangeEvent) => {
-    dispatch(setLocation({ locationID: parseInt(event.target.value) }))
+  const handleSelectChange = (event: SyntheticEvent<Element, Event>) => {
+    if (event.type === 'keydown') {
+      return
+    }
+    const newLocationID =
+      parseInt(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        event.currentTarget.attributes['data-option-index']?.textContent
+      ) ?? undefined
+    dispatch(setLocation({ locationID: newLocationID }))
+  }
+
+  const handleBlur = (event: FocusEvent) => {
+    const parser = new DOMParser()
+    const inputDoc = parser.parseFromString(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      event.currentTarget?.innerHTML ?? '',
+      'text/html'
+    )
+    const inputEl = inputDoc.getElementById('combo-box-demo')
+    const foundLocationID = LOCATIONS.find(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      location => location.label === inputEl.value
+    )?.id
+    if (foundLocationID) dispatch(setLocation({ locationID: foundLocationID }))
   }
 
   const firstPropertiesColumn = (
@@ -68,6 +71,20 @@ const UserInfo = () => {
     </>
   )
 
+  const {
+    setValue,
+    control,
+    formState: { errors },
+  } = useFormContext()
+
+  useEffect(() => {
+    control.register('location')
+  }, [])
+  useEffect(() => {
+    setValue('location', userInfoState.location?.label)
+  }, [userInfoState.location?.label])
+  console.log(userInfoState.location?.label)
+
   const secondPropertiesColumn = (
     <>
       <FormInput
@@ -77,22 +94,28 @@ const UserInfo = () => {
         onChange={event => dispatch(setEmail({ email: event.target.value }))}
         name="email"
       />
-      <FormControl sx={{ top: -9 }}>
-        <InputLabel>Населенный пункт *</InputLabel>
-        <FormSelect
-          helperText="help"
-          name="location"
-          variant="outlined"
-          label="Населенный пункт *"
-          placeholder="Населенный пункт *"
-          value={userInfoState.location?.id.toString() || ''}
+      <Box sx={{ height: 78 }}>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={LOCATIONS}
+          value={userInfoState.location ?? null}
+          onChange={handleSelectChange}
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          onChange={handleSelectChange}
-        >
-          {selectItemsList}
-        </FormSelect>
-      </FormControl>
+          onBlur={handleBlur}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Населённый пункт *"
+              error={!!errors['location']}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              helperText={errors['location'] ? errors['location'].message : ''}
+            />
+          )}
+        />
+      </Box>
     </>
   )
 

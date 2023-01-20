@@ -147,16 +147,16 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
         </Stack>
         {/*Product image*/}
         <Box
-          height={isDesktopMedia ? 270 : 200}
+          height={isDesktopMedia ? 180 : 180}
           alignSelf={'center'}
           width={'fit-content'}
         >
           <Image
-            width={isDesktopMedia ? 270 : 200}
+            width={isDesktopMedia ? 180 : 180}
             src={
               product.productData.productImgUrl
                 ? product.productData.productImgUrl
-                : 'empty_image.png'
+                : 'empty_product.jpg'
             }
           />
         </Box>

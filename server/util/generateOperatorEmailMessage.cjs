@@ -7,7 +7,7 @@ const generateOperatorEmailMessage = ({
 ФИО: ${userInfo.name}
 Номер телефона: ${userInfo.phoneNumber}
 Электронная почта: ${userInfo.email}
-Населенный пункт: ${userInfo.location.title}
+Населенный пункт: ${userInfo.location.label}
 
 Доставка до адреса: ${
   !addressDelivery
@@ -23,7 +23,7 @@ const generateOperatorEmailMessage = ({
   
 Товары: ${orderProducts.products.map(
   product => `
-      Наименование: ${product.title}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInTenge} т. , ${product.productData.productPriceInRubles} р.`
+      Наименование: ${product.productData.productTitle}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInTenge} т. , ${product.productData.productPriceInRubles} р.`
 )}
 
 Итого: ${orderProducts.totalPriceInTenge} т. , ${orderProducts.totalPriceInRubles} р.
