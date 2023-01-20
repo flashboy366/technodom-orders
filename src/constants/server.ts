@@ -6,7 +6,7 @@
 
 // PROD
 const SERVER = {
-  URL: 'https://51.250.84.195/',
+  URL: 'https://dostavimkz.ru/',
   PRODUCT_URL: 'https://www.technodom.kz/p/',
 }
 
