@@ -90,7 +90,7 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
                   fullWidth
                   index={index}
                   name={`article`}
-                  placeholder="Скопируйте артикул"
+                  placeholder="Введите артикул"
                   value={productState.article}
                   updateState={value => updateArticle(value)}
                 />
