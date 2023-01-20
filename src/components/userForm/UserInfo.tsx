@@ -20,16 +20,17 @@ const UserInfo = () => {
   const userInfoState = useAppSelector(state => state.userInfo)
 
   const handleSelectChange = (event: SyntheticEvent<Element, Event>) => {
-    if (event.type === 'keydown') {
-      return
-    }
-    const newLocationID =
-      parseInt(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        event.currentTarget.attributes['data-option-index']?.textContent
-      ) ?? undefined
-    dispatch(setLocation({ locationID: newLocationID }))
+    // const newLocationID =
+    //   parseInt(
+    //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //     // @ts-ignore
+    //     event.currentTarget.attributes['data-option-index']?.textContent
+    //   ) ?? undefined
+    const newLocationLabel = event.currentTarget.innerHTML
+    const newLocation = LOCATIONS.find(
+      location => location.label === newLocationLabel
+    )
+    dispatch(setLocation({ locationID: newLocation?.id }))
   }
 
   // const handleBlur = (event: FocusEvent) => {
@@ -83,7 +84,6 @@ const UserInfo = () => {
   useEffect(() => {
     setValue('location', userInfoState.location?.label)
   }, [userInfoState.location?.label])
-  console.log(userInfoState.location?.label)
 
   const secondPropertiesColumn = (
     <>

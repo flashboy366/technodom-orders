@@ -29,7 +29,10 @@ export const userInfoSlice = createSlice({
     setEmail: (state, action: PayloadAction<{ email: string }>) => {
       state.email = action.payload.email
     },
-    setLocation: (state, action: PayloadAction<{ locationID: number }>) => {
+    setLocation: (
+      state,
+      action: PayloadAction<{ locationID: number | undefined }>
+    ) => {
       state.location = LOCATIONS.find(
         location => location.id === action.payload.locationID
       )
