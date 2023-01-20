@@ -90,6 +90,7 @@ const locationsRaw = [
   'Южноуральск',
   'Юрюзань',
   'Ялуторовск',
+  'Караганда',
 ]
 
 const LOCATIONS: Location[] = locationsRaw.map((rawLocation, index) => ({
