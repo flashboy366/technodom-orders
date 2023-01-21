@@ -7,10 +7,8 @@ import {
   Backdrop,
   CircularProgress,
   Container,
-  Snackbar,
   Stack,
   ThemeProvider,
-  Typography,
 } from '@mui/material'
 import UserForm from './components/UserForm'
 import ProductsForm from './components/ProductsForm'
@@ -28,14 +26,13 @@ import useIsMediaWidth from './hooks/useIsMediaWidth'
 import { resetProductsState } from './redux/reducers/orderProductsReducer'
 import { COLORS } from './constants/materialui'
 import TitleHeader from './components/title/TitleHeader'
-import HowToButton from './components/HowToButton'
-import TechnodomLink from './components/brandLinks/TechnodomLink'
 import TitleDescription from './components/title/TitleDescription'
 import TitleAdvantages from './components/title/TitleAdvantages'
 import FooterContacts from './components/footer/FooterContacts'
 import FooterTip from './components/footer/FooterTip'
-import MieleLink from './components/brandLinks/MieleLink'
 import FooterPartners from './components/footer/FooterPartners'
+import ShopsForm from './components/ShopsForm'
+import TitlePaymentOptions from './components/title/TitlePaymentOptions'
 
 const productSchema = object({
   article: any().refine(val => val !== '', { message: 'Обязательное поле' }),
@@ -85,7 +82,6 @@ const App = () => {
   )
   const appState = useAppSelector(state => state)
   const [loadingBackdropShown, setLoadingBackdropShown] = useState(false)
-  const [snackbarOpen, setSnackbarOpen] = useState(false)
 
   const dispatch = useAppDispatch()
 
@@ -127,8 +123,9 @@ const App = () => {
       reset()
     }
   }, [isSubmitSuccessful, reset])
-  const onSubmitHandler: SubmitHandler<SubmitOrderInput> = () =>
+  const onSubmitHandler: SubmitHandler<SubmitOrderInput> = () => {
     sendRequestEmail()
+  }
 
   const sendRequestEmail = async () => {
     setLoadingBackdropShown(true)
@@ -160,8 +157,6 @@ const App = () => {
     methods.setValue('orderPrice', appState.orderProducts.totalPriceInRubles)
   }, [appState.orderProducts.totalPriceInRubles])
 
-  const shopSelectText = <Typography>Выберите поставщика: </Typography>
-
   return (
     <ThemeProvider theme={theme}>
       <Container
@@ -177,43 +172,28 @@ const App = () => {
         <Stack
           direction={isDesktopMedia ? 'row' : 'column'}
           justifyContent="space-between"
-          alignItems="flex-start"
+          alignItems="center"
           marginTop={1}
           marginBottom={2}
         >
           <Stack justifyItems="space-between" spacing={2}>
             <TitleHeader />
             <TitleDescription />
-            <HowToButton />
-            <Stack
-              direction={isDesktopMedia ? 'row' : 'column'}
-              spacing={isDesktopMedia ? 1 : 0}
-              marginBottom={1}
-              alignItems="center"
-            >
-              {shopSelectText}
-              <TechnodomLink />
-              <MieleLink />
-            </Stack>
-            <MobileAppTip />
+            <TitlePaymentOptions />
           </Stack>
           <TitleAdvantages />
         </Stack>
         <FormProvider {...methods}>
           <Stack flex={2} spacing={1}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              spacing={1}
-            ></Stack>
+            <ShopsForm />
             <ProductsForm />
             <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
             <SubmitOrderForm />
           </Stack>
         </FormProvider>
-        <Stack spacing={2}>
-          <FooterContacts />
+        <Stack spacing={2} alignItems="center" marginTop={15}>
           <FooterPartners />
+          <FooterContacts />
           <FooterTip />
         </Stack>
         <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
@@ -226,13 +206,8 @@ const App = () => {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={6000}
-          onClose={() => setSnackbarOpen(false)}
-          message="Сумма заказа меньше 5000!"
-        />
       </Container>
+      <MobileAppTip />
     </ThemeProvider>
   )
 }

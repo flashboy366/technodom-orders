@@ -18,8 +18,8 @@ const MieleLink = () => {
 
   return (
     <Box>
-      <Button onClick={handleClick} sx={{}}>
-        <Image src={'miele_logo.png'} height={100} />
+      <Button onClick={handleClick} variant="outlined" sx={{ padding: 1 }}>
+        <Image src={'miele_logo.png'} height={60} width={200} fit="none" />
       </Button>
       <Popover
         id={id}

@@ -4,6 +4,7 @@ import Image from 'mui-image'
 import TechnodomLink from './brandLinks/TechnodomLink'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../util/materialui'
+import { COLORS } from '../constants/materialui'
 
 const HowToButton = () => {
   const [modalOpen, setModalopen] = useState(false)
@@ -12,7 +13,12 @@ const HowToButton = () => {
 
   return (
     <>
-      <Button variant="contained" onClick={() => setModalopen(true)}>
+      <Button
+        size="large"
+        variant="outlined"
+        onClick={() => setModalopen(true)}
+        sx={{ fontSize: 'large' }}
+      >
         Как оформить заказ?
       </Button>
       <Modal open={modalOpen} onClose={() => setModalopen(false)}>
@@ -32,15 +38,21 @@ const HowToButton = () => {
           >
             <Stack spacing={5}>
               <Stack spacing={1}>
-                <Typography>1. Пройдите по ссылке на сайт магазина.</Typography>
+                <Typography>
+                  1. Откройте сайт поставщика по ссылке в новой вкладке:{' '}
+                  <Typography color={COLORS.BRAND_ORANGE}>
+                    (Только для копирования артикула, заказ оформляется на
+                    странице DostavimKZ.ru!)
+                  </Typography>
+                </Typography>
                 <Box width={200}>
                   <TechnodomLink />
                 </Box>
               </Stack>
               <Stack spacing={1}>
                 <Typography>
-                  2. Найдите товар на сайте магазина и скопируйте его артикул в
-                  поле товара на нашем сайте.
+                  2. Найдите товар на сайте поставщика и скопируйте его артикул
+                  в поле товара на нашем сайте:
                 </Typography>
                 <Image
                   src={'how_to_2.png'}
@@ -54,7 +66,7 @@ const HowToButton = () => {
               <Stack spacing={1}>
                 <Typography>
                   3. Определите количество товара, автоматически произойдет
-                  расчет стоимости товара и сервисных услуг в рублях.
+                  расчет стоимости товара и сервисных услуг в рублях:
                 </Typography>
                 <Image
                   src={'how_to_4.png'}
@@ -64,7 +76,7 @@ const HowToButton = () => {
               <Stack spacing={1}>
                 <Typography>
                   4. Введите Ваши данные и услуги доставки до адреса при
-                  необходимости.
+                  необходимости:
                 </Typography>
                 <Image
                   src={'how_to_5.png'}
@@ -75,23 +87,23 @@ const HowToButton = () => {
                 <Typography>
                   5. Ознакомьтесь с условиями оферты и оформляйте заказ.
                 </Typography>
-              </Stack>
-              <Stack paddingTop={2} paddingBottom={8}>
                 <Typography>
                   После чего с Вами свяжется менеджер, согласует заказ, сроки и
                   стоимость доставки до адреса.
                 </Typography>
               </Stack>
             </Stack>
-            <Button
-              variant="text"
-              sx={{}}
-              onClick={() => {
-                setModalopen(false)
-              }}
-            >
-              Закрыть
-            </Button>
+            <Box paddingTop={4}>
+              <Button
+                sx={{}}
+                variant="text"
+                onClick={() => {
+                  setModalopen(false)
+                }}
+              >
+                Закрыть
+              </Button>
+            </Box>
           </Paper>
           <Button
             variant="outlined"

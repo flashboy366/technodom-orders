@@ -1,11 +1,19 @@
-import { Link } from '@mui/material'
+import { Button, Link } from '@mui/material'
 import Image from 'mui-image'
 
 const TechnodomLink = () => {
   return (
-    <Link href="https://www.technodom.kz/catalog" target="_blank">
-      <Image src={'technodom_logo.png'} height={130} />
-    </Link>
+    <Button variant="outlined" sx={{ padding: 1 }}>
+      <Link href="https://www.technodom.kz" target="_blank">
+        <Image
+          src="technodom_logo.png"
+          width={245}
+          height={60}
+          fit="none"
+          bgColor="white"
+        />
+      </Link>
+    </Button>
   )
 }
 

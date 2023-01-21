@@ -133,13 +133,16 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
               <Typography
                 color={
                   product.productData.productPriceInTengeLabel
-                    ? COLORS.ACCENT_BLUE
+                    ? COLORS.ACCENT_PURPLE
                     : COLORS.ERROR_RED
                 }
                 marginBottom={1}
               >
                 {product.productData.productPriceInTengeLabel
-                  ? `${product.productData.productPriceInRubles} р.`
+                  ? `${
+                      product.productData.productPriceInRubles *
+                      product.quantity
+                    } р.`
                   : 'Нет в наличии'}
               </Typography>
             ) : null}

@@ -53,7 +53,12 @@ const OrderSubmission = () => {
           size="large"
           type="submit"
           variant="contained"
-          sx={{ width: 'fit-content', color: COLORS.PRIMARY_WHITE }}
+          sx={{
+            width: 'fit-content',
+            color: COLORS.PRIMARY_WHITE,
+            bgcolor: COLORS.ACCENT_PURPLE,
+            ':hover': { bgcolor: COLORS.ACCENT_SECONDARY },
+          }}
         >
           <Typography variant="body1" fontWeight={600}>
             Оформить заказ

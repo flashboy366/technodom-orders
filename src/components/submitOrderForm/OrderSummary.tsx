@@ -25,7 +25,7 @@ const OrderSummary = () => {
           У вас {orderProductsState.products.length} товар(ов) на сумму{' '}
           {orderProductsState.productsPricesSumInRubles} р.
         </Typography>
-        <Typography>
+        <Typography variant="body2">
           Сервисный сбор: {orderProductsState.serviceFeeInRubles} р.
         </Typography>
         <Typography
@@ -33,13 +33,12 @@ const OrderSummary = () => {
           sx={{
             fontWeight: '500',
           }}
+          color={COLORS.ACCENT_PURPLE}
         >
           Итого:{' '}
-          <Typography display="inline">
-            {orderProductsState.productsPricesSumInRubles !== 0
-              ? orderProductsState.totalPriceInRubles.toString()
-              : Number(0).toString()}{' '}
-          </Typography>
+          {orderProductsState.productsPricesSumInRubles !== 0
+            ? orderProductsState.totalPriceInRubles.toString()
+            : Number(0).toString()}{' '}
           р.
         </Typography>
         <Typography

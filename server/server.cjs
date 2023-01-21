@@ -58,7 +58,7 @@ app
 
       sendEmail({
           message: userEmailMessage,
-          subject: 'Подтверждение заказа',
+          subject: 'Заявка принята',
           recipient: userInfo.email
         }).then(result => {
         if (result) {

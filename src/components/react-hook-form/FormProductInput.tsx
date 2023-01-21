@@ -56,6 +56,10 @@ const FormProductInput: FC<FormInputProps> = ({
               const value = event.target.value.replace(/\D+/, '')
               updateState(value)
             },
+            onBlur: event => {
+              const value = event.target.value.replace(/\D+/, '')
+              updateState(value)
+            },
           })}
           inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         />
