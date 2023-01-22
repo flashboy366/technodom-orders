@@ -20,6 +20,7 @@ import ProductQuantityButton from './ProductQuantityButtonProps'
 import Image from 'mui-image'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
+import FINANCIAL from '../../constants/financial'
 
 interface ProductItemProps {
   product: Product
@@ -133,16 +134,17 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
               <Typography
                 color={
                   product.productData.productPriceInTengeLabel
-                    ? COLORS.ACCENT_PURPLE
+                    ? COLORS.ACCENT_PRIMARY
                     : COLORS.ERROR_RED
                 }
                 marginBottom={1}
               >
                 {product.productData.productPriceInTengeLabel
-                  ? `${
+                  ? `${Math.trunc(
                       product.productData.productPriceInRubles *
-                      product.quantity
-                    } р.`
+                        product.quantity *
+                        FINANCIAL.EXTRA_CHARGE_COEFFICIENT
+                    )} р.`
                   : 'Нет в наличии'}
               </Typography>
             ) : null}

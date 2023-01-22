@@ -56,7 +56,7 @@ const OrderSubmission = () => {
           sx={{
             width: 'fit-content',
             color: COLORS.PRIMARY_WHITE,
-            bgcolor: COLORS.ACCENT_PURPLE,
+            bgcolor: COLORS.ACCENT_PRIMARY,
             ':hover': { bgcolor: COLORS.ACCENT_SECONDARY },
           }}
         >

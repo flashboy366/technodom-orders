@@ -10,7 +10,7 @@ const TitlePaymentOptions = () => {
   return (
     <Stack direction="row" alignItems="center" spacing={2} paddingTop={2}>
       <Stack width="fit-content">
-        <Typography color={COLORS.ACCENT_PURPLE} fontWeight={600}>
+        <Typography color={COLORS.ACCENT_PRIMARY} variant="h6" fontWeight={600}>
           Способы оплаты
         </Typography>
         <Typography>Картами платежной системы "Мир"</Typography>

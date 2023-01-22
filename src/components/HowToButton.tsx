@@ -40,7 +40,7 @@ const HowToButton = () => {
               <Stack spacing={1}>
                 <Typography>
                   1. Откройте сайт поставщика по ссылке в новой вкладке:{' '}
-                  <Typography color={COLORS.BRAND_ORANGE}>
+                  <Typography color={COLORS.PRIMARY}>
                     (Только для копирования артикула, заказ оформляется на
                     странице DostavimKZ.ru!)
                   </Typography>

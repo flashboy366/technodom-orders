@@ -2,14 +2,14 @@ import { createTheme } from '@mui/material'
 import { COLORS, MOBILE_DESKTOP_BREAKPOINT } from '../constants/materialui'
 
 export const theme = createTheme({
-  palette: { primary: { main: COLORS.BRAND_ORANGE } },
+  palette: { primary: { main: COLORS.PRIMARY } },
   components: {
     MuiButton: {
       defaultProps: {
         sx: {
           color: COLORS.PRIMARY_WHITE,
-          bgcolor: COLORS.BRAND_ORANGE,
-          ':hover': { bgcolor: COLORS.SECONDARY_ORANGE },
+          bgcolor: COLORS.PRIMARY,
+          ':hover': { bgcolor: COLORS.SECONDARY },
         },
       },
     },

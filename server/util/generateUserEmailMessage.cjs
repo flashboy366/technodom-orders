@@ -1,3 +1,4 @@
+const financial = require('../config/financial.cjs')
 const generateUserEmailMessage = ({
   userInfo,
   addressDelivery,
@@ -27,7 +28,7 @@ const generateUserEmailMessage = ({
   
 Товары: ${orderProducts.products.map(
   product => `
-      Наименование: ${product.productData.productTitle}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInRubles} р.`
+      Наименование: ${product.productData.productTitle}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInRubles * financial.EXTRA_CHARGE_COEFFICIENT} р.`
   
 )}
 

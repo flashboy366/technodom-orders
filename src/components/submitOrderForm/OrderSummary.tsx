@@ -21,28 +21,21 @@ const OrderSummary = () => {
         alignSelf="flex-end"
         alignItems="flex-end"
       >
-        <Typography variant="body2">
-          У вас {orderProductsState.products.length} товар(ов) на сумму{' '}
-          {orderProductsState.productsPricesSumInRubles} р.
-        </Typography>
-        <Typography variant="body2">
-          Сервисный сбор: {orderProductsState.serviceFeeInRubles} р.
-        </Typography>
         <Typography
           variant="h6"
           sx={{
             fontWeight: '500',
           }}
-          color={COLORS.ACCENT_PURPLE}
+          color={COLORS.ACCENT_PRIMARY}
         >
-          Итого:{' '}
+          У вас {orderProductsState.products.length} товар(ов) на сумму{' '}
           {orderProductsState.productsPricesSumInRubles !== 0
             ? orderProductsState.totalPriceInRubles.toString()
             : Number(0).toString()}{' '}
           р.
         </Typography>
         <Typography
-          variant="caption"
+          variant="body2"
           color={errors['orderPrice'] ? COLORS.ERROR_RED : 'initial'}
         >
           Мин. стоимость заказа : 5000 р.
