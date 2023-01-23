@@ -18,8 +18,8 @@ import FormProductInput from '../react-hook-form/FormProductInput'
 import { COLORS } from '../../constants/materialui'
 import ProductQuantityButton from './ProductQuantityButtonProps'
 import Image from 'mui-image'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
+import useIsMedia from '../../hooks/useIsMedia'
+import { desktopMediaSelector } from '../../util/materialui'
 import FINANCIAL from '../../constants/financial'
 
 interface ProductItemProps {
@@ -60,7 +60,7 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
     dispatch(setQuantity({ productID: product.id, quantity: newQuantity }))
   }
 
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const [isDesktopMedia] = useIsMedia(desktopMediaSelector())
 
   return (
     <Paper
@@ -91,7 +91,7 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
                   fullWidth
                   index={index}
                   name={`article`}
-                  placeholder="Скопируйте артикул"
+                  placeholder="Введите  артикул"
                   value={productState.article}
                   updateState={value => updateArticle(value)}
                 />

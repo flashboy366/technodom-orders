@@ -1,6 +1,6 @@
 import { Autocomplete, Box, Stack, TextField } from '@mui/material'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { mobileWidthSelector } from '../../util/materialui'
+import useIsMedia from '../../hooks/useIsMedia'
+import { mobileMediaSelector } from '../../util/materialui'
 import InputGrid from '../InputGrid'
 import LOCATIONS from '../../constants/locations'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
@@ -15,7 +15,7 @@ import { useFormContext } from 'react-hook-form'
 import { SyntheticEvent, useEffect } from 'react'
 
 const UserInfo = () => {
-  const [isMobileWidth] = useIsMediaWidth(mobileWidthSelector())
+  const [isMobileWidth] = useIsMedia(mobileMediaSelector())
   const dispatch = useAppDispatch()
   const userInfoState = useAppSelector(state => state.userInfo)
 

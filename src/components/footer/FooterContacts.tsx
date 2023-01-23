@@ -8,13 +8,13 @@ import {
   Typography,
 } from '@mui/material'
 import FooterContact from './FooterContact'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
+import useIsMedia from '../../hooks/useIsMedia'
+import { desktopMediaSelector } from '../../util/materialui'
 import { ExpandMore } from '@mui/icons-material'
 import { useState } from 'react'
 
 const FooterContacts = () => {
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const [isDesktopMedia] = useIsMedia(desktopMediaSelector())
   const [collapsed, setCollapsed] = useState(false)
 
   return (
@@ -24,8 +24,8 @@ const FooterContacts = () => {
       orientation="horizontal"
       timeout={500}
     >
-      <Stack margin={2} spacing={2}>
-        <Accordion>
+      <Stack spacing={2}>
+        <Accordion elevation={0}>
           <AccordionSummary
             expandIcon={<ExpandMore />}
             onClick={() => setCollapsed(!collapsed)}

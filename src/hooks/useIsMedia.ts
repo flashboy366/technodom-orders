@@ -1,8 +1,8 @@
 import { useMediaQuery } from '@mui/material'
 
-const useIsMediaWidth = (selector: string) => {
+const useIsMedia = (selector: string) => {
   const isMediaWidth = useMediaQuery(selector)
   return [isMediaWidth]
 }
 
-export default useIsMediaWidth
+export default useIsMedia

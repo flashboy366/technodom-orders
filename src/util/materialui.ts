@@ -2,7 +2,10 @@ import { createTheme } from '@mui/material'
 import { COLORS, MOBILE_DESKTOP_BREAKPOINT } from '../constants/materialui'
 
 export const theme = createTheme({
-  palette: { primary: { main: COLORS.PRIMARY } },
+  palette: {
+    primary: { main: COLORS.PRIMARY },
+    background: { default: COLORS.BACKGROUND },
+  },
   components: {
     MuiButton: {
       defaultProps: {
@@ -16,7 +19,7 @@ export const theme = createTheme({
   },
 })
 
-export const mobileWidthSelector = () =>
+export const mobileMediaSelector = () =>
   theme.breakpoints.down(MOBILE_DESKTOP_BREAKPOINT)
-export const desktopWidthSelector = () =>
+export const desktopMediaSelector = () =>
   theme.breakpoints.up(MOBILE_DESKTOP_BREAKPOINT)

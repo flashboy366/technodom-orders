@@ -1,13 +1,12 @@
-import HowToButton from './HowToButton'
 import { Stack, Typography } from '@mui/material'
 import TechnodomLink from './brandLinks/TechnodomLink'
 import MieleLink from './brandLinks/MieleLink'
 import FormWrapper from './FormWrapper'
-import useIsMediaWidth from '../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../util/materialui'
+import useIsMedia from '../hooks/useIsMedia'
+import { desktopMediaSelector } from '../util/materialui'
 
-const ShopsForm = () => {
-  const [iseDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+const HeaderForm = () => {
+  const [iseDesktopMedia] = useIsMedia(desktopMediaSelector())
 
   return (
     <FormWrapper title="">
@@ -17,7 +16,6 @@ const ShopsForm = () => {
         alignItems="center"
         justifyContent="space-around"
       >
-        <HowToButton />
         <Stack
           direction={iseDesktopMedia ? 'row' : 'column'}
           alignItems="center"
@@ -32,4 +30,4 @@ const ShopsForm = () => {
   )
 }
 
-export default ShopsForm
+export default HeaderForm

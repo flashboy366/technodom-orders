@@ -1,10 +1,10 @@
 import { Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
+import useIsMedia from '../../hooks/useIsMedia'
+import { desktopMediaSelector } from '../../util/materialui'
 
 const TitleHeader = () => {
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const [isDesktopMedia] = useIsMedia(desktopMediaSelector())
 
   return (
     <Typography

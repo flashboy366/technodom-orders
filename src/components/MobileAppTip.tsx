@@ -9,13 +9,13 @@ import {
 } from '@mui/material'
 import Image from 'mui-image'
 import { useState } from 'react'
-import useIsMediaWidth from '../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../util/materialui'
+import useIsMedia from '../hooks/useIsMedia'
+import { desktopMediaSelector } from '../util/materialui'
 
 const MobileAppTip = () => {
   const [tipShown, setTipShown] = useState(true)
 
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const [isDesktopMedia] = useIsMedia(desktopMediaSelector())
 
   return (
     <Snackbar open={tipShown}>
@@ -30,7 +30,8 @@ const MobileAppTip = () => {
       >
         <Stack direction="row" alignItems="center">
           <Typography variant="body2">
-            С мобильным приложением Technodom.KZ заказывать удобнее!
+            С мобильным приложением заказывать у поставщика Technodom.KZ
+            удобнее!
           </Typography>
           <Box width={50}>
             <Button
@@ -43,17 +44,19 @@ const MobileAppTip = () => {
             </Button>
           </Box>
         </Stack>
-        <Stack
-          direction="row"
-          spacing={2}
-          marginTop={1}
-          justifyContent="center"
-        >
-          <Link href="https://play.google.com/store/apps/details?id=kz.technodom.mobile">
-            <Image src={'technodom_mobile_googleplay_logo.png'} />
+        <Stack direction="row" spacing={2} justifyContent="center">
+          <Link
+            href="https://play.google.com/store/apps/details?id=kz.technodom.mobile"
+            width="115%"
+          >
+            <Image src={'technodom_mobile_googleplay_logo.png'} fit="contain" />
           </Link>
-          <Link href="https://apps.apple.com/kz/app/technodom-kz/id1435756761">
-            <Image src={'technodom_mobile_appstore_logo.png'} />
+          <Link
+            href="https://apps.apple.com/kz/app/technodom-kz/id1435756761"
+            width="100%"
+            paddingRight={1.5}
+          >
+            <Image src={'technodom_mobile_appstore_logo.png'} fit="contain" />
           </Link>
         </Stack>
       </Paper>

@@ -1,14 +1,14 @@
 import { Stack, Typography } from '@mui/material'
 import { useAppSelector } from '../../hooks/redux'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
+import useIsMedia from '../../hooks/useIsMedia'
+import { desktopMediaSelector } from '../../util/materialui'
 import { useFormContext } from 'react-hook-form'
 import { COLORS } from '../../constants/materialui'
 
 const OrderSummary = () => {
   const orderProductsState = useAppSelector(state => state.orderProducts)
 
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const [isDesktopMedia] = useIsMedia(desktopMediaSelector())
 
   const {
     formState: { errors },

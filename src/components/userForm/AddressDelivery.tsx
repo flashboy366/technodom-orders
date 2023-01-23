@@ -16,8 +16,8 @@ import {
   setStreet,
 } from '../../redux/reducers/addressDeliveryReducer'
 import FormInput from '../react-hook-form/FormInput'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
+import useIsMedia from '../../hooks/useIsMedia'
+import { desktopMediaSelector } from '../../util/materialui'
 
 interface AddressDeliveryProps {
   setDeliveryAddressRequired: Dispatch<SetStateAction<boolean>>
@@ -36,7 +36,7 @@ const AddressDelivery = ({
     setDeliveryAddressRequired(newCheckboxValue)
   }
 
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const [isDesktopMedia] = useIsMedia(desktopMediaSelector())
 
   const firstColumn = (
     <>

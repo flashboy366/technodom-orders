@@ -7,13 +7,16 @@ import {
   Backdrop,
   CircularProgress,
   Container,
+  CssBaseline,
+  Paper,
   Stack,
   ThemeProvider,
+  Typography,
 } from '@mui/material'
 import UserForm from './components/UserForm'
 import ProductsForm from './components/ProductsForm'
 import SubmitOrderForm from './components/SubmitOrderForm'
-import { desktopWidthSelector, theme } from './util/materialui'
+import { desktopMediaSelector, theme } from './util/materialui'
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from './hooks/redux'
 import { any, array, literal, number, object, string, TypeOf } from 'zod'
@@ -22,7 +25,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { sendEmails } from './util/email'
 import ResultModal from './components/submitOrderForm/ResultModal'
 import MobileAppTip from './components/MobileAppTip'
-import useIsMediaWidth from './hooks/useIsMediaWidth'
+import useIsMedia from './hooks/useIsMedia'
 import { resetProductsState } from './redux/reducers/orderProductsReducer'
 import { COLORS } from './constants/materialui'
 import TitleHeader from './components/title/TitleHeader'
@@ -31,8 +34,9 @@ import TitleAdvantages from './components/title/TitleAdvantages'
 import FooterContacts from './components/footer/FooterContacts'
 import FooterTip from './components/footer/FooterTip'
 import FooterPartners from './components/footer/FooterPartners'
-import ShopsForm from './components/ShopsForm'
+import HeaderForm from './components/HeaderForm'
 import TitlePaymentOptions from './components/title/TitlePaymentOptions'
+import HowToSection from './components/HowToSection'
 
 const productSchema = object({
   article: any().refine(val => val !== '', { message: 'Обязательное поле' }),
@@ -148,7 +152,7 @@ const App = () => {
     showResultModal = showResultModalCallback
   }
 
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const [isDesktopMedia] = useIsMedia(desktopMediaSelector())
 
   useEffect(() => {
     methods.register('orderPrice')
@@ -159,54 +163,91 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Container
         sx={{
+          paddingTop: isDesktopMedia ? 3 : 0,
+          overflowX: isDesktopMedia ? 'initial' : 'hidden',
           paddingBottom: 3,
-          overflowX: 'hidden',
         }}
         component="form"
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(onSubmitHandler)}
       >
-        <Stack
-          direction={isDesktopMedia ? 'row' : 'column'}
-          justifyContent="space-between"
-          alignItems="center"
-          marginTop={1}
-          marginBottom={2}
-        >
-          <Stack justifyItems="space-between" spacing={2}>
-            <TitleHeader />
-            <TitleDescription />
+        <Stack spacing={isDesktopMedia ? 3 : 5} boxSizing="content-box">
+          <Stack
+            direction={isDesktopMedia ? 'row' : 'column'}
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={isDesktopMedia ? 7 : 3}
+            width="90vw"
+            alignSelf="center"
+            bgcolor={COLORS.PRIMARY_WHITE}
+            padding={3}
+            borderRadius={5}
+          >
+            <Paper elevation={0}>
+              <Stack
+                flex={1}
+                justifyItems="space-between"
+                height="100%"
+                spacing={1}
+                paddingY={isDesktopMedia ? 0 : 3}
+              >
+                <TitleHeader />
+                <TitleDescription />
+              </Stack>
+            </Paper>
+            <TitleAdvantages />
             <TitlePaymentOptions />
           </Stack>
-          <TitleAdvantages />
-        </Stack>
-        <FormProvider {...methods}>
-          <Stack flex={2} spacing={1}>
-            <ShopsForm />
-            <ProductsForm />
-            <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
-            <SubmitOrderForm />
+          <HowToSection />
+          <FormProvider {...methods}>
+            <Paper elevation={0}>
+              <Stack spacing={2}>
+                <Typography
+                  sx={{
+                    alignItems: 'center',
+                    width: 'fit-content',
+                    alignSelf: 'center',
+                    padding: 3,
+                  }}
+                >
+                  <Typography
+                    variant="h4"
+                    textAlign={'center'}
+                    width="fit-content"
+                  >
+                    Форма заказа
+                  </Typography>
+                </Typography>
+                <HeaderForm />
+                <ProductsForm />
+                <UserForm
+                  setDeliveryAddressRequired={setDeliveryAddressRequired}
+                />
+                <SubmitOrderForm />
+              </Stack>
+            </Paper>
+          </FormProvider>
+          <Stack spacing={2} alignItems="center" paddingTop={15}>
+            <FooterPartners />
+            <FooterContacts />
+            <FooterTip />
           </Stack>
-        </FormProvider>
-        <Stack spacing={2} alignItems="center" marginTop={15}>
-          <FooterPartners />
-          <FooterContacts />
-          <FooterTip />
         </Stack>
-        <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
-        <Backdrop
-          sx={{
-            color: COLORS.PRIMARY_WHITE,
-            zIndex: theme => theme.zIndex.drawer + 1,
-          }}
-          open={loadingBackdropShown}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
       </Container>
+      <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
+      <Backdrop
+        sx={{
+          color: COLORS.PRIMARY_WHITE,
+          zIndex: theme => theme.zIndex.drawer + 1,
+        }}
+        open={loadingBackdropShown}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <MobileAppTip />
     </ThemeProvider>
   )
