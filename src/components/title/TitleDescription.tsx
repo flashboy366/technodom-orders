@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 
 const TitleDescription = () => {
   return (
-    <Typography variant="body1" marginBottom={1}>
+    <Typography variant="body1" marginBottom={1} fontFamily="merriweather">
       Интернет-сервис по выкупу и доставке товаров по Казахстану и РФ
     </Typography>
   )
