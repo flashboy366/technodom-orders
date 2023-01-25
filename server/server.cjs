@@ -1,10 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 const URLS = require('./config/urls.cjs')
-const generateOperatorEmailMessage = require('./util/generateOperatorEmailMessage.cjs')
+const generateEmailHTML = require('./util/generateEmailHTML.cjs')
 const sendEmail = require('./util/sendEmail.cjs')
 const path = require('path')
-const generateUserEmailMessage = require('./util/generateUserEmailMessage.cjs')
 const EMAIL = require('./config/email.cjs')
 
 const app = express()
@@ -45,19 +44,21 @@ app
         ? (addressDelivery = JSON.parse(emailMessageJSON.addressDelivery))
         : (addressDelivery = false)
       const orderProducts = JSON.parse(emailMessageJSON.orderProducts)
-      const operatorEmailMessage = generateOperatorEmailMessage({
+      const operatorEmailHTML = generateEmailHTML({
         userInfo,
         addressDelivery,
-        orderProducts
+        orderProducts,
+        recipientType: 'operator',
       })
-      const userEmailMessage = generateUserEmailMessage({
+      const userEmailHTML = generateEmailHTML({
         userInfo,
         addressDelivery,
-        orderProducts
+        orderProducts,
+        recipientType: 'user',
       })
 
       sendEmail({
-          message: userEmailMessage,
+          html: userEmailHTML,
           subject: 'Заявка принята',
           recipient: userInfo.email
         }).then(result => {
@@ -66,7 +67,7 @@ app
         } else res.statusCode = 500
       })
       sendEmail({
-        message: operatorEmailMessage,
+        html: operatorEmailHTML,
         subject: 'Заявка на заказ',
         recipient: EMAIL.OPERATOR_ADDRESS
       }).then(result => {

@@ -1,14 +1,14 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack, StackProps, Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
 import Image from 'mui-image'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
 
-const TitlePaymentOptions = () => {
+const TitlePaymentOptions = ({ ...props }: StackProps) => {
   const [iseDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   return (
-    <Stack direction="row" alignItems="center" spacing={2} paddingTop={2}>
+    <Stack direction="row" alignItems="center" spacing={2} {...props}>
       <Stack width="fit-content">
         <Typography color={COLORS.ACCENT_PRIMARY} variant="h6" fontWeight={600}>
           Способы оплаты

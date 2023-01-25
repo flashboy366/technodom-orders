@@ -7,13 +7,14 @@ import {
   Backdrop,
   CircularProgress,
   Container,
+  Paper,
   Stack,
   ThemeProvider,
 } from '@mui/material'
 import UserForm from './components/UserForm'
 import ProductsForm from './components/ProductsForm'
 import SubmitOrderForm from './components/SubmitOrderForm'
-import { desktopWidthSelector, theme } from './util/materialui'
+import { theme } from './util/materialui'
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from './hooks/redux'
 import { any, array, literal, number, object, string, TypeOf } from 'zod'
@@ -21,8 +22,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { sendEmails } from './util/email'
 import ResultModal from './components/submitOrderForm/ResultModal'
-import MobileAppTip from './components/MobileAppTip'
-import useIsMediaWidth from './hooks/useIsMediaWidth'
 import { resetProductsState } from './redux/reducers/orderProductsReducer'
 import { COLORS } from './constants/materialui'
 import TitleHeader from './components/title/TitleHeader'
@@ -148,8 +147,6 @@ const App = () => {
     showResultModal = showResultModalCallback
   }
 
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
-
   useEffect(() => {
     methods.register('orderPrice')
   }, [])
@@ -170,18 +167,23 @@ const App = () => {
         onSubmit={handleSubmit(onSubmitHandler)}
       >
         <Stack
-          direction={isDesktopMedia ? 'row' : 'column'}
+          direction="column"
           justifyContent="space-between"
           alignItems="center"
           marginTop={1}
           marginBottom={2}
+          spacing={2}
         >
-          <Stack justifyItems="space-between" spacing={2}>
-            <TitleHeader />
-            <TitleDescription />
-            <TitlePaymentOptions />
+          <Paper sx={{ paddingY: 1, paddingX: 3 }}>
+            <Stack justifyItems="space-between" alignItems="center">
+              <TitleHeader />
+              <TitleDescription />
+            </Stack>
+          </Paper>
+          <Stack direction="row">
+            <TitlePaymentOptions flex={1} />
+            <TitleAdvantages flex={1} />
           </Stack>
-          <TitleAdvantages />
         </Stack>
         <FormProvider {...methods}>
           <Stack flex={2} spacing={1}>
@@ -207,7 +209,6 @@ const App = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       </Container>
-      <MobileAppTip />
     </ThemeProvider>
   )
 }

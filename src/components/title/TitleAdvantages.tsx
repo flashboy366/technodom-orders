@@ -1,40 +1,38 @@
-import { Paper, Stack, Typography } from '@mui/material'
+import { Paper, Stack, StackProps, Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
 import Image from 'mui-image'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
 
-const TitleAdvantages = () => {
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
-
+const TitleAdvantages = ({ ...props }: StackProps) => {
   return (
-    <Stack spacing={1} marginTop={2} width="fit-content">
-      <Typography fontWeight={500} variant="h5" color={COLORS.ACCENT_PRIMARY}>
-        Наши преимущества
-      </Typography>
-      {/*<Typography>- возможность купить оригинальные бренды</Typography>*/}
-      {/*<Typography>- выбор товара у официальных поставщиков</Typography>*/}
-      {/*<Typography>- ежедневная доставка</Typography>*/}
-      {/*<Typography>- осмотр товара при получении</Typography>*/}
-      {/*<Typography>*/}
-      {/*  - оплата при получении товара*/}
-      {/*  <Typography display="inline" fontWeight={600}>*/}
-      {/*    **/}
-      {/*  </Typography>*/}
-      {/*</Typography>*/}
-      {/*<Typography>*/}
-      {/*  - пополнение реестра поставщиков по Вашим запросам*/}
-      {/*</Typography>*/}
-      {/*<Typography>- широкая география доставки</Typography>*/}
-      <Typography>
-        - покупка и оперативная доставка товаров премиальных брендов:
-      </Typography>
+    <Stack
+      spacing={1}
+      marginTop={2}
+      width="fit-content"
+      {...props}
+      direction="row"
+      alignItems="center"
+    >
+      <Stack>
+        <Typography fontWeight={500} variant="h5" color={COLORS.ACCENT_PRIMARY}>
+          Наши преимущества
+        </Typography>
+        <Typography>
+          - покупка и оперативная доставка товаров премиальных брендов:
+        </Typography>
+      </Stack>
       <Paper
-        sx={{ alignSelf: 'flex-end', borderRadius: 3, overflow: 'hidden' }}
+        sx={{
+          alignSelf: 'flex-end',
+          borderRadius: 3,
+          overflow: 'hidden',
+          width: 400,
+        }}
       >
         <Image
           src="title_advantages_partners.png"
-          width={isDesktopMedia ? 550 : '100%'}
+          // width={isDesktopMedia ? 550 : '100%'}
+          height={110}
+          fit="contain"
         />
       </Paper>
     </Stack>
