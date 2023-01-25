@@ -1,7 +1,6 @@
 import { Box, Button, Modal, Paper, Stack, Typography } from '@mui/material'
 import { useState } from 'react'
 import Image from 'mui-image'
-import TechnodomLink from './brandLinks/TechnodomLink'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../util/materialui'
 import { COLORS } from '../constants/materialui'
@@ -45,9 +44,13 @@ const HowToButton = () => {
                     странице DostavimKZ.ru!)
                   </Typography>
                 </Typography>
-                <Box width={200}>
-                  <TechnodomLink />
-                </Box>
+                <Image
+                  src="technodom_logo.png"
+                  width={245}
+                  height={60}
+                  fit="none"
+                  bgColor="white"
+                />
               </Stack>
               <Stack spacing={1}>
                 <Typography>
