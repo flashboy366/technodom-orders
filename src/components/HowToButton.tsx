@@ -17,7 +17,7 @@ const HowToButton = () => {
         size="large"
         variant="outlined"
         onClick={() => setModalopen(true)}
-        sx={{ fontSize: 'large' }}
+        sx={{}}
       >
         Как оформить заказ?
       </Button>

@@ -1,4 +1,3 @@
-import HowToButton from './HowToButton'
 import { Stack, Typography } from '@mui/material'
 import TechnodomLink from './brandLinks/TechnodomLink'
 import MieleLink from './brandLinks/MieleLink'
@@ -17,7 +16,6 @@ const ShopsForm = () => {
         alignItems="center"
         justifyContent="space-around"
       >
-        <HowToButton />
         <Stack
           direction={iseDesktopMedia ? 'row' : 'column'}
           alignItems="center"

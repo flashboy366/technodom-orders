@@ -6,6 +6,7 @@ import { addProduct } from '../redux/reducers/orderProductsReducer'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { emptyProduct } from '../interfaces/Product'
 import { FieldArrayFormProvider } from './react-hook-form/FieldArrayFormProvider'
+import HowToButton from './HowToButton'
 
 const ProductsForm = () => {
   const orderProductsState = useAppSelector(state => state.orderProducts)
@@ -39,7 +40,7 @@ const ProductsForm = () => {
   ))
 
   return (
-    <FormWrapper title="Товары">
+    <FormWrapper title="Товары" additionalHeaderElement={<HowToButton />}>
       <Stack spacing={2}>
         {/*eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/*@ts-ignore*/}
