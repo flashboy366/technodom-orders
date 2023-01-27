@@ -16,10 +16,10 @@ app
 app
   .get('/product_data', (req, res) => {
     fetch(URLS.PRODUCT_URL + req.query.productArticle)
-      .then(function(response) {
+      .then(function (response) {
         return response.text()
       })
-      .then(function(string) {
+      .then(function (string) {
         res.json(string)
         res.end()
       })
@@ -58,10 +58,10 @@ app
       })
 
       sendEmail({
-          html: userEmailHTML,
-          subject: 'Заявка принята',
-          recipient: userInfo.email
-        }).then(result => {
+        html: userEmailHTML,
+        subject: 'Заявка принята',
+        recipient: userInfo.email,
+      }).then(result => {
         if (result) {
           res.statusCode = 200
         } else res.statusCode = 500
@@ -69,7 +69,7 @@ app
       sendEmail({
         html: operatorEmailHTML,
         subject: 'Заявка на заказ',
-        recipient: EMAIL.OPERATOR_ADDRESS
+        recipient: EMAIL.OPERATOR_ADDRESS,
       }).then(result => {
         if (result) {
           res.statusCode = 200
@@ -81,7 +81,6 @@ app
     }
     res.end()
   })
-
 
 app.listen(8000, () => {
   console.log(`Server is running on port 8000.`)

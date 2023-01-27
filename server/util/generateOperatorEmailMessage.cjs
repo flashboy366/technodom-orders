@@ -26,7 +26,9 @@ const generateOperatorEmailMessage = ({
       Наименование: ${product.productData.productTitle}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInTenge} т. , ${product.productData.productPriceInRubles} р.`
 )}
 
-Итого: ${orderProducts.totalPriceInTenge} т. , ${orderProducts.totalPriceInRubles} р.
+Итого: ${orderProducts.totalPriceInTenge} т. , ${
+  orderProducts.totalPriceInRubles
+} р.
 
 `
 

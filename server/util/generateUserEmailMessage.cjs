@@ -28,8 +28,12 @@ const generateUserEmailMessage = ({
   
 Товары: ${orderProducts.products.map(
   product => `
-      Наименование: ${product.productData.productTitle}, Артикул: ${product.article}, Количество: ${product.quantity}, Цена: ${product.productData.productPriceInRubles * financial.EXTRA_CHARGE_COEFFICIENT} р.`
-  
+      Наименование: ${product.productData.productTitle}, Артикул: ${
+    product.article
+  }, Количество: ${product.quantity}, Цена: ${
+    product.productData.productPriceInRubles *
+    financial.EXTRA_CHARGE_COEFFICIENT
+  } р.`
 )}
 
 Итого: ${orderProducts.totalPriceInRubles} р.
