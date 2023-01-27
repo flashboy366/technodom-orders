@@ -7,8 +7,8 @@ import {
 } from '../redux/reducers/orderProductsReducer'
 import { useAppDispatch, useAppSelector } from './redux'
 import { useEffect } from 'react'
-import { emptyProductData } from '../interfaces/ProductData'
-import Product from '../interfaces/Product'
+import { emptyProductData } from '../types/ProductData'
+import Product from '../types/Product'
 
 interface UseProductItemProps {
   product: Product

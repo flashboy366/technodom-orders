@@ -2,7 +2,7 @@ import Image from 'mui-image'
 import { Box } from '@mui/material'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
-import Product from '../../interfaces/Product'
+import Product from '../../types/Product'
 
 interface ProductImageProps {
   product: Product

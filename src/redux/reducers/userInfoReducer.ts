@@ -1,4 +1,4 @@
-import Location from '../../interfaces/Location'
+import Location from '../../types/Location'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import LOCATIONS from '../../constants/locations'
 

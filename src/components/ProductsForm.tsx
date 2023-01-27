@@ -4,7 +4,7 @@ import ProductItem from './productsForm/ProductItem'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { addProduct } from '../redux/reducers/orderProductsReducer'
 import { useFieldArray, useFormContext } from 'react-hook-form'
-import { emptyProduct } from '../interfaces/Product'
+import { emptyProduct } from '../types/Product'
 import { FieldArrayFormProvider } from './react-hook-form/FieldArrayFormProvider'
 import HowToButton from './HowToButton'
 

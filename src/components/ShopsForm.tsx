@@ -53,26 +53,27 @@ const ShopsForm = () => {
                 }
                 value="technodom"
               />
-              <FormControlLabel
-                control={<Radio />}
-                label={
-                  <Image
-                    src={'miele_logo.png'}
-                    height={60}
-                    width={200}
-                    fit="none"
-                  />
-                }
-                value="miele"
-              />
+              {/*<FormControlLabel*/}
+              {/*  control={<Radio />}*/}
+              {/*  label={*/}
+              {/*    <Image*/}
+              {/*      src={'miele_logo.png'}*/}
+              {/*      height={60}*/}
+              {/*      width={200}*/}
+              {/*      fit="none"*/}
+              {/*    />*/}
+              {/*  }*/}
+              {/*  value="miele"*/}
+              {/*/>*/}
               <FormControlLabel
                 control={<Radio />}
                 label={
                   <Box
-                    width={250}
+                    width={280}
                     justifyContent="center"
                     position="relative"
                     left={-30}
+                    top={-4}
                   >
                     <Image src={'mechta_logo.png'} height={60} fit="cover" />
                   </Box>

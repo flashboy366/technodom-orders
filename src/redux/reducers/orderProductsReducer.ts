@@ -1,6 +1,6 @@
-import Product, { emptyProduct } from '../../interfaces/Product'
+import Product, { emptyProduct } from '../../types/Product'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import ProductData, { emptyProductData } from '../../interfaces/ProductData'
+import ProductData, { emptyProductData } from '../../types/ProductData'
 import FINANCIAL from '../../constants/financial'
 
 export interface OrderProductsState {

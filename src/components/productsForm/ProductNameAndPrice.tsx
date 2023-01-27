@@ -3,7 +3,7 @@ import { COLORS } from '../../constants/materialui'
 import FINANCIAL from '../../constants/financial'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
-import Product from '../../interfaces/Product'
+import Product from '../../types/Product'
 
 interface ProductNameAndPriceProps {
   product: Product

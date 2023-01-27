@@ -1,4 +1,4 @@
-import Location from '../interfaces/Location'
+import Location from '../types/Location'
 
 const locationsRaw = [
   'Алапаевск',

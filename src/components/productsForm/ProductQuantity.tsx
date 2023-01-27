@@ -2,7 +2,7 @@ import ProductPropertyTitle from './ProductPropertyTitle'
 import { Stack } from '@mui/material'
 import ProductQuantityButton from './ProductQuantityButtonProps'
 import FormProductInput from '../react-hook-form/FormProductInput'
-import Product from '../../interfaces/Product'
+import Product from '../../types/Product'
 
 interface ProductQuantityProps {
   index: number

@@ -1,6 +1,6 @@
 import { Paper, Stack } from '@mui/material'
 import ProductDeleteButton from './ProductDeleteButton'
-import Product from '../../interfaces/Product'
+import Product from '../../types/Product'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
 import useProductItem from '../../hooks/useProductItem'

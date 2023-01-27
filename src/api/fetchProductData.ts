@@ -1,5 +1,5 @@
 import SERVER from '../constants/server'
-import ProductData, { emptyProductData } from '../interfaces/ProductData'
+import ProductData, { emptyProductData } from '../types/ProductData'
 import fetchTengeToRubleRate from './fetchTengeToRubleRate'
 import FINANCIAL from '../constants/financial'
 import TECHNODOM from '../constants/technodom'

@@ -1,7 +1,7 @@
 import ProductPropertyTitle from './ProductPropertyTitle'
 import { Box, Stack } from '@mui/material'
 import FormProductInput from '../react-hook-form/FormProductInput'
-import Product from '../../interfaces/Product'
+import Product from '../../types/Product'
 
 interface ProductArticleProps {
   index: number
