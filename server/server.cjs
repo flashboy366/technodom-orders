@@ -15,6 +15,7 @@ app
 
 app
   .get('/product_data', (req, res) => {
+    console.log(req.query.productURL)
     fetch(req.query.productURL)
       .then(function (response) {
         return response.text()

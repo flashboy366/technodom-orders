@@ -1,1 +1,1 @@
-export type ChosenShop = 'technodom' | 'miele' | 'mechta'
+export type ChosenShop = 'technodom' | 'miele' | 'mechta' | ''

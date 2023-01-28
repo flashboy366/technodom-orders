@@ -35,6 +35,10 @@ const App = () => {
     setDeliveryAddressRequired,
     subscribeShowResultModal,
     loadingBackdropShown,
+    shopIsChosen,
+    setShopIsChosen,
+    chosenShop,
+    setChosenShop,
   } = useAppForm()
 
   return (
@@ -70,10 +74,23 @@ const App = () => {
         </Stack>
         <FormProvider {...reactHookFormMethods}>
           <Stack flex={2} spacing={1}>
-            <ShopsForm />
-            <ProductsForm />
-            <UserForm setDeliveryAddressRequired={setDeliveryAddressRequired} />
-            <SubmitOrderForm />
+            <ShopsForm
+              shopIsChosen={shopIsChosen}
+              setShopIsChosen={setShopIsChosen}
+              chosenShop={chosenShop}
+              setChosenShop={setChosenShop}
+            />
+            {shopIsChosen ? (
+              <>
+                <ProductsForm chosenShop={chosenShop} />
+                <UserForm
+                  setDeliveryAddressRequired={setDeliveryAddressRequired}
+                />
+                <SubmitOrderForm />
+              </>
+            ) : (
+              <></>
+            )}
           </Stack>
         </FormProvider>
         <Stack spacing={2} alignItems="center" marginTop={15}>

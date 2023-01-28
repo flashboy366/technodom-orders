@@ -4,6 +4,7 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  Link,
   Radio,
   RadioGroup,
   Stack,
@@ -15,21 +16,45 @@ import Image from 'mui-image'
 import { useFormContext } from 'react-hook-form'
 import { useAppDispatch } from '../hooks/redux'
 import { resetProductsState } from '../redux/reducers/orderProductsReducer'
+import HowToButton from './HowToButton'
+import { ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { ChosenShop } from '../types/ChosenShop'
+import { SHOPS } from '../constants/shops'
 
-const ShopsForm = () => {
+interface ShopsFormProps {
+  shopIsChosen: boolean
+  setShopIsChosen: Dispatch<SetStateAction<boolean>>
+  chosenShop: ChosenShop
+  setChosenShop: Dispatch<SetStateAction<ChosenShop>>
+}
+
+const ShopsForm = ({
+  shopIsChosen,
+  setShopIsChosen,
+  setChosenShop,
+  chosenShop,
+}: ShopsFormProps) => {
   const [iseDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   const { reset: resetForm } = useFormContext()
   const dispatch = useAppDispatch()
 
-  const switchShopHandler = () => {
+  const resetAppForm = () => {
     resetForm()
     dispatch(resetProductsState())
   }
 
+  const switchShopHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    resetAppForm()
+    setShopIsChosen(true)
+    setChosenShop(event.target.value)
+  }
+  console.log(shopIsChosen)
+
   return (
     <FormWrapper title="">
       <Stack spacing={3} alignItems="center" justifyContent="space-around">
+        <HowToButton />
         <Stack
           direction={iseDesktopMedia ? 'row' : 'column'}
           alignItems="center"
@@ -87,8 +112,14 @@ const ShopsForm = () => {
             </RadioGroup>
           </FormControl>
         </Stack>
-        <Button variant="outlined" sx={{}} disabled>
-          Перейти на сайт поставщика
+        <Button variant="outlined" sx={{}} disabled={!shopIsChosen}>
+          {shopIsChosen ? (
+            <Link href={SHOPS.SHOP_URLS[chosenShop]} target="_blank">
+              Перейти на сайт поставщика
+            </Link>
+          ) : (
+            'Перейти на сайт поставщика'
+          )}
         </Button>
       </Stack>
     </FormWrapper>

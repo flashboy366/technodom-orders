@@ -6,9 +6,13 @@ import { addProduct } from '../redux/reducers/orderProductsReducer'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { emptyProduct } from '../types/Product'
 import { FieldArrayFormProvider } from './react-hook-form/FieldArrayFormProvider'
-import HowToButton from './HowToButton'
+import { ChosenShop } from '../types/ChosenShop'
 
-const ProductsForm = () => {
+interface ProductsForm {
+  chosenShop: ChosenShop
+}
+
+const ProductsForm = ({ chosenShop }: ProductsForm) => {
   const orderProductsState = useAppSelector(state => state.orderProducts)
   const dispatch = useAppDispatch()
 
@@ -36,11 +40,12 @@ const ProductsForm = () => {
       key={index}
       index={index}
       product={orderProductsState.products[index]}
+      chosenShop={chosenShop}
     />
   ))
 
   return (
-    <FormWrapper title="Товары" additionalHeaderElement={<HowToButton />}>
+    <FormWrapper title="Товары">
       <Stack spacing={2}>
         {/*eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/*@ts-ignore*/}

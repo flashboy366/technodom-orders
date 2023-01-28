@@ -9,12 +9,14 @@ import { useAppDispatch, useAppSelector } from './redux'
 import { useEffect } from 'react'
 import { emptyProductData } from '../types/ProductData'
 import Product from '../types/Product'
+import { ChosenShop } from '../types/ChosenShop'
 
 interface UseProductItemProps {
   product: Product
+  chosenShop: ChosenShop
 }
 
-const useProductItem = ({ product }: UseProductItemProps) => {
+const useProductItem = ({ product, chosenShop }: UseProductItemProps) => {
   const productState = useAppSelector(
     state =>
       state.orderProducts.products[
@@ -27,7 +29,10 @@ const useProductItem = ({ product }: UseProductItemProps) => {
     let newProductData
     if (product) {
       if (product.productURL) {
-        newProductData = await fetchProductData(product.productURL)
+        newProductData = await fetchProductData({
+          chosenShop: chosenShop,
+          productURL: product.productURL,
+        })
       } else newProductData = emptyProductData
       dispatch(
         setProductData({ productID: product.id, productData: newProductData })

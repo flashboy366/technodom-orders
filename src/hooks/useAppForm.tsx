@@ -6,6 +6,7 @@ import { sendEmails } from '../util/email'
 import { useEffect, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { ChosenShop } from '../types/ChosenShop'
 
 const useAppForm = () => {
   const [deliveryAddressRequired, setDeliveryAddressRequired] = useState(false)
@@ -14,6 +15,8 @@ const useAppForm = () => {
   )
   const appState = useAppSelector(state => state)
   const [loadingBackdropShown, setLoadingBackdropShown] = useState(false)
+  const [shopIsChosen, setShopIsChosen] = useState(false)
+  const [chosenShop, setChosenShop] = useState<ChosenShop>('')
 
   const dispatch = useAppDispatch()
 
@@ -96,6 +99,10 @@ const useAppForm = () => {
     setDeliveryAddressRequired,
     subscribeShowResultModal,
     loadingBackdropShown,
+    shopIsChosen,
+    setShopIsChosen,
+    chosenShop,
+    setChosenShop,
   }
 }
 

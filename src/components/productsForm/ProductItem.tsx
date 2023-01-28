@@ -8,13 +8,15 @@ import ProductURL from './ProductURL'
 import ProductQuantity from './ProductQuantity'
 import ProductNameAndPrice from './ProductNameAndPrice'
 import ProductImage from './ProductImage'
+import { ChosenShop } from '../../types/ChosenShop'
 
 interface ProductItemProps {
   product: Product
   index: number
+  chosenShop: ChosenShop
 }
 
-const ProductItem = ({ index, product }: ProductItemProps) => {
+const ProductItem = ({ index, product, chosenShop }: ProductItemProps) => {
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
   const {
     productState,
@@ -22,7 +24,7 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
     decrementQuantity,
     updateQuantity,
     incrementQuantity,
-  } = useProductItem({ product: product })
+  } = useProductItem({ chosenShop, product })
 
   return (
     <Paper

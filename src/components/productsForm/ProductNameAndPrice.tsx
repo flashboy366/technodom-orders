@@ -20,13 +20,13 @@ const ProductNameAndPrice = ({ product }: ProductNameAndPriceProps) => {
       {product.productData.productTitle !== '' ? (
         <Typography
           color={
-            product.productData.productPriceInTengeLabel
+            product.productData.productPriceInTenge
               ? COLORS.ACCENT_PRIMARY
               : COLORS.ERROR_RED
           }
           marginBottom={1}
         >
-          {product.productData.productPriceInTengeLabel
+          {product.productData.productPriceInTenge
             ? `${Math.trunc(
                 product.productData.productPriceInRubles *
                   product.quantity *
