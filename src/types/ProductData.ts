@@ -4,7 +4,6 @@ export default interface ProductData {
   productPriceInTenge: number
   productPriceInRubles: number
   productImgUrl: string
-  productUrl: string
 }
 
 export const emptyProductData: ProductData = {
@@ -13,5 +12,4 @@ export const emptyProductData: ProductData = {
   productPriceInTenge: 0,
   productPriceInRubles: 0,
   productImgUrl: '',
-  productUrl: '',
 }

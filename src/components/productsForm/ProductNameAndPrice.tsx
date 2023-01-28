@@ -14,7 +14,7 @@ const ProductNameAndPrice = ({ product }: ProductNameAndPriceProps) => {
 
   return (
     <Stack width={isDesktopMedia ? 450 : '100%'}>
-      <Link href={product.productData.productUrl} variant="body1">
+      <Link href={product.productURL} variant="body1">
         {product.productData.productTitle}
       </Link>
       {product.productData.productTitle !== '' ? (

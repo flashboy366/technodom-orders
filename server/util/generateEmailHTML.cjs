@@ -62,10 +62,9 @@ ${orderProducts.products
     product => `
 <tr>
 <td>
-<a href='${product.productData.productUrl}'>
+<a href='${product.productURL}'>
 ${product.productData.productTitle}
 </a>
-<i style='font-weight: 600'>Артикул: ${product.article}</i>
 </td>
 <td style='text-align: center'>
 <img src='${product.productData.productImgUrl}' alt=''>
