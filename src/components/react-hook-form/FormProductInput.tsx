@@ -1,18 +1,20 @@
 import { TextField, TextFieldProps } from '@mui/material'
-import { FC } from 'react'
+import { ChangeEvent, FC } from 'react'
 import { Controller } from 'react-hook-form'
 import { useFieldArrayFormContext } from './FieldArrayFormProvider'
 
 type FormInputProps = {
   index: number
   name: string
-  updateState: (value: number | undefined) => void
+  registerOnChange: (event: ChangeEvent<HTMLTextAreaElement>) => void
+  registerOnBlur: (event: ChangeEvent<HTMLTextAreaElement>) => void
 } & TextFieldProps
 
 const FormProductInput: FC<FormInputProps> = ({
   index,
   name,
-  updateState,
+  registerOnChange,
+  registerOnBlur,
   ...otherProps
 }) => {
   const {
@@ -52,16 +54,14 @@ const FormProductInput: FC<FormInputProps> = ({
           helperText={errorMsg ? errorMsg : ' '}
           value={otherProps.value}
           {...control.register(productInputName, {
-            onChange: event => {
-              const value = event.target.value.replace(/\D+/, '')
-              updateState(value)
-            },
-            onBlur: event => {
-              const value = event.target.value.replace(/\D+/, '')
-              updateState(value)
-            },
+            onChange: registerOnChange,
+            onBlur: registerOnBlur,
           })}
-          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+          inputProps={{
+            inputMode: 'numeric',
+            pattern: '[0-9]*',
+            ...otherProps.inputProps,
+          }}
         />
       )}
     />

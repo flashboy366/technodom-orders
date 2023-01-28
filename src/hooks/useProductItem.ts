@@ -1,8 +1,8 @@
 import { fetchProductData } from '../api/fetchProductData'
 import {
   getProductIndexByID,
-  setArticle,
   setProductData,
+  setProductURL,
   setQuantity,
 } from '../redux/reducers/orderProductsReducer'
 import { useAppDispatch, useAppSelector } from './redux'
@@ -26,8 +26,8 @@ const useProductItem = ({ product }: UseProductItemProps) => {
   const updateProductData = async () => {
     let newProductData
     if (product) {
-      if (product.article) {
-        newProductData = await fetchProductData(product.article)
+      if (product.productURL) {
+        newProductData = await fetchProductData(product.productURL)
       } else newProductData = emptyProductData
       dispatch(
         setProductData({ productID: product.id, productData: newProductData })
@@ -37,10 +37,12 @@ const useProductItem = ({ product }: UseProductItemProps) => {
 
   useEffect(() => {
     updateProductData()
-  }, [product.article])
+  }, [product.productURL])
 
-  const updateArticle = (newArticle: number | undefined) => {
-    dispatch(setArticle({ productID: product.id, article: newArticle }))
+  const updateProductURL = (newProductURL: string) => {
+    dispatch(
+      setProductURL({ productID: product.id, productURL: newProductURL })
+    )
   }
   const updateQuantity = (newQuantity: number) => {
     dispatch(setQuantity({ productID: product.id, quantity: newQuantity }))
@@ -51,7 +53,7 @@ const useProductItem = ({ product }: UseProductItemProps) => {
 
   return {
     productState,
-    updateArticle,
+    updateProductURL,
     updateQuantity,
     incrementQuantity,
     decrementQuantity,

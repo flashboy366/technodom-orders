@@ -5,23 +5,21 @@ import FINANCIAL from '../constants/financial'
 import TECHNODOM from '../constants/technodom'
 
 export const fetchProductData = async (
-  productArticle: number
+  productURL: string
 ): Promise<ProductData> => {
   const productData: ProductData = { ...emptyProductData }
-  if (productArticle === 0) {
+  if (productURL === '') {
     return productData
   }
 
   const productDataResponse = await fetch(
     SERVER.URL +
       'product_data?' +
-      new URLSearchParams({ productArticle: productArticle.toString() })
+      new URLSearchParams({ productURL: productURL })
   )
   const data = await productDataResponse.json()
   const parser = new DOMParser()
   const productPageDocument = parser.parseFromString(data, 'text/html')
-
-  productData.productUrl = SERVER.PRODUCT_URL + productArticle.toString()
 
   productData.productTitle =
     getFirstElementTextWithClass(productPageDocument, 'product-info__header') ??

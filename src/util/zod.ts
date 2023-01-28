@@ -1,7 +1,7 @@
 import { any, array, literal, number, object, string } from 'zod'
 
 const productValidationSchema = object({
-  article: any().refine(val => val !== '', { message: 'Обязательное поле' }),
+  productURL: string().nonempty('Обязательное поле'),
   quantity: any()
     .refine(val => val !== '', {
       message: 'Обязательное поле',

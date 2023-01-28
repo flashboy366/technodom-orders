@@ -1,6 +1,6 @@
 import Product, { emptyProduct } from '../../types/Product'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import ProductData, { emptyProductData } from '../../types/ProductData'
+import ProductData from '../../types/ProductData'
 import FINANCIAL from '../../constants/financial'
 
 export interface OrderProductsState {
@@ -33,25 +33,21 @@ export const orderProductsSlice = createSlice({
         newProductID = lastProduct.id + 1
       } else newProductID = 0
 
-      const newProduct: Product = {
-        id: newProductID,
-        article: undefined,
-        quantity: 1,
-        productData: emptyProductData,
-      }
+      const newProduct: Product = { ...emptyProduct }
+      newProduct.id = newProductID
       state.products.push(newProduct)
       calculateProductsPricesSum(state)
     },
 
-    setArticle: (
+    setProductURL: (
       state,
-      action: PayloadAction<{ productID: number; article: number | undefined }>
+      action: PayloadAction<{ productID: number; productURL: string }>
     ) => {
       const targetProductIndex = getProductIndexByID(
         state,
         action.payload.productID
       )
-      state.products[targetProductIndex].article = action.payload.article
+      state.products[targetProductIndex].productURL = action.payload.productURL
       calculateProductsPricesSum(state)
     },
 
@@ -63,7 +59,6 @@ export const orderProductsSlice = createSlice({
         state,
         action.payload.productID
       )
-      console.log(typeof action.payload.quantity)
       state.products[targetProductIndex].quantity = action.payload.quantity
       calculateProductsPricesSum(state)
     },
@@ -151,7 +146,7 @@ export const {
   addProduct,
   removeProduct,
   setQuantity,
-  setArticle,
+  setProductURL,
   setProductData,
   incrementQuantity,
   decrementQuantity,

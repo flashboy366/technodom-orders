@@ -39,7 +39,11 @@ const ShopsForm = () => {
             <FormLabel sx={{ alignSelf: 'center' }}>
               Выберите поставщика
             </FormLabel>
-            <RadioGroup row onChange={switchShopHandler} sx={{ gap: 3 }}>
+            <RadioGroup
+              row
+              onChange={switchShopHandler}
+              sx={{ gap: 3, justifyContent: 'space-between' }}
+            >
               <FormControlLabel
                 control={<Radio />}
                 label={

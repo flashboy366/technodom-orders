@@ -15,13 +15,16 @@ app
 
 app
   .get('/product_data', (req, res) => {
-    fetch(URLS.PRODUCT_URL + req.query.productArticle)
+    fetch(req.query.productURL)
       .then(function (response) {
         return response.text()
       })
       .then(function (string) {
         res.json(string)
         res.end()
+      })
+      .catch(error => {
+        console.log(error)
       })
   })
   .get('/cb_rates', (req, res) => {

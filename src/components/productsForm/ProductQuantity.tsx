@@ -1,8 +1,8 @@
-import ProductPropertyTitle from './ProductPropertyTitle'
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import ProductQuantityButton from './ProductQuantityButtonProps'
 import FormProductInput from '../react-hook-form/FormProductInput'
 import Product from '../../types/Product'
+import { ChangeEvent } from 'react'
 
 interface ProductQuantityProps {
   index: number
@@ -19,19 +19,25 @@ const ProductQuantity = ({
   updateQuantity,
   incrementQuantity,
 }: ProductQuantityProps) => {
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value.replace(/\D+/, '')
+    updateQuantity(parseInt(value))
+  }
+
   return (
-    <Stack spacing={2} width={210}>
-      {/*Quantity input*/}
-      <ProductPropertyTitle title="Количество" />
+    <Stack spacing={2} width={210} alignItems="center">
+      <Typography>Количество</Typography>
       <Stack direction="row" spacing={1}>
         <ProductQuantityButton onClick={decrementQuantity}>
           -
         </ProductQuantityButton>
         <FormProductInput
+          inputProps={{ readOnly: true }}
           index={index}
           name={`quantity`}
           value={productState.quantity}
-          updateState={value => updateQuantity(value!)}
+          registerOnBlur={handleInputChange}
+          registerOnChange={handleInputChange}
         />
         <ProductQuantityButton onClick={incrementQuantity}>
           +

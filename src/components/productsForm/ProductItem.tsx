@@ -4,7 +4,7 @@ import Product from '../../types/Product'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
 import useProductItem from '../../hooks/useProductItem'
-import ProductArticle from './ProductArticle'
+import ProductURL from './ProductURL'
 import ProductQuantity from './ProductQuantity'
 import ProductNameAndPrice from './ProductNameAndPrice'
 import ProductImage from './ProductImage'
@@ -18,7 +18,7 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
   const {
     productState,
-    updateArticle,
+    updateProductURL,
     decrementQuantity,
     updateQuantity,
     incrementQuantity,
@@ -42,10 +42,10 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
             spacing={isDesktopMedia ? 2 : 0}
             justifyContent="flex-start"
           >
-            <ProductArticle
+            <ProductURL
               index={index}
               productState={productState}
-              updateArticle={updateArticle}
+              updateProductURL={updateProductURL}
             />
             <ProductQuantity
               productState={productState}

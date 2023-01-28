@@ -54,14 +54,14 @@ const UserInfo = () => {
     <>
       <FormInput
         variant="standard"
-        placeholder="ФИО *"
+        placeholder="ФИО"
         value={userInfoState.name}
         onChange={event => dispatch(setName({ name: event.target.value }))}
         name="name"
       />
       <FormInput
         variant="standard"
-        placeholder="Номер телефона *"
+        placeholder="Номер телефона"
         value={userInfoState.phoneNumber}
         name="phone"
         onChange={event => {
@@ -89,7 +89,7 @@ const UserInfo = () => {
     <>
       <FormInput
         variant="standard"
-        placeholder="Электронная почта *"
+        placeholder="Электронная почта"
         value={userInfoState.email}
         onChange={event => dispatch(setEmail({ email: event.target.value }))}
         name="email"
@@ -107,7 +107,7 @@ const UserInfo = () => {
           renderInput={params => (
             <TextField
               {...params}
-              label="Населённый пункт *"
+              label="Населённый пункт"
               error={!!errors['location']}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore

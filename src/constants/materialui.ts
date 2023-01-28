@@ -4,7 +4,7 @@ export const COLORS = {
   BACKGROUND_GRAY: 'whitesmoke',
   PRIMARY_WHITE: 'white',
 
-  PRIMARY: '#DA4200',
+  PRIMARY: '#ea6931',
   SECONDARY: '#EB6123',
   ACCENT_PRIMARY: '#512888',
   ACCENT_SECONDARY: '#7349AC',
