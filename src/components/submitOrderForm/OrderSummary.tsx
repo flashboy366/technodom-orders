@@ -15,24 +15,26 @@ const OrderSummary = () => {
   } = useFormContext()
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} marginBottom={10}>
       <Stack
         justifyContent="space-between"
         alignSelf="flex-end"
         alignItems="flex-end"
       >
         <Typography
-          variant="h6"
+          variant="body1"
           sx={{
             fontWeight: '500',
           }}
           color={COLORS.ACCENT_PRIMARY}
+          textAlign="right"
         >
-          У вас {orderProductsState.products.length} товар(ов) на сумму{' '}
+          У вас {orderProductsState.products.length} товар(ов) на сумму
+          {' ' + orderProductsState.productsPricesSumInTenge} т. (
           {orderProductsState.productsPricesSumInRubles !== 0
             ? orderProductsState.totalPriceInRubles.toString()
             : Number(0).toString()}{' '}
-          р.
+          р.)
         </Typography>
         <Typography
           variant="body2"
@@ -47,9 +49,9 @@ const OrderSummary = () => {
         sx={{
           width: isDesktopMedia ? '60%' : '100%',
           margin: 1,
-          alignSelf: 'center',
+          alignSelf: 'flex-end',
         }}
-        textAlign="center"
+        textAlign="right"
       >
         Стоимость товара указана с учетом доставки и выдачи товара на складе в
         г. Челябинск, Свердловский тракт 5. Стоимость доставки до адреса и в

@@ -8,6 +8,7 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  Typography,
 } from '@mui/material'
 import FormWrapper from './FormWrapper'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
@@ -20,6 +21,7 @@ import HowToButton from './HowToButton'
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { ChosenShop } from '../types/ChosenShop'
 import { SHOPS } from '../constants/shops'
+import { COLORS } from '../constants/materialui'
 
 interface ShopsFormProps {
   shopIsChosen: boolean
@@ -34,7 +36,7 @@ const ShopsForm = ({
   setChosenShop,
   chosenShop,
 }: ShopsFormProps) => {
-  const [iseDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   const { reset: resetForm } = useFormContext()
   const dispatch = useAppDispatch()
@@ -51,36 +53,52 @@ const ShopsForm = ({
     // @ts-ignore
     setChosenShop(event.target.value)
   }
-  console.log(shopIsChosen)
 
   return (
     <FormWrapper title="">
       <Stack spacing={3} alignItems="center" justifyContent="space-around">
         <HowToButton />
         <Stack
-          direction={iseDesktopMedia ? 'row' : 'column'}
+          direction={isDesktopMedia ? 'row' : 'column'}
           alignItems="center"
           spacing={2}
         >
           <FormControl sx={{ gap: 2 }}>
             <FormLabel sx={{ alignSelf: 'center' }}>
-              Выберите поставщика
+              <Typography textAlign="center">
+                Прочитайте инструкцию и выберите поставщика
+              </Typography>
             </FormLabel>
             <RadioGroup
-              row
+              row={isDesktopMedia}
               onChange={switchShopHandler}
-              sx={{ gap: 3, justifyContent: 'space-between' }}
+              sx={{
+                gap: 3,
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
             >
               <FormControlLabel
                 control={<Radio />}
                 label={
-                  <Image
-                    src="technodom_logo.png"
-                    width={245}
-                    height={60}
-                    fit="none"
-                    bgColor="white"
-                  />
+                  <Stack width={245}>
+                    <Image
+                      src="technodom_logo.png"
+                      height={60}
+                      fit="none"
+                      bgColor="white"
+                    />
+                    <Typography
+                      textAlign="center"
+                      color={
+                        chosenShop === 'technodom'
+                          ? COLORS.PRIMARY
+                          : COLORS.GRAY
+                      }
+                    >
+                      электробытовая и компьютерная техника
+                    </Typography>
+                  </Stack>
                 }
                 value="technodom"
               />
@@ -99,15 +117,25 @@ const ShopsForm = ({
               <FormControlLabel
                 control={<Radio />}
                 label={
-                  <Box
-                    width={280}
-                    justifyContent="center"
-                    position="relative"
-                    left={-30}
-                    top={-4}
-                  >
-                    <Image src={'mechta_logo.png'} height={60} fit="cover" />
-                  </Box>
+                  <Stack>
+                    <Box
+                      width={280}
+                      justifyContent="center"
+                      position="relative"
+                      left={-8}
+                      top={-4}
+                    >
+                      <Image src={'mechta_logo.png'} height={60} fit="cover" />
+                    </Box>
+                    <Typography
+                      textAlign="center"
+                      color={
+                        chosenShop === 'mechta' ? COLORS.PRIMARY : COLORS.GRAY
+                      }
+                    >
+                      электроника и бытовая техника
+                    </Typography>
+                  </Stack>
                 }
                 value="mechta"
               />

@@ -1,31 +1,35 @@
 import { Paper, Stack, StackProps, Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
 import Image from 'mui-image'
+import useIsMediaWidth from '../../hooks/useIsMediaWidth'
+import { desktopWidthSelector } from '../../util/materialui'
 
 const TitleAdvantages = ({ ...props }: StackProps) => {
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+
   return (
     <Stack
       spacing={1}
       marginTop={2}
       width="fit-content"
       {...props}
-      direction="row"
+      direction={isDesktopMedia ? 'row' : 'column'}
       alignItems="center"
     >
-      <Stack>
+      <Stack width={isDesktopMedia ? 'initial' : 300}>
         <Typography fontWeight={500} variant="h5" color={COLORS.ACCENT_PRIMARY}>
           Наши преимущества
         </Typography>
         <Typography>
-          - покупка и оперативная доставка товаров премиальных брендов:
+          покупка и оперативная доставка товаров премиальных брендов:
         </Typography>
       </Stack>
       <Paper
         sx={{
-          alignSelf: 'flex-end',
+          alignSelf: isDesktopMedia ? 'flex-end' : 'initial',
           borderRadius: 3,
           overflow: 'hidden',
-          width: 400,
+          width: isDesktopMedia ? 400 : 300,
         }}
       >
         <Image

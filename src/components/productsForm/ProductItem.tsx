@@ -43,6 +43,7 @@ const ProductItem = ({ index, product, chosenShop }: ProductItemProps) => {
             direction={isDesktopMedia ? 'row' : 'column'}
             spacing={isDesktopMedia ? 2 : 0}
             justifyContent="flex-start"
+            alignItems={isDesktopMedia ? 'initial' : 'center'}
           >
             <ProductURL
               index={index}

@@ -28,10 +28,14 @@ const ProductNameAndPrice = ({ product }: ProductNameAndPriceProps) => {
         >
           {product.productData.productPriceInTenge
             ? `${Math.trunc(
+                product.productData.productPriceInTenge *
+                  product.quantity *
+                  FINANCIAL.EXTRA_CHARGE_COEFFICIENT
+              )} т. (${Math.trunc(
                 product.productData.productPriceInRubles *
                   product.quantity *
                   FINANCIAL.EXTRA_CHARGE_COEFFICIENT
-              )} р.`
+              )} р.)`
             : 'Нет в наличии'}
         </Typography>
       ) : null}
