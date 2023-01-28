@@ -47,6 +47,8 @@ const ShopsForm = ({
   const switchShopHandler = (event: ChangeEvent<HTMLInputElement>) => {
     resetAppForm()
     setShopIsChosen(true)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     setChosenShop(event.target.value)
   }
   console.log(shopIsChosen)
@@ -114,6 +116,8 @@ const ShopsForm = ({
         </Stack>
         <Button variant="outlined" sx={{}} disabled={!shopIsChosen}>
           {shopIsChosen ? (
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             <Link href={SHOPS.SHOP_URLS[chosenShop]} target="_blank">
               Перейти на сайт поставщика
             </Link>
