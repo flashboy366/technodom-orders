@@ -94,7 +94,7 @@ const UserInfo = () => {
         onChange={event => dispatch(setEmail({ email: event.target.value }))}
         name="email"
       />
-      <Box sx={{ height: 78 }}>
+      <Box sx={{ height: 63 }}>
         <Autocomplete
           disablePortal
           id="combo-box-demo"

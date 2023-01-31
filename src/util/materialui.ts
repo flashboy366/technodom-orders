@@ -6,12 +6,24 @@ export const theme = createTheme({
   components: {
     MuiButton: {
       defaultProps: {
+        size: 'small',
         sx: {
           color: COLORS.PRIMARY_WHITE,
           bgcolor: COLORS.PRIMARY,
           ':hover': { bgcolor: COLORS.SECONDARY },
         },
       },
+    },
+    MuiTypography: {
+      defaultProps: {
+        variant: 'body2',
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        size: 'small',
+      },
+      styleOverrides: { root: { fontSize: 'smaller' } },
     },
   },
 })

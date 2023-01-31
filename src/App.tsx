@@ -22,7 +22,7 @@ import FooterTip from './components/footer/FooterTip'
 import FooterPartners from './components/footer/FooterPartners'
 import ShopsForm from './components/ShopsForm'
 import useAppForm from './hooks/useAppForm'
-import AppHeader from './components/AppHeader'
+import Title from './components/Title'
 
 const App = () => {
   const {
@@ -49,9 +49,9 @@ const App = () => {
         autoComplete="off"
         onSubmit={onSubmit}
       >
-        <AppHeader />
+        <Title />
         <FormProvider {...reactHookFormMethods}>
-          <Stack flex={2} spacing={1}>
+          <Stack flex={2} spacing={2}>
             <ShopsForm
               shopIsChosen={shopIsChosen}
               setShopIsChosen={setShopIsChosen}

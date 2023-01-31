@@ -9,7 +9,7 @@ const TitleHeader = () => {
   return (
     <Typography
       fontFamily="merriweather"
-      variant={isDesktopMedia ? 'h2' : 'h3'}
+      variant={isDesktopMedia ? 'h4' : 'h5'}
       color={COLORS.PRIMARY}
       fontStyle="bold"
       fontWeight="700"

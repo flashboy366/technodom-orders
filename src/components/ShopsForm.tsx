@@ -1,10 +1,10 @@
 import {
-  Box,
   Button,
   FormControl,
   FormControlLabel,
   FormLabel,
   Link,
+  Paper,
   Radio,
   RadioGroup,
   Stack,
@@ -13,7 +13,6 @@ import {
 import FormWrapper from './FormWrapper'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../util/materialui'
-import Image from 'mui-image'
 import { useFormContext } from 'react-hook-form'
 import { useAppDispatch } from '../hooks/redux'
 import { resetProductsState } from '../redux/reducers/orderProductsReducer'
@@ -81,12 +80,17 @@ const ShopsForm = ({
               <FormControlLabel
                 control={<Radio />}
                 label={
-                  <Stack width={245}>
-                    <Image
-                      src="technodom_logo.png"
-                      height={60}
-                      fit="none"
-                      bgColor="white"
+                  <Stack justifyItems="space-between">
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        width: 260,
+                        height: 60,
+                        backgroundImage: `url(${'technodom_logo.png'})`,
+                        backgroundSize: '77%',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                      }}
                     />
                     <Typography
                       textAlign="center"
@@ -96,37 +100,26 @@ const ShopsForm = ({
                           : COLORS.GRAY
                       }
                     >
-                      электробытовая и компьютерная техника
+                      бытовая и компьютерная техника
                     </Typography>
                   </Stack>
                 }
                 value="technodom"
               />
-              {/*<FormControlLabel*/}
-              {/*  control={<Radio />}*/}
-              {/*  label={*/}
-              {/*    <Image*/}
-              {/*      src={'miele_logo.png'}*/}
-              {/*      height={60}*/}
-              {/*      width={200}*/}
-              {/*      fit="none"*/}
-              {/*    />*/}
-              {/*  }*/}
-              {/*  value="miele"*/}
-              {/*/>*/}
               <FormControlLabel
                 control={<Radio />}
                 label={
                   <Stack>
-                    <Box
-                      width={280}
-                      justifyContent="center"
-                      position="relative"
-                      left={-8}
-                      top={-4}
-                    >
-                      <Image src={'mechta_logo.png'} height={60} fit="cover" />
-                    </Box>
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        width: 260,
+                        height: 60,
+                        backgroundImage: `url(${'mechta_logo.png'})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }}
+                    />
                     <Typography
                       textAlign="center"
                       color={

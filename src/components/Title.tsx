@@ -6,7 +6,7 @@ import TitleAdvantages from './title/TitleAdvantages'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../util/materialui'
 
-const AppHeader = () => {
+const Title = () => {
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   return (
@@ -24,7 +24,12 @@ const AppHeader = () => {
           <TitleDescription />
         </Stack>
       </Paper>
-      <Stack direction={isDesktopMedia ? 'row' : 'column'}>
+      <Stack
+        direction={isDesktopMedia ? 'row' : 'column'}
+        spacing={2}
+        alignItems="center"
+        height={isDesktopMedia ? 120 : 'initial'}
+      >
         <TitlePaymentOptions flex={1} />
         <TitleAdvantages flex={1} />
       </Stack>
@@ -32,4 +37,4 @@ const AppHeader = () => {
   )
 }
 
-export default AppHeader
+export default Title

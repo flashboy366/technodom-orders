@@ -25,7 +25,7 @@ const ProductQuantity = ({
   }
 
   return (
-    <Stack spacing={2} width={210} alignItems="center">
+    <Stack spacing={2} width={125} alignItems="center">
       <Typography>Количество</Typography>
       <Stack direction="row" spacing={1}>
         <ProductQuantityButton onClick={decrementQuantity}>

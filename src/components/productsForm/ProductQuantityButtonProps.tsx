@@ -2,8 +2,8 @@ import { Button, ButtonProps, Typography } from '@mui/material'
 
 const ProductQuantityButton = ({ onClick, children }: ButtonProps) => {
   return (
-    <Button sx={{ height: 56 }} onClick={onClick} variant="text">
-      <Typography variant="h5">{children}</Typography>
+    <Button variant="text" sx={{ minWidth: 30, height: 40 }} onClick={onClick}>
+      <Typography>{children}</Typography>
     </Button>
   )
 }

@@ -13,7 +13,7 @@ const FormWrapper = ({
   additionalHeaderElement,
 }: FormWrapperProps) => {
   return (
-    <Card sx={{ width: '100%' }}>
+    <Card>
       <CardContent>
         <Stack
           marginBottom={2}

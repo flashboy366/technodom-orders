@@ -82,7 +82,7 @@ const AddressDelivery = ({
   )
 
   return (
-    <Stack spacing={1}>
+    <Stack spacing={2}>
       <FormControlLabel
         control={<Checkbox onChange={handleCheckboxChange} />}
         label="Необходима доставка до адреса"

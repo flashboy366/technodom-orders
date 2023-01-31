@@ -12,12 +12,7 @@ const HowToButton = () => {
 
   return (
     <>
-      <Button
-        size="large"
-        variant="outlined"
-        onClick={() => setModalopen(true)}
-        sx={{}}
-      >
+      <Button variant="outlined" onClick={() => setModalopen(true)} sx={{}}>
         Как добавить товар?
       </Button>
       <Modal open={modalOpen} onClose={() => setModalopen(false)}>

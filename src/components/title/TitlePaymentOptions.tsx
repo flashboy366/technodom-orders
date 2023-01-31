@@ -1,6 +1,5 @@
-import { Box, Stack, StackProps, Typography } from '@mui/material'
+import { Stack, StackProps, Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
-import Image from 'mui-image'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
 
@@ -14,20 +13,31 @@ const TitlePaymentOptions = ({ ...props }: StackProps) => {
       spacing={2}
       {...props}
     >
-      <Stack width="fit-content">
-        <Typography color={COLORS.ACCENT_PRIMARY} variant="h6" fontWeight={600}>
+      <Stack flex={1}>
+        <Typography
+          color={COLORS.ACCENT_PRIMARY}
+          variant="body1"
+          fontWeight={600}
+        >
           Способы оплаты
         </Typography>
-        <Typography>- Картами платежной системы "Мир"</Typography>
-        <Typography>- Наличными в национальной валюте</Typography>
+        <Typography variant="body2">
+          - картами платежных систем (кроме карт выпущенных в РФ и РБ)
+        </Typography>
+        <Typography variant="body2">
+          - картами платежной системы "Мир"
+        </Typography>
+        <Typography variant="body2">- платежная система Freedom Pay</Typography>
+        <Typography variant="body2">
+          - наличными в национальной валюте
+        </Typography>
       </Stack>
-      <Box borderRadius={7} overflow={'hidden'}>
-        <Image
-          src={'mir_card.jpg'}
-          height={isDesktopMedia ? 100 : 90}
-          width={isDesktopMedia ? 150 : 120}
-        />
-      </Box>
+      <img
+        src={'mir_card.jpg'}
+        alt=""
+        style={{ objectFit: 'contain', flex: 1, borderRadius: 7 }}
+        height={120}
+      />
     </Stack>
   )
 }

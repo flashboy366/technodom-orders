@@ -1,4 +1,4 @@
-import { Paper, Stack } from '@mui/material'
+import { Divider, Stack } from '@mui/material'
 import ProductDeleteButton from './ProductDeleteButton'
 import Product from '../../types/Product'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
@@ -27,16 +27,12 @@ const ProductItem = ({ index, product, chosenShop }: ProductItemProps) => {
   } = useProductItem({ chosenShop, product })
 
   return (
-    <Paper
-      variant="outlined"
-      sx={{
-        padding: 2,
-      }}
-    >
+    <Stack>
       <Stack
         direction={isDesktopMedia ? 'row' : 'column'}
         justifyContent="space-between"
         spacing={isDesktopMedia ? 0 : 2}
+        padding={2}
       >
         <Stack>
           <Stack
@@ -67,7 +63,8 @@ const ProductItem = ({ index, product, chosenShop }: ProductItemProps) => {
           productID={product.id}
         />
       </Stack>
-    </Paper>
+      <Divider />
+    </Stack>
   )
 }
 

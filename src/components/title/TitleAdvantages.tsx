@@ -1,6 +1,5 @@
-import { Paper, Stack, StackProps, Typography } from '@mui/material'
+import { Stack, StackProps, Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
-import Image from 'mui-image'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
 
@@ -9,36 +8,31 @@ const TitleAdvantages = ({ ...props }: StackProps) => {
 
   return (
     <Stack
-      spacing={1}
-      marginTop={2}
+      marginTop={isDesktopMedia ? 0 : 2}
       width="fit-content"
       {...props}
       direction={isDesktopMedia ? 'row' : 'column'}
       alignItems="center"
+      height="100%"
     >
-      <Stack width={isDesktopMedia ? 'initial' : 300}>
-        <Typography fontWeight={500} variant="h5" color={COLORS.ACCENT_PRIMARY}>
+      <Stack width={isDesktopMedia ? 'initial' : 300} flex={1}>
+        <Typography
+          fontWeight={500}
+          variant="body1"
+          color={COLORS.ACCENT_PRIMARY}
+        >
           Наши преимущества
         </Typography>
-        <Typography>
+        <Typography variant="body2">
           покупка и оперативная доставка товаров премиальных брендов:
         </Typography>
       </Stack>
-      <Paper
-        sx={{
-          alignSelf: isDesktopMedia ? 'flex-end' : 'initial',
-          borderRadius: 3,
-          overflow: 'hidden',
-          width: isDesktopMedia ? 400 : 300,
-        }}
-      >
-        <Image
-          src="title_advantages_partners.png"
-          // width={isDesktopMedia ? 550 : '100%'}
-          height={110}
-          fit="contain"
-        />
-      </Paper>
+      <img
+        src="title_advantages_partners.png"
+        alt=""
+        style={{ objectFit: 'contain', flex: 1 }}
+        height={120}
+      />
     </Stack>
   )
 }
