@@ -14,6 +14,11 @@ const OrderSummary = () => {
     formState: { errors },
   } = useFormContext()
 
+  let productsCount = 0
+  orderProductsState.products.map(product => {
+    if (product.productURL !== '') productsCount++
+  })
+
   return (
     <Stack spacing={2} marginBottom={10}>
       <Stack
@@ -29,12 +34,9 @@ const OrderSummary = () => {
           color={COLORS.ACCENT_PRIMARY}
           textAlign="right"
         >
-          У вас {orderProductsState.products.length} товар(ов) на сумму
-          {' ' + orderProductsState.productsPricesSumInTenge} т. (
-          {orderProductsState.productsPricesSumInRubles !== 0
-            ? orderProductsState.totalPriceInRubles.toString()
-            : Number(0).toString()}{' '}
-          р.)
+          У вас {productsCount} товар(ов) на сумму
+          {' ' + orderProductsState.totalPriceInTenge} т. (
+          {orderProductsState.totalPriceInRubles.toString()} р.)
         </Typography>
         <Typography
           variant="body2"
