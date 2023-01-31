@@ -40,7 +40,7 @@ const OrderSummary = () => {
           variant="body2"
           color={errors['orderPrice'] ? COLORS.ERROR_RED : 'initial'}
         >
-          Мин. стоимость заказа : 5000 р.
+          Мин. стоимость заказа : 35000 т. (5000 р.)
         </Typography>
       </Stack>
       <Typography
