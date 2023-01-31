@@ -24,7 +24,11 @@ const ProductDeleteButton = ({
 
   return (
     <Box {...otherProps}>
-      <Button size="small" sx={{ height: 56 }} onClick={handleDeletePress}>
+      <Button
+        size="small"
+        sx={{ minWidth: 40, height: 40 }}
+        onClick={handleDeletePress}
+      >
         ╳
       </Button>
     </Box>

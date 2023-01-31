@@ -30,7 +30,7 @@ const FooterContacts = () => {
             expandIcon={<ExpandMore />}
             onClick={() => setCollapsed(!collapsed)}
           >
-            <Typography variant="h6" fontWeight={500}>
+            <Typography variant="body1" fontWeight={500}>
               Наши контакты
             </Typography>
           </AccordionSummary>
