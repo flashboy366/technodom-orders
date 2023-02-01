@@ -1,47 +1,74 @@
-import { useState } from 'react'
-import { Box, Modal, Paper, Typography } from '@mui/material'
+import { ReactNode, useState } from 'react'
+import { Box, Modal, Paper, Stack, Typography } from '@mui/material'
+import useIsMediaWidth from '../hooks/useIsMediaWidth'
+import { desktopWidthSelector } from '../util/materialui'
+
+export type ShowResultModal = ({
+  resultModalMsg,
+  interactiveElement,
+  timeout,
+  reload,
+}: {
+  resultModalMsg: string
+  interactiveElement?: ReactNode
+  timeout?: number
+  reload?: boolean
+}) => void
 
 interface ResultModalProps {
-  subscribeShowResultModal: (
-    showResultModalCallback: (resultModalMsg: string) => void
-  ) => void
+  subscribeShowResultModal: (showResultModalCallback: ShowResultModal) => void
 }
 
 const ResultModal = ({ subscribeShowResultModal }: ResultModalProps) => {
-  const [resultModalOpen, setResultModalOpen] = useState(false)
   const [resultModalMsg, setResultModalMsg] = useState('')
+  const [resultModalInteraction, setResultModalInteraction] =
+    useState<ReactNode>()
+  const [resultModalOpen, setResultModalOpen] = useState(false)
 
-  const onModalClose = () => {
-    setResultModalOpen(false)
-    window.location.reload()
-  }
-
-  const showResultModal = (resultModalMsg: string): void => {
+  const showResultModal: ShowResultModal = ({
+    resultModalMsg,
+    interactiveElement,
+    timeout,
+    reload = false,
+  }) => {
     setResultModalMsg(resultModalMsg)
+    interactiveElement ? setResultModalInteraction(interactiveElement) : null
     setResultModalOpen(true)
-    setTimeout(onModalClose, 3000)
+    let handleClose: () => void
+    reload ? (handleClose = window.location.reload.bind(window.location)) : null
+    timeout
+      ? setTimeout(() => {
+          setResultModalOpen(false)
+          handleClose()
+        }, timeout)
+      : null
   }
   subscribeShowResultModal(showResultModal)
 
-  const handleResultModalClose = () => onModalClose
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   return (
     <Box>
       <Modal
         open={resultModalOpen}
-        onClose={handleResultModalClose}
+        onClose={() => setResultModalOpen(false)}
         sx={{ height: 500, alignContent: 'center' }}
       >
         <Paper
           sx={{
             position: 'absolute',
             top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            padding: 5,
+            left: isDesktopMedia ? '50%' : '40%',
+            transform: isDesktopMedia
+              ? 'translate(-50%, -50%)'
+              : 'translate(-35%, -50%)',
+            padding: 3,
           }}
         >
-          <Typography>{resultModalMsg}</Typography>
+          <Stack spacing={2}>
+            <Typography>{resultModalMsg}</Typography>
+            {resultModalInteraction}
+          </Stack>
         </Paper>
       </Modal>
     </Box>

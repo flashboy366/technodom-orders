@@ -21,6 +21,8 @@ import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { ChosenShop } from '../types/ChosenShop'
 import { SHOPS } from '../constants/shops'
 import { COLORS } from '../constants/materialui'
+import ResultModal, { ShowResultModal } from './ResultModal'
+import { shopWarningMessage } from '../constants/shopsForm'
 
 interface ShopsFormProps {
   shopIsChosen: boolean
@@ -51,6 +53,28 @@ const ShopsForm = ({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     setChosenShop(event.target.value)
+  }
+
+  let showResultModal: ShowResultModal
+  const subscribeShowResultModal = (
+    showResultModalCallback: ShowResultModal
+  ) => {
+    showResultModal = showResultModalCallback
+  }
+
+  const handleShopLinkClick = () => {
+    showResultModal({
+      resultModalMsg: shopWarningMessage,
+      interactiveElement: (
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        <Link href={SHOPS.SHOP_URLS[chosenShop]} target="_blank">
+          <Typography variant="body1" textAlign="center">
+            Перейти на сайт поставщика
+          </Typography>
+        </Link>
+      ),
+    })
   }
 
   return (
@@ -135,18 +159,16 @@ const ShopsForm = ({
             </RadioGroup>
           </FormControl>
         </Stack>
-        <Button variant="outlined" sx={{}} disabled={!shopIsChosen}>
-          {shopIsChosen ? (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            <Link href={SHOPS.SHOP_URLS[chosenShop]} target="_blank">
-              Перейти на сайт поставщика
-            </Link>
-          ) : (
-            'Перейти на сайт поставщика'
-          )}
+        <Button
+          variant="outlined"
+          sx={{}}
+          disabled={!shopIsChosen}
+          onClick={handleShopLinkClick}
+        >
+          Перейти на сайт поставщика
         </Button>
       </Stack>
+      <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
     </FormWrapper>
   )
 }

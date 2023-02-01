@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ChosenShop } from '../types/ChosenShop'
+import { ShowResultModal } from '../components/ResultModal'
 
 const useAppForm = () => {
   const [deliveryAddressRequired, setDeliveryAddressRequired] = useState(false)
@@ -57,16 +58,25 @@ const useAppForm = () => {
     setLoadingBackdropShown(false)
     if (responseCode < 400) {
       console.log()
-      showResultModal('Заявка отправлена!')
+      showResultModal({
+        resultModalMsg: 'Заявка отправлена!',
+        reload: true,
+        timeout: 3000,
+      })
       setDeliveryAddressRequired(false)
       dispatch(resetProductsState())
-    } else showResultModal(`Ошибка ${responseCode}`)
+    } else
+      showResultModal({
+        resultModalMsg: `Ошибка ${responseCode}`,
+        reload: true,
+        timeout: 3000,
+      })
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
-  let showResultModal: (resultModalMsg: string) => void
+  let showResultModal: ShowResultModal
   const subscribeShowResultModal = (
-    showResultModalCallback: (resultModalMsg: string) => void
+    showResultModalCallback: ShowResultModal
   ) => {
     showResultModal = showResultModalCallback
   }

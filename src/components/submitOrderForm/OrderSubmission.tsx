@@ -32,12 +32,17 @@ const OrderSubmission = () => {
           label={
             <Typography
               color={errors['agreement'] ? 'error' : 'inherit'}
-              variant="body2"
+              variant="subtitle2"
               textAlign="center"
             >
               Я ознакомился и принимаю условия{' '}
-              <Link href="Оферта ТОО ВМ Логистика.docx">договора оферты</Link> и
-              соглашение на обработку персональных данных
+              <Link href="Оферта ТОО ВМ Логистика (29.01.23).pdf">
+                договора оферты
+              </Link>{' '}
+              и{' '}
+              <Link href="Соглашение_о_конфиденциальности_2023.pdf">
+                соглашение о конфиденциальности персональных данных
+              </Link>
             </Typography>
           }
         />
