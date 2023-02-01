@@ -3,6 +3,8 @@ import ProductQuantityButton from './ProductQuantityButtonProps'
 import FormProductInput from '../react-hook-form/FormProductInput'
 import Product from '../../types/Product'
 import { ChangeEvent } from 'react'
+import useIsMediaWidth from '../../hooks/useIsMediaWidth'
+import { desktopWidthSelector } from '../../util/materialui'
 
 interface ProductQuantityProps {
   index: number
@@ -24,8 +26,10 @@ const ProductQuantity = ({
     updateQuantity(parseInt(value))
   }
 
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+
   return (
-    <Stack spacing={2} width={125} alignItems="center">
+    <Stack spacing={2} width={isDesktopMedia ? 125 : 180} alignItems="center">
       <Typography>Количество</Typography>
       <Stack direction="row" spacing={1}>
         <ProductQuantityButton onClick={decrementQuantity}>

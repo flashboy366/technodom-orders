@@ -1,6 +1,5 @@
 import { Box, Button, Modal, Paper, Stack, Typography } from '@mui/material'
 import { useState } from 'react'
-import Image from 'mui-image'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../util/materialui'
 import { COLORS } from '../constants/materialui'
@@ -32,19 +31,13 @@ const HowToButton = () => {
             <Stack spacing={5}>
               <Stack spacing={1}>
                 <Typography>
-                  1. Откройте сайт поставщика по ссылке в новой вкладке:{' '}
+                  1. Выберите поставщика и откройте его сайт по ссылке в новой
+                  вкладке:{' '}
                   <Typography color={COLORS.PRIMARY}>
                     (Только для копирования ссылки, заказ оформляется на
                     странице DostavimKZ.ru!)
                   </Typography>
                 </Typography>
-                <Image
-                  src="technodom_logo.png"
-                  width={245}
-                  height={60}
-                  fit="none"
-                  bgColor="white"
-                />
               </Stack>
               <Stack spacing={1}>
                 <Typography>

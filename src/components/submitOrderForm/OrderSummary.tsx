@@ -1,15 +1,10 @@
 import { Stack, Typography } from '@mui/material'
 import { useAppSelector } from '../../hooks/redux'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
 import { useFormContext } from 'react-hook-form'
 import { COLORS } from '../../constants/materialui'
 
 const OrderSummary = () => {
   const orderProductsState = useAppSelector(state => state.orderProducts)
-
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
-
   const {
     formState: { errors },
   } = useFormContext()
@@ -20,11 +15,11 @@ const OrderSummary = () => {
   })
 
   return (
-    <Stack spacing={2} marginBottom={10}>
+    <Stack spacing={2}>
       <Stack
         justifyContent="space-between"
-        alignSelf="flex-end"
-        alignItems="flex-end"
+        alignSelf="center"
+        alignItems="center"
       >
         <Typography
           variant="body1"
@@ -32,7 +27,7 @@ const OrderSummary = () => {
             fontWeight: '500',
           }}
           color={COLORS.ACCENT_PRIMARY}
-          textAlign="right"
+          textAlign="center"
         >
           У вас {productsCount} товар(ов) на сумму
           {' ' + orderProductsState.totalPriceInTenge} т. (
@@ -49,11 +44,10 @@ const OrderSummary = () => {
         variant="caption"
         fontWeight={300}
         sx={{
-          width: isDesktopMedia ? '60%' : '100%',
           margin: 1,
-          alignSelf: 'flex-end',
+          alignSelf: 'center',
         }}
-        textAlign="right"
+        textAlign="center"
       >
         Стоимость товара указана с учетом доставки и выдачи товара на складе в
         г. Челябинск, Свердловский тракт 5. Стоимость доставки до адреса и в

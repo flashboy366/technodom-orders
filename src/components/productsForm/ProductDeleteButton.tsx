@@ -2,6 +2,8 @@ import { Box, BoxProps, Button } from '@mui/material'
 import { useAppDispatch } from '../../hooks/redux'
 import { removeProduct } from '../../redux/reducers/orderProductsReducer'
 import { useFieldArrayFormContext } from '../react-hook-form/FieldArrayFormProvider'
+import useIsMediaWidth from '../../hooks/useIsMediaWidth'
+import { desktopWidthSelector } from '../../util/materialui'
 
 interface ProductDeleteButtonProps extends BoxProps {
   index: number
@@ -17,6 +19,8 @@ const ProductDeleteButton = ({
 
   const { remove } = useFieldArrayFormContext()
 
+  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+
   const handleDeletePress = () => {
     dispatch(removeProduct({ productID: productID }))
     remove(index)
@@ -26,7 +30,7 @@ const ProductDeleteButton = ({
     <Box {...otherProps}>
       <Button
         size="small"
-        sx={{ minWidth: 40, height: 40 }}
+        sx={{ minWidth: 40, top: isDesktopMedia ? 0 : 5 }}
         onClick={handleDeletePress}
       >
         ╳

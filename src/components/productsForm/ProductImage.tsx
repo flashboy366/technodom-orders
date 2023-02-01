@@ -1,7 +1,4 @@
-import Image from 'mui-image'
-import { Box } from '@mui/material'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
+import { Paper } from '@mui/material'
 import Product from '../../types/Product'
 
 interface ProductImageProps {
@@ -9,19 +6,32 @@ interface ProductImageProps {
 }
 
 const ProductImage = ({ product }: ProductImageProps) => {
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
+  const productImage = product.productData.productImgUrl
+    ? product.productData.productImgUrl
+    : 'empty_image.png'
 
   return (
-    <Box height={180} alignSelf={'center'} width={'fit-content'}>
-      <Image
-        width={180}
-        src={
-          product.productData.productImgUrl
-            ? product.productData.productImgUrl
-            : 'empty_product.jpg'
-        }
-      />
-    </Box>
+    <Paper
+      elevation={0}
+      sx={{
+        height: 100,
+        width: 100,
+        backgroundImage: `url(${productImage})`,
+        backgroundSize: '100%',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    />
+    // <Box height={180} alignSelf={'center'} width={'fit-content'}>
+    //   <Image
+    //     width={180}
+    //     src={
+    //       product.productData.productImgUrl
+    //         ? product.productData.productImgUrl
+    //         : 'empty_product.jpg'
+    //     }
+    //   />
+    // </Box>
   )
 }
 

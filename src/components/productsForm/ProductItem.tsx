@@ -30,43 +30,52 @@ const ProductItem = ({ index, product, chosenShop }: ProductItemProps) => {
   return (
     <Stack>
       <Stack
-        direction={isDesktopMedia ? 'row' : 'column'}
+        direction={isDesktopMedia ? 'column' : 'column-reverse'}
         justifyContent="space-between"
         spacing={isDesktopMedia ? 0 : 2}
         padding={2}
+        paddingY={4}
       >
-        <Stack>
-          <Stack
-            direction={isDesktopMedia ? 'row' : 'column'}
-            spacing={isDesktopMedia ? 2 : 0}
-            justifyContent="flex-start"
-            alignItems={isDesktopMedia ? 'initial' : 'center'}
-          >
-            <ProductURL
-              index={index}
-              productState={productState}
-              updateProductURL={updateProductURL}
-            />
-            <ProductQuantity
-              productState={productState}
-              decrementQuantity={decrementQuantity}
-              incrementQuantity={incrementQuantity}
-              updateQuantity={updateQuantity}
-              index={index}
-            />
-          </Stack>
+        <Stack
+          direction={isDesktopMedia ? 'row' : 'row'}
+          spacing={isDesktopMedia ? 2 : 1}
+          justifyContent="space-between"
+          alignItems={isDesktopMedia ? 'initial' : 'center'}
+          width="100%"
+        >
+          <ProductURL
+            index={index}
+            productState={productState}
+            updateProductURL={updateProductURL}
+          />
+          <ProductQuantity
+            productState={productState}
+            decrementQuantity={decrementQuantity}
+            incrementQuantity={incrementQuantity}
+            updateQuantity={updateQuantity}
+            index={index}
+          />
+          <ProductDeleteButton
+            textAlign="right"
+            index={index}
+            productID={product.id}
+          />
+        </Stack>
+        <Stack
+          direction="row"
+          sx={{
+            alignItems: 'center',
+          }}
+          width="100%"
+          spacing={4}
+        >
+          <ProductImage product={product} />
           {productDataLoading ? (
             <CircularProgress />
           ) : (
             <ProductNameAndPrice product={product} />
           )}
         </Stack>
-        <ProductImage product={product} />
-        <ProductDeleteButton
-          textAlign="right"
-          index={index}
-          productID={product.id}
-        />
       </Stack>
       <Divider />
     </Stack>

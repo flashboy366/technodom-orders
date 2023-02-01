@@ -36,12 +36,12 @@ const OrderSubmission = () => {
               textAlign="center"
             >
               Я ознакомился и принимаю условия{' '}
-              <Link href="Оферта ТОО ВМ Логистика (29.01.23).pdf">
+              <Link href="docs/Оферта ТОО ВМ Логистика (29.01.23).pdf">
                 договора оферты
               </Link>{' '}
               и{' '}
-              <Link href="Соглашение_о_конфиденциальности_2023.pdf">
-                соглашение о конфиденциальности персональных данных
+              <Link href="docs/Соглашение_о_конфиденциальности_2023.pdf">
+                соглашения о конфиденциальности персональных данных
               </Link>
             </Typography>
           }
@@ -69,7 +69,11 @@ const OrderSubmission = () => {
             Оформить заказ
           </Typography>
         </Button>
-        <Typography variant="caption" sx={{ textAlign: 'center' }}>
+        <Typography
+          variant="caption"
+          sx={{ textAlign: 'center' }}
+          fontWeight={300}
+        >
           После оформления заказа с вами свяжется наш менеджер
         </Typography>
       </Stack>

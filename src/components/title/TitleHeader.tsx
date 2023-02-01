@@ -1,19 +1,15 @@
 import { Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
 
 const TitleHeader = () => {
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
-
   return (
     <Typography
       fontFamily="merriweather"
-      variant={isDesktopMedia ? 'h4' : 'h5'}
+      variant="overline"
       color={COLORS.PRIMARY}
       fontStyle="bold"
       fontWeight="700"
-      textAlign={isDesktopMedia ? 'initial' : 'center'}
+      fontSize="x-large"
     >
       DostavimKZ.ru
     </Typography>

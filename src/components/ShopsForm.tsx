@@ -110,7 +110,7 @@ const ShopsForm = ({
                       sx={{
                         width: 260,
                         height: 60,
-                        backgroundImage: `url(${'technodom_logo.png'})`,
+                        backgroundImage: `url(${'shops/technodom_logo.png'})`,
                         backgroundSize: '77%',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
@@ -139,7 +139,7 @@ const ShopsForm = ({
                       sx={{
                         width: 260,
                         height: 60,
-                        backgroundImage: `url(${'mechta_logo.png'})`,
+                        backgroundImage: `url(${'shops/mechta_logo.png'})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                       }}

@@ -1,7 +1,7 @@
-import { Card, CardContent, Stack, Typography } from '@mui/material'
+import { Card, CardContent, CardProps, Stack, Typography } from '@mui/material'
 import { ReactNode } from 'react'
 
-interface FormWrapperProps {
+interface FormWrapperProps extends CardProps {
   children: ReactNode | ReactNode[]
   title: string
   additionalHeaderElement?: ReactNode
@@ -11,9 +11,10 @@ const FormWrapper = ({
   children,
   title,
   additionalHeaderElement,
+  ...otherProps
 }: FormWrapperProps) => {
   return (
-    <Card>
+    <Card {...otherProps} elevation={0}>
       <CardContent>
         <Stack
           marginBottom={2}

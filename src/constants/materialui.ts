@@ -1,8 +1,8 @@
 export const MOBILE_DESKTOP_BREAKPOINT = 'sm'
 
 export const COLORS = {
-  BACKGROUND_GRAY: 'whitesmoke',
   PRIMARY_WHITE: 'white',
+  SECONDARY_GRAY: '#f9f9f9',
 
   PRIMARY: '#ea6931',
   SECONDARY: '#EB6123',

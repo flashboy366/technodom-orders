@@ -2,7 +2,10 @@ import { createTheme } from '@mui/material'
 import { COLORS, MOBILE_DESKTOP_BREAKPOINT } from '../constants/materialui'
 
 export const theme = createTheme({
-  palette: { primary: { main: COLORS.PRIMARY } },
+  palette: {
+    primary: { main: COLORS.PRIMARY },
+    // background: { default: COLORS.PRIMARY_WHITE },
+  },
   components: {
     MuiButton: {
       defaultProps: {
