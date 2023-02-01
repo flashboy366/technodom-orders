@@ -48,6 +48,7 @@ const App = () => {
         sx={{
           paddingBottom: 3,
           bgcolor: COLORS.PRIMARY_WHITE,
+          overflowX: isDesktopMedia ? 'initial' : 'hidden',
         }}
         component="form"
         noValidate
