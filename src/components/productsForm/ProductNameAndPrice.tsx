@@ -13,7 +13,7 @@ const ProductNameAndPrice = ({ product }: ProductNameAndPriceProps) => {
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   return (
-    <Stack width={isDesktopMedia ? 450 : '100%'}>
+    <Stack>
       <Link href={product.productURL} variant="body1">
         {product.productData.productTitle}
       </Link>

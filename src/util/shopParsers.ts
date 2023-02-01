@@ -105,7 +105,5 @@ export const parseMechta = async ({
   })
   productData.productImgUrl = data.photos[0]
 
-  console.log(productData)
-
   return productData
 }

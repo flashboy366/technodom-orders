@@ -16,6 +16,22 @@ const productValidationSchema = object({
     ),
 })
 
+export const deliveryAddressValidationExtension = {
+  addressStreet: string().nonempty('Обязательное поле'),
+  addressContacts: string().nonempty('Обязательное поле'),
+  addressHouse: string().nonempty('Обязательное поле'),
+  addressPhone: string()
+    .nonempty('Обязательноe поле')
+    .refine(
+      val => {
+        const phoneRegExp1 = new RegExp(/\+7\d{10}/)
+        const phoneRegExp2 = new RegExp(/8\d{10}/)
+        return phoneRegExp1.test(val) || phoneRegExp2.test(val)
+      },
+      { message: 'Некорректный номер телефона' }
+    ),
+}
+
 export const initialSubmitOrderValidationSchema = object({
   name: string().nonempty('Обязательное поле'),
   email: string()

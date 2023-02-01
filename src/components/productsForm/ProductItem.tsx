@@ -1,4 +1,4 @@
-import { Divider, Stack } from '@mui/material'
+import { CircularProgress, Divider, Stack } from '@mui/material'
 import ProductDeleteButton from './ProductDeleteButton'
 import Product from '../../types/Product'
 import useIsMediaWidth from '../../hooks/useIsMediaWidth'
@@ -24,6 +24,7 @@ const ProductItem = ({ index, product, chosenShop }: ProductItemProps) => {
     decrementQuantity,
     updateQuantity,
     incrementQuantity,
+    productDataLoading,
   } = useProductItem({ chosenShop, product })
 
   return (
@@ -54,7 +55,11 @@ const ProductItem = ({ index, product, chosenShop }: ProductItemProps) => {
               index={index}
             />
           </Stack>
-          <ProductNameAndPrice product={product} />
+          {productDataLoading ? (
+            <CircularProgress />
+          ) : (
+            <ProductNameAndPrice product={product} />
+          )}
         </Stack>
         <ProductImage product={product} />
         <ProductDeleteButton

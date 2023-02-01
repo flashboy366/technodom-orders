@@ -11,14 +11,19 @@ const ResultModal = ({ subscribeShowResultModal }: ResultModalProps) => {
   const [resultModalOpen, setResultModalOpen] = useState(false)
   const [resultModalMsg, setResultModalMsg] = useState('')
 
+  const onModalClose = () => {
+    setResultModalOpen(false)
+    window.location.reload()
+  }
+
   const showResultModal = (resultModalMsg: string): void => {
     setResultModalMsg(resultModalMsg)
     setResultModalOpen(true)
-    setTimeout(() => setResultModalOpen(false), 3000)
+    setTimeout(onModalClose, 3000)
   }
   subscribeShowResultModal(showResultModal)
 
-  const handleResultModalClose = () => setResultModalOpen(false)
+  const handleResultModalClose = () => onModalClose
 
   return (
     <Box>

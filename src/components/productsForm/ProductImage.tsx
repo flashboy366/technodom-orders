@@ -12,13 +12,9 @@ const ProductImage = ({ product }: ProductImageProps) => {
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
 
   return (
-    <Box
-      height={isDesktopMedia ? 180 : 180}
-      alignSelf={'center'}
-      width={'fit-content'}
-    >
+    <Box height={180} alignSelf={'center'} width={'fit-content'}>
       <Image
-        width={isDesktopMedia ? 180 : 180}
+        width={180}
         src={
           product.productData.productImgUrl
             ? product.productData.productImgUrl

@@ -28,6 +28,7 @@ const App = () => {
   const {
     onSubmit,
     reactHookFormMethods,
+    deliveryAddressRequired,
     setDeliveryAddressRequired,
     subscribeShowResultModal,
     loadingBackdropShown,
@@ -62,6 +63,7 @@ const App = () => {
               <>
                 <ProductsForm chosenShop={chosenShop} />
                 <UserForm
+                  deliveryAddressRequired={deliveryAddressRequired}
                   setDeliveryAddressRequired={setDeliveryAddressRequired}
                 />
                 <SubmitOrderForm />

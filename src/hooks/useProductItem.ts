@@ -6,7 +6,7 @@ import {
   setQuantity,
 } from '../redux/reducers/orderProductsReducer'
 import { useAppDispatch, useAppSelector } from './redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { emptyProductData } from '../types/ProductData'
 import Product from '../types/Product'
 import { ChosenShop } from '../types/ChosenShop'
@@ -17,6 +17,8 @@ interface UseProductItemProps {
 }
 
 const useProductItem = ({ product, chosenShop }: UseProductItemProps) => {
+  const [productDataLoading, setProductDataLoading] = useState(false)
+
   const productState = useAppSelector(
     state =>
       state.orderProducts.products[
@@ -26,18 +28,23 @@ const useProductItem = ({ product, chosenShop }: UseProductItemProps) => {
   const dispatch = useAppDispatch()
 
   const updateProductData = async () => {
-    let newProductData
-    if (product) {
-      if (product.productURL) {
+    let newProductData = emptyProductData
+    if (!product) return
+    if (product.productURL) {
+      setProductDataLoading(true)
+      try {
         newProductData = await fetchProductData({
           chosenShop: chosenShop,
           productURL: product.productURL,
         })
-      } else newProductData = emptyProductData
-      dispatch(
-        setProductData({ productID: product.id, productData: newProductData })
-      )
+      } catch (e) {
+        console.log(e)
+      }
+      setProductDataLoading(false)
     }
+    dispatch(
+      setProductData({ productID: product.id, productData: newProductData })
+    )
   }
 
   useEffect(() => {
@@ -62,6 +69,7 @@ const useProductItem = ({ product, chosenShop }: UseProductItemProps) => {
     updateQuantity,
     incrementQuantity,
     decrementQuantity,
+    productDataLoading,
   }
 }
 

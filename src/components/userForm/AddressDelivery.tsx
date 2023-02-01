@@ -5,7 +5,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import InputGrid from '../InputGrid'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import {
@@ -20,20 +20,19 @@ import useIsMediaWidth from '../../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../../util/materialui'
 
 interface AddressDeliveryProps {
+  deliveryAddressRequired: boolean
   setDeliveryAddressRequired: Dispatch<SetStateAction<boolean>>
 }
 
 const AddressDelivery = ({
+  deliveryAddressRequired,
   setDeliveryAddressRequired,
 }: AddressDeliveryProps) => {
-  const [formIsShown, setFormIsShown] = useState(false)
   const dispatch = useAppDispatch()
   const addressDeliveryState = useAppSelector(state => state.addressDelivery)
 
-  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newCheckboxValue = event.target.checked
-    setFormIsShown(newCheckboxValue)
-    setDeliveryAddressRequired(newCheckboxValue)
+  const handleCheckboxClick = () => {
+    setDeliveryAddressRequired(!deliveryAddressRequired)
   }
 
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
@@ -80,14 +79,18 @@ const AddressDelivery = ({
       />
     </>
   )
-
   return (
     <Stack spacing={2}>
       <FormControlLabel
-        control={<Checkbox onChange={handleCheckboxChange} />}
+        control={
+          <Checkbox
+            onClick={handleCheckboxClick}
+            value={deliveryAddressRequired}
+          />
+        }
         label="Необходима доставка до адреса"
       />
-      {formIsShown ? (
+      {deliveryAddressRequired ? (
         <>
           {isDesktopMedia ? (
             <InputGrid firstColumn={firstColumn} secondColumn={secondColumn} />

@@ -1,7 +1,10 @@
-import { initialSubmitOrderValidationSchema } from '../util/zod'
+import {
+  deliveryAddressValidationExtension,
+  initialSubmitOrderValidationSchema,
+} from '../util/zod'
 import { useAppDispatch, useAppSelector } from './redux'
 import { resetProductsState } from '../redux/reducers/orderProductsReducer'
-import { string, TypeOf } from 'zod'
+import { TypeOf } from 'zod'
 import { sendEmails } from '../util/email'
 import { useEffect, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,21 +26,7 @@ const useAppForm = () => {
   useEffect(() => {
     if (deliveryAddressRequired) {
       setSubmitOrderSchema(
-        submitOrderSchema.extend({
-          addressStreet: string().nonempty('Обязательное поле'),
-          addressContacts: string().nonempty('Обязательное поле'),
-          addressHouse: string().nonempty('Обязательное поле'),
-          addressPhone: string()
-            .nonempty('Обязательноe поле')
-            .refine(
-              val => {
-                const phoneRegExp1 = new RegExp(/\+7\d{10}/)
-                const phoneRegExp2 = new RegExp(/8\d{10}/)
-                return phoneRegExp1.test(val) || phoneRegExp2.test(val)
-              },
-              { message: 'Некорректный номер телефона' }
-            ),
-        })
+        submitOrderSchema.extend(deliveryAddressValidationExtension)
       )
     } else setSubmitOrderSchema(initialSubmitOrderValidationSchema)
   }, [deliveryAddressRequired])
@@ -58,11 +47,8 @@ const useAppForm = () => {
       reset()
     }
   }, [isSubmitSuccessful, reset])
-  const onSubmitHandler: SubmitHandler<SubmitOrderInput> = () => {
-    sendRequestEmail()
-  }
 
-  const sendRequestEmail = async () => {
+  const onSubmitHandler: SubmitHandler<SubmitOrderInput> = async () => {
     setLoadingBackdropShown(true)
     const responseCode = await sendEmails({
       appState,
@@ -70,7 +56,9 @@ const useAppForm = () => {
     })
     setLoadingBackdropShown(false)
     if (responseCode < 400) {
+      console.log()
       showResultModal('Заявка отправлена!')
+      setDeliveryAddressRequired(false)
       dispatch(resetProductsState())
     } else showResultModal(`Ошибка ${responseCode}`)
   }
@@ -96,6 +84,7 @@ const useAppForm = () => {
   return {
     onSubmit: handleSubmit(onSubmitHandler),
     reactHookFormMethods,
+    deliveryAddressRequired,
     setDeliveryAddressRequired,
     subscribeShowResultModal,
     loadingBackdropShown,
