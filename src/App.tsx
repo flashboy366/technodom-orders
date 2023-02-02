@@ -7,6 +7,7 @@ import {
   Backdrop,
   Box,
   CircularProgress,
+  Collapse,
   Container,
   Stack,
   ThemeProvider,
@@ -25,6 +26,7 @@ import ShopsForm from './components/ShopsForm'
 import useAppForm from './hooks/useAppForm'
 import Title from './components/Title'
 import useIsMediaWidth from './hooks/useIsMediaWidth'
+import FooterLuch from './components/footer/FooterLuch'
 
 const App = () => {
   const {
@@ -65,17 +67,15 @@ const App = () => {
                 chosenShop={chosenShop}
                 setChosenShop={setChosenShop}
               />
-              {shopIsChosen ? (
+              <Collapse in={shopIsChosen}>
                 <>
                   <ProductsForm chosenShop={chosenShop} />
-                  <UserForm
-                    deliveryAddressRequired={deliveryAddressRequired}
-                    setDeliveryAddressRequired={setDeliveryAddressRequired}
-                  />
                 </>
-              ) : (
-                <></>
-              )}
+              </Collapse>
+              <UserForm
+                deliveryAddressRequired={deliveryAddressRequired}
+                setDeliveryAddressRequired={setDeliveryAddressRequired}
+              />
             </Stack>
             {!isDesktopMedia && !shopIsChosen ? null : (
               <Box flex={1}>
@@ -84,10 +84,19 @@ const App = () => {
             )}
           </Stack>
         </FormProvider>
-        <Stack spacing={2} alignItems="center" marginTop={30}>
+        <Stack spacing={4} alignItems="center" marginTop={30}>
+          <Stack
+            direction={isDesktopMedia ? 'row' : 'column'}
+            width="100%"
+            justifyContent="space-between"
+            alignItems={isDesktopMedia ? 'flex-end' : 'center'}
+            spacing={isDesktopMedia ? 0 : 2}
+          >
+            <FooterLuch />
+            <FooterContacts />
+          </Stack>
           <FooterHighlights />
           <FooterTip />
-          <FooterContacts />
         </Stack>
         <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
         <Backdrop
