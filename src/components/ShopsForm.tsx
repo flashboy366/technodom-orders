@@ -130,32 +130,32 @@ const ShopsForm = ({
                 }
                 value="technodom"
               />
-              <FormControlLabel
-                control={<Radio />}
-                label={
-                  <Stack>
-                    <Paper
-                      elevation={0}
-                      sx={{
-                        width: 260,
-                        height: 60,
-                        backgroundImage: `url(${'shops/mechta_logo.png'})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                      }}
-                    />
-                    <Typography
-                      textAlign="center"
-                      color={
-                        chosenShop === 'mechta' ? COLORS.PRIMARY : COLORS.GRAY
-                      }
-                    >
-                      электроника и бытовая техника
-                    </Typography>
-                  </Stack>
-                }
-                value="mechta"
-              />
+              {/*<FormControlLabel*/}
+              {/*  control={<Radio />}*/}
+              {/*  label={*/}
+              {/*    <Stack>*/}
+              {/*      <Paper*/}
+              {/*        elevation={0}*/}
+              {/*        sx={{*/}
+              {/*          width: 260,*/}
+              {/*          height: 60,*/}
+              {/*          backgroundImage: `url(${'shops/mechta_logo.png'})`,*/}
+              {/*          backgroundSize: 'cover',*/}
+              {/*          backgroundPosition: 'center',*/}
+              {/*        }}*/}
+              {/*      />*/}
+              {/*      <Typography*/}
+              {/*        textAlign="center"*/}
+              {/*        color={*/}
+              {/*          chosenShop === 'mechta' ? COLORS.PRIMARY : COLORS.GRAY*/}
+              {/*        }*/}
+              {/*      >*/}
+              {/*        электроника и бытовая техника*/}
+              {/*      </Typography>*/}
+              {/*    </Stack>*/}
+              {/*  }*/}
+              {/*  value="mechta"*/}
+              {/*/>*/}
             </RadioGroup>
           </FormControl>
         </Stack>
