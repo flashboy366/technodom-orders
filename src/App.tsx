@@ -5,9 +5,7 @@ import '@fontsource/roboto/700.css'
 
 import {
   Backdrop,
-  Box,
   CircularProgress,
-  Collapse,
   Container,
   Stack,
   ThemeProvider,
@@ -36,10 +34,6 @@ const App = () => {
     setDeliveryAddressRequired,
     subscribeShowResultModal,
     loadingBackdropShown,
-    shopIsChosen,
-    setShopIsChosen,
-    chosenShop,
-    setChosenShop,
   } = useAppForm()
 
   const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
@@ -61,27 +55,18 @@ const App = () => {
         <FormProvider {...reactHookFormMethods}>
           <Stack direction={isDesktopMedia ? 'row' : 'column'} spacing={4}>
             <Stack flex={2} spacing={8}>
-              <ShopsForm
-                shopIsChosen={shopIsChosen}
-                setShopIsChosen={setShopIsChosen}
-                chosenShop={chosenShop}
-                setChosenShop={setChosenShop}
-              />
-              <Collapse in={shopIsChosen}>
-                <>
-                  <ProductsForm chosenShop={chosenShop} />
-                </>
-              </Collapse>
-              <UserForm
-                deliveryAddressRequired={deliveryAddressRequired}
-                setDeliveryAddressRequired={setDeliveryAddressRequired}
-              />
+              <Stack flex={3}>
+                <ShopsForm />
+                <ProductsForm />
+                <UserForm
+                  deliveryAddressRequired={deliveryAddressRequired}
+                  setDeliveryAddressRequired={setDeliveryAddressRequired}
+                />
+              </Stack>
             </Stack>
-            {!isDesktopMedia && !shopIsChosen ? null : (
-              <Box flex={1}>
-                <SubmitOrderForm />
-              </Box>
-            )}
+            <Stack flex={1}>
+              <SubmitOrderForm />
+            </Stack>
           </Stack>
         </FormProvider>
         <Stack spacing={4} alignItems="center" marginTop={30}>

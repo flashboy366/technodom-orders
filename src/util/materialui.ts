@@ -13,7 +13,6 @@ export const theme = createTheme({
         sx: {
           color: COLORS.PRIMARY_WHITE,
           bgcolor: COLORS.PRIMARY,
-          ':hover': { bgcolor: COLORS.SECONDARY },
         },
       },
     },

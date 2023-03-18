@@ -20,22 +20,18 @@ const ProductNameAndPrice = ({ product }: ProductNameAndPriceProps) => {
       {product.productData.productTitle !== '' ? (
         <Typography
           color={
-            product.productData.productPriceInTenge
+            product.productData.productPriceInRubles
               ? COLORS.ACCENT_PRIMARY
               : COLORS.ERROR_RED
           }
           marginBottom={1}
         >
-          {product.productData.productPriceInTenge
+          {product.productData.productPriceInRubles
             ? `${Math.trunc(
-                product.productData.productPriceInTenge *
-                  product.quantity *
-                  FINANCIAL.EXTRA_CHARGE_COEFFICIENT
-              )} т. (${Math.trunc(
                 product.productData.productPriceInRubles *
                   product.quantity *
                   FINANCIAL.EXTRA_CHARGE_COEFFICIENT
-              )} р.)`
+              )} р.`
             : 'Нет в наличии'}
         </Typography>
       ) : null}

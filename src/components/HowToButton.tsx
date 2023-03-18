@@ -1,4 +1,12 @@
-import { Box, Button, Modal, Paper, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Link,
+  Modal,
+  Paper,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { useState } from 'react'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../util/materialui'
@@ -12,7 +20,7 @@ const HowToButton = () => {
   return (
     <>
       <Button variant="outlined" onClick={() => setModalopen(true)} sx={{}}>
-        Как добавить товар?
+        Как сделать заказ?
       </Button>
       <Modal open={modalOpen} onClose={() => setModalopen(false)}>
         <Box>
@@ -28,23 +36,38 @@ const HowToButton = () => {
               boxSizing: 'border-box',
             }}
           >
-            <Stack spacing={5}>
-              <Stack spacing={1}>
+            <Stack spacing={3}>
+              <Stack>
                 <Typography>
-                  1. Выберите поставщика и откройте его сайт по ссылке в новой
-                  вкладке:{' '}
-                  <Typography color={COLORS.PRIMARY}>
-                    (Только для копирования ссылки, заказ оформляется на
-                    странице DostavimKZ.ru!)
+                  1. Выберите необходимые товары на сайте{' '}
+                  <Link href="https://www.iherb.com">
+                    https://www.iherb.com
+                  </Link>{' '}
+                  и копируйте ссылки в Заказ на нашем сервисе{' '}
+                  <Typography color={COLORS.PRIMARY} display="inline">
+                    (автоматически будет рассчитана стоимость товара с доставкой
+                    до склада в г. Челябинск)
                   </Typography>
                 </Typography>
-              </Stack>
-              <Stack spacing={1}>
-                <Typography>
-                  2. Найдите товар на сайте поставщика и скопируйте его ссылку
-                  на наш сайт
+                <Typography variant="caption">
+                  <Typography color={COLORS.PRIMARY} display="inline">
+                    *{' '}
+                  </Typography>
+                  Для выбора товаров на сайте iHerb необходимо установить VPN и
+                  выбрать страну США
                 </Typography>
               </Stack>
+              <Typography>
+                2. Заполните Ваши данные и выберите город доставки, остается
+                нажать кнопку «оформить заказ»
+              </Typography>
+              <Typography>
+                3. Для подтверждения Заказа и выставления счета Вам позвонит
+                менеджер с тел:{' '}
+                <Typography color={COLORS.PRIMARY} display="inline">
+                  +7 922-702-20-35
+                </Typography>
+              </Typography>
             </Stack>
             <Box marginTop={4}>
               <Button

@@ -1,13 +1,11 @@
-// // DEV
-// const SERVER = {
-//   URL: 'http://localhost:8000/',
-//   PRODUCT_URL: 'https://www.technodom.kz/p/',
-// }
-
-// PROD
+// DEV
 const SERVER = {
-  URL: 'https://dostavimkz.ru/',
-  PRODUCT_URL: 'https://www.technodom.kz/p/',
+  URL: 'http://localhost:8000/',
 }
+//
+// // PROD
+// const SERVER = {
+//   URL: 'https://dostavimkz.ru/',
+// }
 
 export default SERVER

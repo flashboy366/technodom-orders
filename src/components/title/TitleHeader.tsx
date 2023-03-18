@@ -9,7 +9,7 @@ const TitleHeader = () => {
       color={COLORS.PRIMARY}
       fontStyle="bold"
       fontWeight="700"
-      fontSize="x-large"
+      fontSize="xx-large"
     >
       DostavimKZ.ru
     </Typography>

@@ -9,14 +9,12 @@ import { useAppDispatch, useAppSelector } from './redux'
 import { useEffect, useState } from 'react'
 import { emptyProductData } from '../types/ProductData'
 import Product from '../types/Product'
-import { ChosenShop } from '../types/ChosenShop'
 
 interface UseProductItemProps {
   product: Product
-  chosenShop: ChosenShop
 }
 
-const useProductItem = ({ product, chosenShop }: UseProductItemProps) => {
+const useProductItem = ({ product }: UseProductItemProps) => {
   const [productDataLoading, setProductDataLoading] = useState(false)
 
   const productState = useAppSelector(
@@ -34,7 +32,6 @@ const useProductItem = ({ product, chosenShop }: UseProductItemProps) => {
       setProductDataLoading(true)
       try {
         newProductData = await fetchProductData({
-          chosenShop: chosenShop,
           productURL: product.productURL,
         })
       } catch (e) {
