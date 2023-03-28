@@ -29,15 +29,14 @@ const OrderSummary = () => {
           color={COLORS.ACCENT_PRIMARY}
           textAlign="center"
         >
-          У вас {productsCount} товар(ов) на сумму
-          {' ' + orderProductsState.totalPriceInTenge} т. (
-          {orderProductsState.totalPriceInRubles.toString()} р.)
+          У вас {productsCount} товар(ов) на сумму{' '}
+          {orderProductsState.totalPriceInRubles.toString()} р.
         </Typography>
         <Typography
           variant="body2"
           color={errors['orderPrice'] ? COLORS.ERROR_RED : 'initial'}
         >
-          Мин. стоимость заказа : 35000 т. (5000 р.)
+          Мин. стоимость заказа : 5000 р.
         </Typography>
       </Stack>
       <Typography

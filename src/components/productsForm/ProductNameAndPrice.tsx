@@ -1,8 +1,6 @@
 import { Link, Stack, Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
 import FINANCIAL from '../../constants/financial'
-import useIsMediaWidth from '../../hooks/useIsMediaWidth'
-import { desktopWidthSelector } from '../../util/materialui'
 import Product from '../../types/Product'
 
 interface ProductNameAndPriceProps {
@@ -10,8 +8,6 @@ interface ProductNameAndPriceProps {
 }
 
 const ProductNameAndPrice = ({ product }: ProductNameAndPriceProps) => {
-  const [isDesktopMedia] = useIsMediaWidth(desktopWidthSelector())
-
   return (
     <Stack>
       <Link href={product.productURL} variant="body1">

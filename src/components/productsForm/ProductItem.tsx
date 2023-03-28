@@ -7,7 +7,6 @@ import useProductItem from '../../hooks/useProductItem'
 import ProductURL from './ProductURL'
 import ProductQuantity from './ProductQuantity'
 import ProductNameAndPrice from './ProductNameAndPrice'
-import ProductImage from './ProductImage'
 
 interface ProductItemProps {
   product: Product
@@ -67,7 +66,7 @@ const ProductItem = ({ index, product }: ProductItemProps) => {
           width="100%"
           spacing={4}
         >
-          <ProductImage product={product} />
+          {/*<ProductImage product={product} />*/}
           {productDataLoading ? (
             <CircularProgress />
           ) : (

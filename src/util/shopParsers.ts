@@ -23,6 +23,7 @@ const convertTengeToRubles = async ({
       (priceInTenge / tengeToRubleRate) * FINANCIAL.EXTRA_CHARGE_COEFFICIENT
     )
   } else priceInRubles = 0
+  console.log(tengeToRubleRate)
   return priceInRubles
 }
 
@@ -57,7 +58,12 @@ export const parseIHerb = async ({
     priceInTenge: productData.productPriceInTenge,
   })
 
-  console.log(productJSON)
+  productData.productPriceInTenge = productJSON.discountedPriceAmount
+  productData.productPriceInRubles = await convertTengeToRubles({
+    priceInTenge: productData.productPriceInTenge,
+  })
+  console.log(productData.productPriceInRubles)
+
   // productData.productPriceInTenge = parseInt(
   //   (
   //     getFirstElementTextWithClass(
