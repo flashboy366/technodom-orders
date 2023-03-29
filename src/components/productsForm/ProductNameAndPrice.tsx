@@ -1,6 +1,5 @@
 import { Link, Stack, Typography } from '@mui/material'
 import { COLORS } from '../../constants/materialui'
-import FINANCIAL from '../../constants/financial'
 import Product from '../../types/Product'
 
 interface ProductNameAndPriceProps {
@@ -24,9 +23,7 @@ const ProductNameAndPrice = ({ product }: ProductNameAndPriceProps) => {
         >
           {product.productData.productPriceInRubles
             ? `${Math.trunc(
-                product.productData.productPriceInRubles *
-                  product.quantity *
-                  FINANCIAL.EXTRA_CHARGE_COEFFICIENT
+                product.productData.productPriceInRubles * product.quantity
               )} р.`
             : 'Нет в наличии'}
         </Typography>
