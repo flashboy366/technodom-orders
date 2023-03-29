@@ -1,5 +1,4 @@
 import fetchTengeToRubleRate from '../api/fetchTengeToRubleRate'
-import FINANCIAL from '../constants/financial'
 import ProductData, { emptyProductData } from '../types/ProductData'
 import SERVER from '../constants/server'
 import { SHOPS } from '../constants/shops'
@@ -19,9 +18,7 @@ const convertTengeToRubles = async ({
 
   const tengeToRubleRate = await fetchTengeToRubleRate()
   if (priceInTenge) {
-    priceInRubles = Math.trunc(
-      (priceInTenge / tengeToRubleRate) * FINANCIAL.EXTRA_CHARGE_COEFFICIENT
-    )
+    priceInRubles = Math.trunc(priceInTenge / tengeToRubleRate)
   } else priceInRubles = 0
   return priceInRubles
 }
@@ -51,7 +48,7 @@ export const parseIHerb = async ({
   const data = await productDataResponse.json()
   const productDataJSON = JSON.parse(data)
   const productJSON = productDataJSON.originProduct
-
+  console.log(productJSON)
   productData.productTitle = productJSON.name
   productData.productPriceInTenge = productJSON.discountedPriceAmount
   productData.productPriceInRubles = await convertTengeToRubles({
