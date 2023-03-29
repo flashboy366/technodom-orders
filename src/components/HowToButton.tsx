@@ -53,8 +53,9 @@ const HowToButton = () => {
                   <Typography color={COLORS.PRIMARY} display="inline">
                     *{' '}
                   </Typography>
-                  Для выбора товаров на сайте iHerb необходимо установить VPN и
-                  выбрать страну США
+                  Для выбора товаров на сайте iHerb необходимо зайти на него с
+                  помощью VPN и выбрать страну Казахстан в правом верхнем углу
+                  сайта
                 </Typography>
               </Stack>
               <Typography>
