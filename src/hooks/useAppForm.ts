@@ -85,9 +85,9 @@ const useAppForm = () => {
   useEffect(() => {
     reactHookFormMethods.setValue(
       'orderPrice',
-      appState.orderProducts.totalPriceInRubles
+      appState.orderProducts.productsPricesSumInRublesWithCharge
     )
-  }, [appState.orderProducts.totalPriceInRubles])
+  }, [appState.orderProducts.productsPricesSumInRublesWithCharge])
 
   return {
     onSubmit: handleSubmit(onSubmitHandler),
