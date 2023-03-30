@@ -36,7 +36,7 @@ const generateUserEmailMessage = ({
   } р.`
 )}
 
-Итого: ${orderProducts.totalPriceInRubles} р.
+Итого: ${orderProducts.productsPricesSumInRublesWithCharge} р.
 
 `
 

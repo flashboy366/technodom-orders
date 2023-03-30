@@ -7,8 +7,8 @@ export interface OrderProductsState {
   products: Product[]
   productsPricesSumInRubles: number
   productsPricesSumInTenge: number
-  totalPriceInTenge: number
-  totalPriceInRubles: number
+  productsPricesSumInTengeWithCharge: number
+  productsPricesSumInRublesWithCharge: number
   serviceFeeInRubles: number
 }
 
@@ -16,8 +16,8 @@ const initialState: OrderProductsState = {
   products: [emptyProduct],
   productsPricesSumInRubles: 0,
   productsPricesSumInTenge: 0,
-  totalPriceInRubles: 0,
-  totalPriceInTenge: 0,
+  productsPricesSumInRublesWithCharge: 0,
+  productsPricesSumInTengeWithCharge: 0,
   serviceFeeInRubles: 0,
 }
 
@@ -130,14 +130,14 @@ const calculateProductsPricesSum = (state: OrderProductsState) => {
   })
 
   state.productsPricesSumInRubles = newProductsPricesSumInRubles
-  state.totalPriceInRubles = Math.trunc(
+  state.productsPricesSumInRublesWithCharge = Math.trunc(
     state.productsPricesSumInRubles * FINANCIAL.EXTRA_CHARGE_COEFFICIENT
   )
   state.serviceFeeInRubles =
-    state.totalPriceInRubles - state.productsPricesSumInRubles
+    state.productsPricesSumInRublesWithCharge - state.productsPricesSumInRubles
 
   state.productsPricesSumInTenge = newProductsPricesSumInTenge
-  state.totalPriceInTenge = Math.trunc(
+  state.productsPricesSumInTengeWithCharge = Math.trunc(
     state.productsPricesSumInTenge * FINANCIAL.EXTRA_CHARGE_COEFFICIENT
   )
 }

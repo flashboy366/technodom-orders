@@ -30,7 +30,7 @@ const OrderSummary = () => {
           textAlign="center"
         >
           У вас {productsCount} товар(ов) на сумму{' '}
-          {orderProductsState.totalPriceInRubles.toString()} р.
+          {orderProductsState.productsPricesSumInRublesWithCharge.toString()} р.
         </Typography>
         <Typography
           variant="body2"
