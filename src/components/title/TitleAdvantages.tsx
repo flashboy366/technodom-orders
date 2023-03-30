@@ -17,45 +17,36 @@ const TitleAdvantages = () => {
     <Stack
       direction={isDesktopMedia ? 'row' : 'column'}
       spacing={isDesktopMedia ? 8 : 2}
-      alignItems={isDesktopMedia ? 'center' : 'flex-start'}
-      marginX={isDesktopMedia ? 10 : 0}
-      marginY={isDesktopMedia ? 0 : 6}
+      alignItems={'center'}
+      marginY={isDesktopMedia ? 2 : 1}
+      justifyItems="space-between"
+      marginX={isDesktopMedia ? 8 : 0}
     >
-      <Stack marginY={isDesktopMedia ? 1 : 0}>
-        <Typography variant="body2" fontWeight="bold">
-          Наши преимущества:
-        </Typography>
-        {advantages.map((el, i) => (
-          <Typography key={i} variant="caption">
-            {el}
-          </Typography>
-        ))}
-      </Stack>
       <Stack
         direction="column"
-        flex={1}
-        alignItems={isDesktopMedia ? 'center' : 'flex-start'}
+        alignItems={'center'}
         spacing={isDesktopMedia ? 1 : 0}
-        width={isDesktopMedia ? 'initial' : '70%'}
+        width={'100%'}
+        flex={1}
       >
         <Paper
           elevation={0}
           sx={{
-            height: 80,
-            width: isDesktopMedia ? 200 : 150,
-            backgroundImage: `url(${'title/iherb_logo.png'})`,
-            backgroundSize: isDesktopMedia ? '60%' : '100%',
+            height: 100,
+            width: '100%',
+            backgroundImage: `url(${'title/iherb-products.png'})`,
+            backgroundSize: isDesktopMedia ? '100%' : '100%',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
         />
-        <Typography
-          variant={'caption'}
-          textAlign={isDesktopMedia ? 'center' : 'left'}
-        >
-          Компания iHerb, глобальный лидер в области товаров для здорового
-          образа жизни
-        </Typography>
+      </Stack>
+      <Stack marginY={isDesktopMedia ? 1 : 0} flex={1} alignItems="flex-start">
+        {advantages.map((advantageString, i) => (
+          <Typography key={i} variant="caption">
+            {advantageString}
+          </Typography>
+        ))}
       </Stack>
     </Stack>
   )
