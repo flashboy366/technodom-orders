@@ -1,5 +1,4 @@
 import { Paper, Stack } from '@mui/material'
-import TitleHeader from './title/TitleHeader'
 import TitleDescription from './title/TitleDescription'
 import useIsMediaWidth from '../hooks/useIsMediaWidth'
 import { desktopWidthSelector } from '../util/materialui'
@@ -25,11 +24,8 @@ const Title = () => {
           borderRadius: 0,
         }}
       >
-        <Stack direction={isDesktopMedia ? 'row' : 'column'}>
-          <Stack justifyItems="space-between" alignItems="flex-start">
-            <TitleHeader />
-            <TitleDescription />
-          </Stack>
+        <Stack justifyItems="space-between" alignItems="space-between">
+          <TitleDescription />
           <TitleAdvantages />
         </Stack>
       </Paper>
