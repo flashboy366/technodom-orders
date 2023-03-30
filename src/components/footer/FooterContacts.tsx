@@ -45,44 +45,19 @@ const FooterContacts = () => {
             width: isDesktopMedia ? 540 : '90%',
           }}
         >
-          <Stack flex={1} spacing={1}>
-            <FooterContact>ТОО «ВМ Логистика» </FooterContact>
-            <FooterContact>БИН 220640012971 </FooterContact>
+          <Stack flex={1}>
             <FooterContact>
-              Место нахождения: Республика Казахстан, 111000, г.Костанай, пр-кт
-              Аль-Фараби 123 кв 50{' '}
+              Компания: Индивидуальный предприниматель Хлыбов Максим Николаевич{' '}
             </FooterContact>
+            <FooterContact>ИНН: 744804429144 </FooterContact>
+            <FooterContact>Счёт(₽): 40802810601500101862</FooterContact>
+            <FooterContact>Банк: ТОЧКА ПАО БАНКА "ФК ОТКРЫТИЕ"</FooterContact>
+            <FooterContact>БИК: 044525999</FooterContact>
+            <FooterContact>Город: г. Москва </FooterContact>
+            <FooterContact>Корр. счёт: 30101810845250000999 </FooterContact>
             <FooterContact>
-              Почтовый адрес: Республика Казахстан, 110000,{' '}
+              Адрес: 454048, г. Челябинск ул 2я Окружная д. 1 офис 3{' '}
             </FooterContact>
-            <FooterContact>
-              г. Костанай, пр. Аль-Фараби 123, кв 50{' '}
-            </FooterContact>
-            <FooterContact>ИИК KZ2496513F0008337276 </FooterContact>
-            <FooterContact>в "АО «ForteBank»" </FooterContact>
-            <FooterContact>БИК IRTYKZKA </FooterContact>
-            <FooterContact>Тел.: +79227022035</FooterContact>
-            <FooterContact>
-              E-mail:{' '}
-              <Link href={`mailto:dostavim.kz@mail.ru`}>
-                dostavim.kz@mail.ru
-              </Link>
-            </FooterContact>
-          </Stack>
-          <Stack flex={1} spacing={1}>
-            <FooterContact>«ВМ Логистика» ЖШС </FooterContact>
-            <FooterContact>БСН 220640012971 </FooterContact>
-            <FooterContact>
-              Орналасқан жері: Қазақстан Республикасы, 110000, Қостанай қ.,
-              Әл-Фараби даңғ., 123, 50{' '}
-            </FooterContact>
-            <FooterContact>
-              Пошталық мекен-жайы: Қазақстан Республикасы, 110000, Қостанай қ.,
-              Әл-Фараби даңғ., 123, 50{' '}
-            </FooterContact>
-            <FooterContact>ИИК KZ2496513F0008337276 </FooterContact>
-            <FooterContact>" в "АО «ForteBank»" </FooterContact>
-            <FooterContact>БИК IRTYKZKA </FooterContact>
             <FooterContact>Тел.: +79227022035</FooterContact>
             <FooterContact>
               E-mail:{' '}
