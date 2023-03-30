@@ -17,14 +17,11 @@ import { desktopWidthSelector, theme } from './util/materialui'
 import { FormProvider } from 'react-hook-form'
 import ResultModal from './components/ResultModal'
 import { COLORS } from './constants/materialui'
-import FooterContacts from './components/footer/FooterContacts'
-import FooterTip from './components/footer/FooterTip'
-import FooterHighlights from './components/footer/FooterHighlights'
 import ShopsForm from './components/ShopsForm'
 import useAppForm from './hooks/useAppForm'
 import Title from './components/Title'
 import useIsMediaWidth from './hooks/useIsMediaWidth'
-import FooterLuch from './components/footer/FooterLuch'
+import Footer from './components/Footer'
 
 const App = () => {
   const {
@@ -69,20 +66,8 @@ const App = () => {
             </Stack>
           </Stack>
         </FormProvider>
-        <Stack spacing={4} alignItems="center" marginTop={30}>
-          <Stack
-            direction={isDesktopMedia ? 'row' : 'column'}
-            width="100%"
-            justifyContent="space-between"
-            alignItems={isDesktopMedia ? 'flex-end' : 'center'}
-            spacing={isDesktopMedia ? 0 : 2}
-          >
-            <FooterLuch />
-            <FooterContacts />
-          </Stack>
-          <FooterHighlights />
-          <FooterTip />
-        </Stack>
+        <Footer />
+
         <ResultModal subscribeShowResultModal={subscribeShowResultModal} />
         <Backdrop
           sx={{

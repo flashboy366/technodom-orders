@@ -23,7 +23,7 @@ const FooterContacts = () => {
   return (
     <Stack
       spacing={2}
-      width={isDesktopMedia ? 540 : '90%'}
+      width={isDesktopMedia ? 'initial' : '90%'}
       alignItems={isDesktopMedia ? 'flex-end' : 'center'}
     >
       <Popover
@@ -32,9 +32,9 @@ const FooterContacts = () => {
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'center',
         }}
-        transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
         <Paper
           sx={{
