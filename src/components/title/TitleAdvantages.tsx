@@ -42,7 +42,7 @@ const TitleAdvantages = () => {
           elevation={0}
           sx={{
             height: 80,
-            width: isDesktopMedia ? 200 : 85,
+            width: isDesktopMedia ? 200 : 150,
             backgroundImage: `url(${'title/iherb_logo.png'})`,
             backgroundSize: isDesktopMedia ? '60%' : '100%',
             backgroundPosition: 'center',
