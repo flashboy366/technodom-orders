@@ -15,6 +15,7 @@ img {height: 150px; width: 150px; object-fit: contain;}
 
 
 </style>
+<title>Заказ</title>
 </head>
 <body>
 <pre>
@@ -53,7 +54,6 @@ ${
 <table style='width: 80%'>
 <tr>
 <th style='width: 40%'>Наименование</th>
-<th style=''>Изображение</th>
 <th style=''>Количество</th>
 <th style=''>Цена</th>
 </tr>
@@ -66,8 +66,6 @@ ${orderProducts.products
 ${product.productData.productTitle}
 </a>
 </td>
-<td style='text-align: center'>
-<img src='${product.productData.productImgUrl}' alt=''>
 </td>
 <td style='text-align: center'>
 ${product.quantity}
@@ -92,7 +90,6 @@ ${product.productData.productPriceInRubles} р.
 <td style='border-width: 0'>
 Итого:
 </td>
-<td style='border-width: 0'></td>
 <td>
 ${orderProducts.products.length} товар(ов)
 </td>
@@ -100,11 +97,11 @@ ${orderProducts.products.length} товар(ов)
 ${
   recipientType === 'operator'
     ? `
-${orderProducts.totalPriceInTenge} т.
-${orderProducts.totalPriceInRubles} р.
+${orderProducts.productsPricesSumInTengeWithCharge} т.
+${orderProducts.productsPricesSumInRublesWithCharge} р.
 `
     : `
-${orderProducts.totalPriceInRubles} р.
+${orderProducts.productsPricesSumInRublesWithCharge} р.
 `
 }
 </td>

@@ -1,3 +1,3 @@
 module.exports = {
-  EXTRA_CHARGE_COEFFICIENT: 1.15,
+  EXTRA_CHARGE_COEFFICIENT: 1.7,
 }
