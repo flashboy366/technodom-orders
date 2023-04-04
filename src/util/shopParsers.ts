@@ -48,7 +48,7 @@ export const parseIHerb = async ({
   const data = await productDataResponse.json()
   const productDataJSON = JSON.parse(data)
   const productJSON = productDataJSON.originProduct
-  console.log(productJSON)
+
   productData.productTitle = productJSON.name
   productData.productPriceInTenge = productJSON.discountedPriceAmount
   productData.productPriceInRubles = await convertTengeToRubles({
