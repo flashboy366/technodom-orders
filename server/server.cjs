@@ -52,7 +52,7 @@ app
         ? (addressDelivery = JSON.parse(emailMessageJSON.addressDelivery))
         : (addressDelivery = false)
       const orderProducts = JSON.parse(emailMessageJSON.orderProducts)
-      console.log(orderProducts)
+
       const operatorEmailHTML = generateEmailHTML({
         userInfo,
         addressDelivery,

@@ -40,8 +40,10 @@ const HowToButton = () => {
               <Stack>
                 <Typography>
                   1. Выберите необходимые товары на сайте{' '}
-                  <Link href="https://kz.iherb.com">kz.iherb.com</Link> и
-                  копируйте ссылки в Заказ на нашем сервисе{' '}
+                  <Link href="https://kz.iherb.com" target="_blank">
+                    kz.iherb.com
+                  </Link>{' '}
+                  и копируйте ссылки в Заказ на нашем сервисе{' '}
                   <Typography color={COLORS.PRIMARY} display="inline">
                     (автоматически будет рассчитана стоимость товара с доставкой
                     до склада в г. Челябинск)
@@ -53,8 +55,10 @@ const HowToButton = () => {
                   </Typography>
                   Для выбора товаров на сайте iHerb необходимо зайти на него с
                   помощью VPN(например:{' '}
-                  <Link href="https://rus.windscribe.com">Windscribe</Link>) и
-                  выбрать страну Казахстан в правом верхнем углу сайта
+                  <Link href="https://rus.windscribe.com" target="_blank">
+                    Windscribe
+                  </Link>
+                  ) и выбрать страну Казахстан в правом верхнем углу сайта
                 </Typography>
               </Stack>
               <Typography>
