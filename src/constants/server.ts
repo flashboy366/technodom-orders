@@ -5,7 +5,7 @@
 
 // PROD
 const SERVER = {
-  URL: 'http://iherb174.ru/',
+  URL: 'https://iherb174.ru/',
 }
 
 export default SERVER

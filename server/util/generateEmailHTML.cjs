@@ -1,3 +1,5 @@
+const financial = require('../config/financial.cjs')
+
 const generateEmailHTML = ({
   userInfo,
   addressDelivery,
@@ -74,11 +76,23 @@ ${product.quantity}
 ${
   recipientType === 'operator'
     ? `
-${product.productData.productPriceInTenge} т.
-${product.productData.productPriceInRubles} р.
+${
+  product.productData.productPriceInTenge *
+  financial.EXTRA_CHARGE_COEFFICIENT *
+  product.quantity
+} т.
+${
+  product.productData.productPriceInRubles *
+  financial.EXTRA_CHARGE_COEFFICIENT *
+  product.quantity
+} р.
 `
     : `
-${product.productData.productPriceInRubles} р.
+${
+  product.productData.productPriceInRubles *
+  financial.EXTRA_CHARGE_COEFFICIENT *
+  product.quantity
+} р.
 `
 }
 </td>
@@ -113,7 +127,7 @@ ${
 <h4>Наши контакты:</h4>
 Тел.:  +79227022035
 E-mail: Iherb174@yandex.ru
-Сайт: iherb174.ru
+Сайт: <a href='https://iherb174.ru/'>iHerb174.ru</a>
 <span style='font-size: smaller'>
 *Стоимость товаров указана с учетом сервисного сбора!
 В сервисный сбор входят услуги по выкупу товара у поставщиков, его приему и осмотру, конвертация денежных средств, доставка до центрально терминала по выбору покупателя (Города: Астана, Костанай и Челябинск). Стоимость доставки до конкретного адреса Вам сообщит менеджер при подтверждении Заказа. В случае доставки до Вашего адреса, необходимо оплатить стоимость доставки и сервисный сбор в размере 15%, который учтен в стоимости Заказа. В случае отказа от приобретения товара при отсутствии видимых повреждений и некомплектности, сервисный сбор и оплата доставки до адреса не возвращаются. 

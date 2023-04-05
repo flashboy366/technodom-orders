@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ShowResultModal } from '../components/ResultModal'
+import { emptyProduct } from '../types/Product'
 
 const useAppForm = () => {
   const [deliveryAddressRequired, setDeliveryAddressRequired] = useState(false)
@@ -33,7 +34,7 @@ const useAppForm = () => {
   const reactHookFormMethods = useForm<SubmitOrderInput>({
     resolver: zodResolver(submitOrderSchema),
     defaultValues: {
-      products: appState.orderProducts.products,
+      products: [emptyProduct],
     },
   })
   const {
@@ -55,7 +56,6 @@ const useAppForm = () => {
     })
     setLoadingBackdropShown(false)
     if (responseCode < 400) {
-      console.log()
       showResultModal({
         resultModalMsg: 'Заявка отправлена!',
         reload: true,
