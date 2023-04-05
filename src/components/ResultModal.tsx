@@ -29,17 +29,13 @@ const ResultModal = ({ subscribeShowResultModal }: ResultModalProps) => {
     resultModalMsg,
     interactiveElement,
     timeout,
-    reload = false,
   }) => {
     setResultModalMsg(resultModalMsg)
     interactiveElement ? setResultModalInteraction(interactiveElement) : null
     setResultModalOpen(true)
-    let handleClose: () => void
-    reload ? (handleClose = window.location.reload.bind(window.location)) : null
     timeout
       ? setTimeout(() => {
           setResultModalOpen(false)
-          handleClose()
         }, timeout)
       : null
   }

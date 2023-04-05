@@ -20,35 +20,12 @@ const UserInfo = () => {
   const userInfoState = useAppSelector(state => state.userInfo)
 
   const handleSelectChange = (event: SyntheticEvent<Element, Event>) => {
-    // const newLocationID =
-    //   parseInt(
-    //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //     // @ts-ignore
-    //     event.currentTarget.attributes['data-option-index']?.textContent
-    //   ) ?? undefined
     const newLocationLabel = event.currentTarget.innerHTML
     const newLocation = LOCATIONS.find(
       location => location.label === newLocationLabel
     )
     dispatch(setLocation({ locationID: newLocation?.id }))
   }
-
-  // const handleBlur = (event: FocusEvent) => {
-  //   const parser = new DOMParser()
-  //   const inputDoc = parser.parseFromString(
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     // @ts-ignore
-  //     event.currentTarget?.innerHTML ?? '',
-  //     'text/html'
-  //   )
-  //   const inputEl = inputDoc.getElementById('combo-box-demo')
-  //   const foundLocationID = LOCATIONS.find(
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     // @ts-ignore
-  //     location => location.label === inputEl.value
-  //   )?.id
-  //   if (foundLocationID) dispatch(setLocation({ locationID: foundLocationID }))
-  // }
 
   const firstPropertiesColumn = (
     <>

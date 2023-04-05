@@ -37,16 +37,7 @@ const useAppForm = () => {
       products: [emptyProduct],
     },
   })
-  const {
-    reset,
-    handleSubmit,
-    formState: { isSubmitSuccessful },
-  } = reactHookFormMethods
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset()
-    }
-  }, [isSubmitSuccessful, reset])
+  const { reset: resetForm, handleSubmit } = reactHookFormMethods
 
   const onSubmitHandler: SubmitHandler<SubmitOrderInput> = async () => {
     setLoadingBackdropShown(true)
@@ -58,15 +49,14 @@ const useAppForm = () => {
     if (responseCode < 400) {
       showResultModal({
         resultModalMsg: 'Заявка отправлена!',
-        reload: true,
         timeout: 3000,
       })
       setDeliveryAddressRequired(false)
+      resetForm()
       dispatch(resetProductsState())
     } else
       showResultModal({
         resultModalMsg: `Ошибка ${responseCode}`,
-        reload: true,
         timeout: 3000,
       })
   }
