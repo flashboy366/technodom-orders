@@ -24,9 +24,9 @@ img {height: 150px; width: 150px; object-fit: contain;}
 ${
   recipientType === 'operator'
     ? `
-<h4>
+<h2>
 Заявка на заказ
-</h4>
+</h2>
 ФИО: ${userInfo.name}
 Номер телефона: ${userInfo.phoneNumber}
 Электронная почта: ${userInfo.email}
@@ -44,9 +44,9 @@ ${
       }
 `
     : `
-<h4>
+<h2>
 Заявка принята
-</h4>
+</h2>
 Мы рады сообщить, что мы приняли Вашу заявку и уже работаем с ней! В ближайшее время с Вами свяжется менеджер по мобильной связи, либо посредством мессенджеров (WhatsApp, Вайбер, Telegram) с нашего контактного номера +7-922-702-20-35 для подтверждения Заказа и уточнения сроков доставки.
 `
 }
@@ -124,6 +124,10 @@ ${orderProducts.productsPricesSumInRublesWithCharge} р.
 ${
   recipientType === 'user'
     ? `
+<h4>Оплата</h4>
+Для оплаты сканируйте QR код ниже или воспользуйтесь ссылкой:
+<a href='https://qr.nspk.ru/AS1A001U45RFI2IJ8TN820SSVNPSS55G?type=01&bank=100000000065&crc=18D6'>https://qr.nspk.ru/AS1A001U45RFI2IJ8TN820SSVNPSS55G?type=01&bank=100000000065&crc=18D6</a>
+<img alt='' src='https://iherb174.ru/payment_services/qr-payment.png'>
 <h4>Наши контакты:</h4>
 Тел.:  +79227022035
 E-mail: Iherb174@yandex.ru

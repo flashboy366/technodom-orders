@@ -11,7 +11,7 @@ const Footer = () => {
 
   return (
     <Stack
-      spacing={4}
+      spacing={isDesktopMedia ? 0 : 4}
       alignItems={isDesktopMedia ? 'flex-start' : 'center'}
       marginTop={30}
     >
@@ -23,7 +23,7 @@ const Footer = () => {
         width="100%"
         justifyContent="space-between"
         alignItems={'center'}
-        spacing={isDesktopMedia ? 0 : 2}
+        spacing={isDesktopMedia ? 0 : 5}
       >
         <FooterHighlights />
         <FooterContacts />
