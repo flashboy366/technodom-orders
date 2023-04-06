@@ -55,8 +55,11 @@ const HowToButton = () => {
                   </Typography>
                   Для выбора товаров на сайте iHerb необходимо зайти на него с
                   помощью VPN(например:{' '}
-                  <Link href="https://rus.windscribe.com" target="_blank">
-                    Windscribe
+                  <Link
+                    href="https://adguard-vpn.com/ru/welcome.html"
+                    target="_blank"
+                  >
+                    AdGuard VPN
                   </Link>
                   ) и выбрать страну Казахстан в правом верхнем углу сайта
                 </Typography>
